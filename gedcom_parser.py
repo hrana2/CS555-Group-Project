@@ -1,17 +1,14 @@
 """
 Himanshu Rana
 "I pledge my honor that I have abided by the Stevens Honor System"
-
-
 This program takes in a file (.ged) and parses it to make sure
 that the correct tags are valid given there level
-
-
 """
 
 import os
 import csv
 from prettytable import PrettyTable
+from datetime import datetime,date
 #create a dictionary that stores the values of each of the tags
 
 dict = {'NOTE':'0', 'HEAD':'0', 'TRLR':'0', 'FAM':'0', 'INDI':'0', 'NAME':'1', 'SEX':'1', 'BIRT':'1', 'DEAT':'1', 'HUSB':'1', 'WIFE':'1', 'MARR':'1', 'DIV':'1', 'CHIL':'1', 'FAMC':'1', 'FAMS':'1', 'DATE':'2'}
@@ -115,17 +112,27 @@ def parse_to_chart(workFile):
                     if outList[currEntry][2] == "SEX":
                         indiObj["Gender"] = outList[currEntry][3]
                     if outList[currEntry][2] == "BIRT":
-                        indiObj["Birthday"] = outList[currEntry][3]
+                        indiObj["Birthday"] = outList[currEntry+1][3]  
+                                         
                     if outList[currEntry][2] == "DEAT":
-                        indiObj["Death"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "CHIL":
+                        if outList[currEntry+1][2] == "DATE": 
+                            indiObj["Death"] = outList[currEntry+1][3]
+                       
+
+
+                    
+                    #if outList[currEntry][2] == "HUSB":
+                        #indiObj["Spouse"] = outList[currEntry][3]
+                    #if outList[currEntry][2] == "WIFE":
+                        #indiObj["Spouse"] = outList[currEntry][3]
+              
+                
+                    currEntry += 1
+                if outList[currEntry][2] == "FAMC":
                         indiObj["Child"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "HUSB":
-                        indiObj["Spouse"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "WIFE":
+                if outList[currEntry][2] == "FAMS":
                         indiObj["Spouse"] = outList[currEntry][3]
 
-                    currEntry += 1
 
                 individual_table.add_row([indiObj["ID"],indiObj["Name"],indiObj["Gender"],indiObj["Birthday"],indiObj["Age"],indiObj["Alive"],indiObj["Death"],indiObj["Child"],indiObj["Spouse"]])
 
@@ -135,7 +142,7 @@ def parse_to_chart(workFile):
                     if outList[currEntry][2] == "FAM":
                         famObj["ID"] = outList[currEntry][3]
                     if outList[currEntry][2] == "MARR":
-                        famObj["Married"] = outList[currEntry][3]
+                        famObj["Married"] = outList[currEntry+1][3]
                     if outList[currEntry][2] == "DIV":
                         famObj["Divorced"] = outList[currEntry][3]
                     if outList[currEntry][2] == "HUSB":
@@ -150,8 +157,13 @@ def parse_to_chart(workFile):
                         famObj["Children"] = outList[currEntry][3]
 
                     currEntry += 1
+                
                 family_table.add_row([famObj["ID"],famObj["Married"],famObj["Divorced"],famObj["Husband ID"],famObj["Husband Name"],famObj["Wife ID"],famObj["Wife Name"],famObj["Children"]])
+        
         currEntry += 1
+    #print(outList)
+
+
 
 #print(validate_to_array(workFile))
 #print(parse_to_text(workFile))
