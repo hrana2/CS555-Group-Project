@@ -99,11 +99,11 @@ def validate_to_array(workFile):
     return outList
 
 def parse_to_chart(workFile):
-    indiObj = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
-    famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":""}
     outList = validate_to_array(workFile)
     currEntry = 0
     while currEntry < len(outList):
+        indiObj = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
+        famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":""}
         if outList[currEntry][1] == "0":
             # if individual
             if outList[currEntry][2] == "INDI":
