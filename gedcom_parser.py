@@ -93,15 +93,18 @@ def validate_to_array(workFile):
     for line in workFile:
         line = line.rstrip()
         outList.append(validation(line))
+
     return outList
 
 def parse_to_chart(workFile):
     outList = validate_to_array(workFile)
     currEntry = 0
     id_match = []
+    children_id = []
     while currEntry < len(outList):
         indiObj = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
-        famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":""}
+        #Children is a list so that you can add more than one child to the field if applicable
+        famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
         
         
         if outList[currEntry][1] == "0":
@@ -144,11 +147,6 @@ def parse_to_chart(workFile):
                             indiObj["Age"] = died_at
 
                         
-
-
-                       
-
-
                     
                     #if outList[currEntry][2] == "HUSB":
                         #indiObj["Spouse"] = outList[currEntry][3]
@@ -157,10 +155,11 @@ def parse_to_chart(workFile):
               
                 
                     currEntry += 1
-                if outList[currEntry][2] == "FAMC":
-                        indiObj["Child"] = outList[currEntry][3]
+                if outList[currEntry][2] == "FAMC": 
+                	indiObj["Child"] = outList[currEntry][3]
+                        
                 if outList[currEntry][2] == "FAMS":
-                        indiObj["Spouse"] = outList[currEntry][3]
+                    indiObj["Spouse"] = outList[currEntry][3]
 
 
 
@@ -187,29 +186,34 @@ def parse_to_chart(workFile):
                                 famObj["Husband Name"] = id_match[i+1]
                     if outList[currEntry][2] == "WIFE":
                         famObj["Wife ID"] = outList[currEntry][3]
+
                     if outList[currEntry][2] == "WIFE":
                         for i in range(len(id_match)): 
                             if famObj["Wife ID"] == id_match[i]: 
                                 famObj["Wife Name"] = id_match[i+1]
+
                     if outList[currEntry][2] == "CHIL":
-                        famObj["Children"] = outList[currEntry][3]
+                         famObj["Children"].append(outList[currEntry][3])
 
                     currEntry += 1
 
-               
 
-                
+
                 family_table.add_row([famObj["ID"],famObj["Married"],famObj["Divorced"],famObj["Husband ID"],famObj["Husband Name"],famObj["Wife ID"],famObj["Wife Name"],famObj["Children"]])
         
         currEntry += 1
     
     #print(outList)
     #print(id_match)
+    #print(children_id)
+
 
 
 
 #print(validate_to_array(workFile))
 #print(parse_to_text(workFile))
 print(parse_to_chart(workFile))
+print("individuals Table\n")
 print(individual_table)
+print("Family Table\n")
 print(family_table)
