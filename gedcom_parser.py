@@ -27,6 +27,9 @@ individual_table.field_names = ["ID", "Name", "Gender", "Birthday", "Age", "Aliv
 family_table = PrettyTable()
 family_table.field_names = ["ID", "Married", "Divorced", "Husband ID", "Husband Name", "Wife ID", "Wife Name", "Children"]
 
+individuals_dict = {}
+familes_dict = {}
+
 
 def validation(line):
 
@@ -96,10 +99,12 @@ def validate_to_array(workFile):
 
     return outList
 
+id_match = []
+
 def parse_to_chart(workFile):
     outList = validate_to_array(workFile)
     currEntry = 0
-    id_match = []
+   
     children_id = []
     while currEntry < len(outList):
         indiObj = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
@@ -134,6 +139,8 @@ def parse_to_chart(workFile):
                         if outList[currEntry+2][2] != "DEAT": 
                             indiObj["Alive"] = "Y"
                             indiObj["Death"] = "N/A"
+
+
 
 
                                          
@@ -210,6 +217,9 @@ def parse_to_chart(workFile):
 
 
 
+
+
+
 #print(validate_to_array(workFile))
 #print(parse_to_text(workFile))
 print(parse_to_chart(workFile))
@@ -217,3 +227,36 @@ print("individuals Table\n")
 print(individual_table)
 print("Family Table\n")
 print(family_table)
+#print(individuals_dict)
+
+
+def us06_div_b4_death(workFile):
+    outList = validate_to_array(workFile)
+    currEntry = 0
+     while currEntry < len(outList):
+        if outList[currEntry][2] == "DIV": 
+            #div_date = get divor date  
+
+            #then check to see if they are alive or not 
+            #if dead check to see if divorce date is before death date 
+
+
+
+def us07_less_than_150(workFile):
+    outList = validate_to_array(workFile)
+    currEntry = 0
+    while currEntry < len(outList):
+        if outList[currEntry][2] == "BIRT":
+            birth_date = outList[currEntry+1][3]
+
+            today = date.today()
+            bday = datetime.strptime(birth_date, '%d %b %Y')
+
+            age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day))) 
+
+
+            if age < 150: 
+                #prof wants output to be in a different format 
+                print("invalid")
+
+
