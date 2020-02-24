@@ -1,5 +1,5 @@
 """
-Himanshu Rana
+Himanshu Rana, Evan Lewis, Kyle Bernardes, and Esti Stolbach 
 "I pledge my honor that I have abided by the Stevens Honor System"
 This program takes in a file (.ged) and parses it to make sure
 that the correct tags are valid given there level
@@ -163,7 +163,7 @@ def parse_to_chart(workFile):
 
                     currEntry += 1
                 if outList[currEntry][2] == "FAMC":
-                	indiObj["Child"] = outList[currEntry][3]
+                    indiObj["Child"] = outList[currEntry][3]
 
                 if outList[currEntry][2] == "FAMS":
                     indiObj["Spouse"] = outList[currEntry][3]
@@ -279,7 +279,7 @@ def parse_to_objects(workFile):
 
                     currEntry += 1
                 if outList[currEntry][2] == "FAMC":
-                	indiObj["Child"] = outList[currEntry][3]
+                    indiObj["Child"] = outList[currEntry][3]
 
                 if outList[currEntry][2] == "FAMS":
                     indiObj["Spouse"] = outList[currEntry][3]
@@ -341,33 +341,50 @@ def test_parse_to_objects():
     print(families_array)
 
 
-def us06_div_b4_death(workFile):
-    outList = validate_to_array(workFile)
-    currEntry = 0
-    while currEntry < len(outList):
-        if outList[currEntry][2] == "DIV":
-            pass
-            #div_date = get divor date
+def us06_div_b4_death(fam):
+    #Find divorce date if applicable
+    #Find if either/both spouses are dead 
+    #Compare divorce date to death date and make sure divore comes first
 
-            #then check to see if they are alive or not
-            #if dead check to see if divorce date is before death date
+    
+    divorce_date = datetime.strptime(fam["Divorced"], '%d %b %Y')
 
-def us07_less_than_150(workFile):
-    outList = validate_to_array(workFile)
-    currEntry = 0
-    while currEntry < len(outList):
-        if outList[currEntry][2] == "BIRT":
-            birth_date = outList[currEntry+1][3]
+    husband_id = fam["Husband ID"]
+    wife_id = fam["Wife ID"]
 
-            today = date.today()
-            bday = datetime.strptime(birth_date, '%d %b %Y')
+    husband = None
+    wife = None
 
-            age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
+    for indi in individuals_array:
+        if indi['ID'] == husband_id:
+            husband = indi
+        if indi['ID'] == wife_id:
+            wife = indi
+        if husband and wife:
+            break
+
+    if husband["Death"] != "N/A": 
+        death_date_h = datetime.strptime(fam["Death"], '%d %b %Y')
+
+    if wife["Death"] != "N/A": 
+        death_date_w = datetime.strptime(fam["Death"], '%d %b %Y')
+    
+
+    if divorce_date > death_date_h or divorce_date > death_date_w: 
+        return False 
+    return True
+
+def us07_less_than_150(indi):
+
+    today = date.today()
+    bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
+
+    age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
 
 
-            if age < 150:
-                #prof wants output to be in a different format
-                print("invalid")
+    if age >= 150:
+        return False
+    return True
 
 def us08_birth_b4_marr_parents(indi,fam):
     # get birth date of individual
@@ -453,5 +470,11 @@ def test_us02_birth_b4_marriage():
         print(us02_birth_b4_marriage(fam))
 
 test_us03_birth_b4_death()
+<<<<<<< HEAD
 test_us02_birth_b4_marriage()
 >>>>>>> 814fa6a5b4c774da7fece5cc38f97187008977d5
+||||||| merged common ancestors
+test_us02_birth_b4_marriage()
+=======
+test_us02_birth_b4_marriage()
+>>>>>>> 5adc01dd14f0f4c07ebddc376ab01a9ddd3bad6b
