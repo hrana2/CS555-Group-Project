@@ -390,19 +390,33 @@ def us08_birth_b4_marr_parents(indi,fam):
     return
 
 
-def us02_birth_b4_marriage(families_array):
+def us02_birth_b4_marriage(fam):
     #Store birth date
     #Store marriage date
     #Compare birth and marriage dates
-    for fam in families_array:
-        bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
-        try:
-            dday = datetime.strptime(indi["Birthday"], '%d %b %Y')
-        except:
-            return True
-        if bday < dday:
-            return True
-        return False
+    try:
+        mday = datetime.strptime(fam["Married"], '%d %b %Y')
+    except:
+        return True
+
+    husband_id = fam["Husband ID"]
+    wife_id = fam["Wife ID"]
+
+    husband = None
+    wife = None
+    for indi in individuals_array:
+        if indi['ID'] == husband_id:
+            husband = indi
+        if indi['ID'] == wife_id:
+            wife = indi
+        if husband and wife:
+            break
+    bday1 = datetime.strptime(husband["Birthday"], '%d %b %Y')
+    bday2 = datetime.strptime(wife["Birthday"], '%d %b %Y')
+
+    if bday1 < mday and bday2 < mday:
+        return True
+    return False
 
 def us03_birth_b4_death(indi):
     #Store birth date
@@ -422,6 +436,7 @@ def test_us03_birth_b4_death():
     for indi in individuals_array:
         print(us03_birth_b4_death(indi))
 
+<<<<<<< HEAD
 def test_us08_birth_b4_marr_parents():
     parse_to_objects(workFile)
     for indi in individuals_array:
@@ -431,3 +446,12 @@ def test_us08_birth_b4_marr_parents():
                 print("born before marriage")
             elif(result == 0):
                 print("born more than 9 months after divorce")
+=======
+def test_us02_birth_b4_marriage():
+    parse_to_objects(workFile)
+    for fam in families_array:
+        print(us02_birth_b4_marriage(fam))
+
+test_us03_birth_b4_death()
+test_us02_birth_b4_marriage()
+>>>>>>> 814fa6a5b4c774da7fece5cc38f97187008977d5
