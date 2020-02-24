@@ -453,7 +453,7 @@ def test_us03_birth_b4_death():
     for indi in individuals_array:
         print(us03_birth_b4_death(indi))
 
-<<<<<<< HEAD
+
 def test_us08_birth_b4_marr_parents():
     parse_to_objects(workFile)
     for indi in individuals_array:
@@ -463,18 +463,16 @@ def test_us08_birth_b4_marr_parents():
                 print("born before marriage")
             elif(result == 0):
                 print("born more than 9 months after divorce")
-=======
+
 def test_us02_birth_b4_marriage():
     parse_to_objects(workFile)
     for fam in families_array:
         print(us02_birth_b4_marriage(fam))
 
 test_us03_birth_b4_death()
-<<<<<<< HEAD
+
 test_us02_birth_b4_marriage()
->>>>>>> 814fa6a5b4c774da7fece5cc38f97187008977d5
-||||||| merged common ancestors
+
 test_us02_birth_b4_marriage()
-=======
+
 test_us02_birth_b4_marriage()
->>>>>>> 5adc01dd14f0f4c07ebddc376ab01a9ddd3bad6b
