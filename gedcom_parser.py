@@ -1,5 +1,5 @@
 """
-Himanshu Rana, Evan Lewis, Kyle Bernardes, and Esti Stolbach 
+Himanshu Rana, Evan Lewis, Kyle Bernardes, and Esti Stolbach
 "I pledge my honor that I have abided by the Stevens Honor System"
 This program takes in a file (.ged) and parses it to make sure
 that the correct tags are valid given there level
@@ -343,10 +343,10 @@ def test_parse_to_objects():
 
 def us06_div_b4_death(fam):
     #Find divorce date if applicable
-    #Find if either/both spouses are dead 
+    #Find if either/both spouses are dead
     #Compare divorce date to death date and make sure divore comes first
 
-    
+
     divorce_date = datetime.strptime(fam["Divorced"], '%d %b %Y')
 
     husband_id = fam["Husband ID"]
@@ -363,15 +363,15 @@ def us06_div_b4_death(fam):
         if husband and wife:
             break
 
-    if husband["Death"] != "N/A": 
+    if husband["Death"] != "N/A":
         death_date_h = datetime.strptime(fam["Death"], '%d %b %Y')
 
-    if wife["Death"] != "N/A": 
+    if wife["Death"] != "N/A":
         death_date_w = datetime.strptime(fam["Death"], '%d %b %Y')
-    
 
-    if divorce_date > death_date_h or divorce_date > death_date_w: 
-        return False 
+
+    if divorce_date > death_date_h or divorce_date > death_date_w:
+        return False
     return True
 
 def us07_less_than_150(indi):
@@ -453,6 +453,57 @@ def us03_birth_b4_death(indi):
         return True
     return False
 
+def us04_marr_b4_divorce(fam):
+    #Find marriage date
+    #Find divorce date
+    #Compare marriage date to divorce date
+    try:
+        marriageDate = datetime.strptime(fam["Married"], '%d %b %Y')
+    except:
+        return True
+
+    try:
+        divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
+    except:
+        return True
+
+    if marriageDate < divorceDate:
+        return True
+    return False
+
+def us05_marr_b4_death(fam):
+        #Find marriage date
+        #Find if either/both spouses are dead
+        #Compare marriage date to death date
+
+
+        divorce_date = datetime.strptime(fam["Married"], '%d %b %Y')
+
+        husband_id = fam["Husband ID"]
+        wife_id = fam["Wife ID"]
+
+        husband = None
+        wife = None
+
+        for indi in individuals_array:
+            if indi['ID'] == husband_id:
+                husband = indi
+            if indi['ID'] == wife_id:
+                wife = indi
+            if husband and wife:
+                break
+
+        if husband["Death"] != "N/A":
+            death_date_h = datetime.strptime(fam["Death"], '%d %b %Y')
+
+        if wife["Death"] != "N/A":
+            death_date_w = datetime.strptime(fam["Death"], '%d %b %Y')
+
+
+        if marriageDate > death_date_h or marriageDate > death_date_w:
+            return False
+        return True
+
 def test_us03_birth_b4_death():
     parse_to_objects(workFile)
     for indi in individuals_array:
@@ -474,6 +525,17 @@ def test_us02_birth_b4_marriage():
     for fam in families_array:
         print(us02_birth_b4_marriage(fam))
 
+def test_us04_marr_b4_divorce():
+    parse_to_objects(workFile)
+    for fam in families_array:
+        print(us04_marr_b4_divorce(fam))
+
+def test_us05_marr_b4_death():
+    parse_to_objects(workFile)
+    for fam in families_array:
+        print(us04_marr_b4_divorce(fam))
+
+
 #test_us03_birth_b4_death()
 
 #test_us02_birth_b4_marriage()
@@ -482,4 +544,8 @@ def test_us02_birth_b4_marriage():
 
 #test_us02_birth_b4_marriage()
 
-test_us08_birth_b4_marr_parents()
+#test_us08_birth_b4_marr_parents()
+
+#test_us04_marr_b4_divorce()
+
+test_us05_marr_b4_death()
