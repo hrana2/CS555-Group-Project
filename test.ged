@@ -1,0 +1,208 @@
+0 NOTE https://github.com/hrana2/CS555-Group-Project
+0 NOTE Himanshu Rana Evan Lewis Esher Stolbach Kyle Bernardes
+0 HEAD
+1 SOUR Family Echo
+2 WWW http://www.familyecho.com/
+1 FILE My Family
+1 DATE 25 JAN 2020
+1 DEST ANSTFILE
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 SUBM @I1@
+2 NAME Himanshu Rana
+1 SUBN
+1 CHAR UTF-8
+0 @I1@ INDI
+1 NAME Himanshu /Rana/
+2 GIVN Himanshu
+2 SURN Rana
+2 _MARNM Rana
+1 SEX M
+1 BIRT
+2 DATE 18 JUN 1999
+1 FAMC @F1@
+0 @I2@ INDI
+1 NAME Abhilash /Rana/
+2 GIVN Abhilash
+2 SURN Rana
+2 _MARNM Rana
+1 SEX M
+1 BIRT
+2 DATE 27 JUN 1962
+1 DEAT Y
+2 DATE 21 APR 2016
+1 FAMS @F1@
+1 FAMC @F2@
+0 @I3@ INDI
+1 NAME Hemlatta /Rana/
+2 GIVN Hemlatta
+2 SURN Rana
+2 _MARNM Rana
+1 SEX F
+1 BIRT
+2 DATE 2 JAN 1972
+1 FAMS @F1@
+1 FAMS @F3@
+0 @I4@ INDI
+1 NAME Jay /Rana/
+2 GIVN Jay
+2 SURN Rana
+2 _MARNM Rana
+1 SEX M
+1 BIRT
+2 DATE 26 SEP 1925
+1 DEAT Y
+2 DATE 1 NOV 2001
+1 FAMS @F2@
+0 @I5@ INDI
+1 NAME Nirmila /Rana/
+2 GIVN Nirmila
+2 SURN Rana
+2 _MARNM Rana
+1 SEX F
+1 BIRT
+2 DATE 9 DEC 1945
+1 FAMS @F2@
+0 @I6@ INDI
+1 NAME Hema /Rana/
+2 GIVN Hema
+2 SURN Rana
+2 _MARNM Iannacone
+1 SEX F
+1 BIRT
+2 DATE 16 JUN 1961
+1 FAMS @F4@
+1 FAMC @F2@
+0 @I7@ INDI
+1 NAME Dev /Rana/
+2 GIVN Dev
+2 SURN Rana
+2 _MARNM Rana
+1 SEX M
+1 BIRT
+2 DATE 16 AUG 1965
+1 DEAT Y
+2 DATE 16 OCT 2011
+1 FAMC @F2@
+0 @I8@ INDI
+1 NAME Alfred /Iannacone/
+2 GIVN Alfred
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 22 MAY 1958
+1 FAMS @F4@
+0 @I9@ INDI
+1 NAME Angelina /Iannacone/
+2 GIVN Angelina
+2 SURN Iannacone
+2 _MARNM Davidson
+1 SEX F
+1 BIRT
+2 DATE 20 MAY 1985
+1 FAMS @F5@
+1 FAMC @F4@
+0 @I10@ INDI
+1 NAME Junior /Iannacone/
+2 GIVN Junior
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 5 JUL 1987
+1 FAMC @F4@
+0 @I11@ INDI
+1 NAME Monica /Iannacone/
+2 GIVN Monica
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX F
+1 BIRT
+2 DATE 24 MAR 1990
+1 FAMC @F4@
+0 @I12@ INDI
+1 NAME Dominic /Iannacone/
+2 GIVN Dominic
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 14 AUG 1992
+1 FAMC @F4@
+0 @I13@ INDI
+1 NAME Bharat /Rana/
+2 GIVN Bharat
+2 SURN Rana
+2 _MARNM Rana
+1 SEX M
+1 BIRT
+2 DATE 19 SEP 1966
+1 FAMS @F3@
+0 @I14@ INDI
+1 NAME Anjali /Rana/
+2 GIVN Anjali
+2 SURN Rana
+2 _MARNM Rana
+1 SEX F
+1 BIRT
+2 DATE 9 NOV 2001
+1 FAMC @F3@
+0 @I15@ INDI
+1 NAME Jacob /Davidson/
+2 GIVN Jacob
+2 SURN Davidson
+2 _MARNM Davidson
+1 SEX M
+1 BIRT
+2 DATE 28 DEC 1980
+1 FAMS @F5@
+0 @I16@ INDI
+1 NAME Dominic /Davidson/
+2 GIVN Dominic
+2 SURN Davidson
+2 _MARNM Davidson
+1 SEX M
+1 BIRT
+2 DATE 4 MAY 2014
+1 FAMC @F5@
+0 @F1@ FAM
+1 HUSB @I2@
+1 WIFE @I3@
+1 CHIL @I1@
+1 MARR
+2 DATE 9 DEC 1997
+1 EVEN
+2 TYPE Ending
+1 _CURRENT N
+0 @F3@ FAM
+1 HUSB @I13@
+1 WIFE @I3@
+1 CHIL @I14@
+1 MARR
+2 DATE 15 JUL 2018
+1 _CURRENT Y
+0 @F2@ FAM
+1 HUSB @I4@
+1 WIFE @I5@
+1 CHIL @I2@
+1 CHIL @I6@
+1 CHIL @I7@
+1 _CURRENT Y
+0 @F4@ FAM
+1 HUSB @I8@
+1 WIFE @I6@
+1 CHIL @I9@
+1 CHIL @I10@
+1 CHIL @I11@
+1 CHIL @I12@
+1 MARR
+2 DATE 20 FEB 1983
+1 _CURRENT Y
+0 @F5@ FAM
+1 HUSB @I15@
+1 WIFE @I9@
+1 CHIL @I16@
+1 _CURRENT Y
+0 TRLR
