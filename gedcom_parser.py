@@ -369,6 +369,26 @@ def us07_less_than_150(workFile):
                 #prof wants output to be in a different format
                 print("invalid")
 
+def us08_birth_b4_marr_parents(indi,fam):
+    # get birth date of individual
+    # get marriage of parents
+    # get divorce of parents
+    # no birth more than 9 months after divorce
+
+    # ensure individual is in family
+    if(fam["ID"] == indi["Child"]):
+        birthDate = datetime.strptime(indi["Birthday", '%d %b %Y'])
+        marriedDate = datetime.strptime(fam["Married", '%d %b %Y'])
+        if(marriedDate < birthDate):
+            return -1
+        elif(fam["Divorce"] != "N/A"):
+            divorceDate = datetime.strptime(fam["Divorced", '%d %b %Y'])
+            if ((birthDate - divorceDate).years > 0 or (birthDate - divorceDate).months >= 9):
+                return 0
+        else:
+            return 1
+    return
+
 
 def us02_birth_b4_marriage(families_array):
     #Store birth date
@@ -402,4 +422,12 @@ def test_us03_birth_b4_death():
     for indi in individuals_array:
         print(us03_birth_b4_death(indi))
 
-test_us03_birth_b4_death()
+def test_us08_birth_b4_marr_parents():
+    parse_to_objects(workFile)
+    for indi in individuals_array:
+        for fam in families_array:
+            result = us08_birth_b4_marr_parents(indi,fam)
+            if(result == -1):
+                print("born before marriage")
+            elif(result == 0):
+                print("born more than 9 months after divorce")
