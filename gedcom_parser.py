@@ -394,12 +394,12 @@ def us08_birth_b4_marr_parents(indi,fam):
 
     # ensure individual is in family
     if(fam["ID"] == indi["Child"]):
-        birthDate = datetime.strptime(indi["Birthday", '%d %b %Y'])
-        marriedDate = datetime.strptime(fam["Married", '%d %b %Y'])
-        if(marriedDate < birthDate):
+        birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
+        marriedDate = datetime.strptime(fam["Married"], '%d %b %Y')
+        if(marriedDate > birthDate):
             return -1
-        elif(fam["Divorce"] != "N/A"):
-            divorceDate = datetime.strptime(fam["Divorced", '%d %b %Y'])
+        elif(fam["Divorced"] != "N/A"):
+            divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
             if ((birthDate - divorceDate).years > 0 or (birthDate - divorceDate).months >= 9):
                 return 0
         else:
@@ -469,10 +469,12 @@ def test_us02_birth_b4_marriage():
     for fam in families_array:
         print(us02_birth_b4_marriage(fam))
 
-test_us03_birth_b4_death()
+#test_us03_birth_b4_death()
 
-test_us02_birth_b4_marriage()
+#test_us02_birth_b4_marriage()
 
-test_us02_birth_b4_marriage()
+#test_us02_birth_b4_marriage()
 
-test_us02_birth_b4_marriage()
+#test_us02_birth_b4_marriage()
+
+test_us08_birth_b4_marr_parents()
