@@ -406,6 +406,11 @@ def us08_birth_b4_marr_parents(indi,fam):
             return 1
     return
 
+def us09_brith_b4_death_parents(indi,fam):
+    # get birth
+    # check mom's death and make sure its after birth if she died
+    # make sure father's death is after 9 months before birth
+
 
 def us02_birth_b4_marriage(fam):
     #Store birth date
