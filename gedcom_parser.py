@@ -323,20 +323,22 @@ def parse_to_objects(workFile):
 
 
 
-#print(validate_to_array(workFile))
-#print(parse_to_text(workFile))
-'''print(parse_to_chart(workFile))
-print("individuals Table\n")
-print(individual_table)
-print("Family Table\n")
-print(family_table)'''
-#print(individuals_dict)
+def test_validate_to_array():
+    print(validate_to_array(workFile))
 
-print(parse_to_objects(workFile))
-print("individuals Array\n")
-print(individuals_array)
-print("Family Array\n")
-print(families_array)
+def test_parse_to_chart():
+    print(parse_to_chart(workFile))
+    print("individuals Table\n")
+    print(individual_table)
+    print("Family Table\n")
+    print(family_table)
+
+def test_parse_to_objects():
+    print(parse_to_objects(workFile))
+    print("individuals Array\n")
+    print(individuals_array)
+    print("Family Array\n")
+    print(families_array)
 
 
 def us06_div_b4_death(workFile):
@@ -366,3 +368,38 @@ def us07_less_than_150(workFile):
             if age < 150:
                 #prof wants output to be in a different format
                 print("invalid")
+
+
+def us02_birth_b4_marriage(families_array):
+    #Store birth date
+    #Store marriage date
+    #Compare birth and marriage dates
+    for fam in families_array:
+        bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
+        try:
+            dday = datetime.strptime(indi["Birthday"], '%d %b %Y')
+        except:
+            return True
+        if bday < dday:
+            return True
+        return False
+
+def us03_birth_b4_death(indi):
+    #Store birth date
+    #Store death date
+    #Compare birth and death dates
+    bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
+    try:
+        dday = datetime.strptime(indi["Death"], '%d %b %Y')
+    except:
+        return True
+    if bday < dday:
+        return True
+    return False
+
+def test_us03_birth_b4_death():
+    parse_to_objects(workFile)
+    for indi in individuals_array:
+        print(us03_birth_b4_death(indi))
+
+test_us03_birth_b4_death()
