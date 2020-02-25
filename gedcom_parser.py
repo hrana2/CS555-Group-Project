@@ -573,7 +573,7 @@ def test_us09_brith_b4_death_parents():
     parse_to_objects(workFile)
     for indi in individuals_array:
         for fam in families_array:
-            result = us09_brith_b4_death_parents(indi,fam,families_array)
+            result = us09_brith_b4_death_parents(indi,fam,individuals_array)
             if(result == 0):
                 print("born after death of mom")
             elif(result == 1):
