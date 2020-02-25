@@ -397,20 +397,56 @@ def us08_birth_b4_marr_parents(indi,fam):
         birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
         marriedDate = datetime.strptime(fam["Married"], '%d %b %Y')
         if(marriedDate > birthDate):
-            return -1
+            return 0
         elif(fam["Divorced"] != "N/A"):
             divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
             if ((birthDate - divorceDate).years > 0 or (birthDate - divorceDate).months >= 9):
-                return 0
+                return 1
         else:
-            return 1
+            return
     return
 
-def us09_brith_b4_death_parents(indi,fam):
+def us09_brith_b4_death_parents(indi,fam,individuals):
     # get birth
     # check mom's death and make sure its after birth if she died
     # make sure father's death is after 9 months before birth
+    if(fam["ID"] == indi["Child"]):
+        birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
+        momID = fam["Wife ID"]
+        dadID = fam["Husband ID"]
+        
+        mom = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
+        # is mom alive if not get the date of death
+        for x in individuals:
+            if(x["ID"] == momID):
+                mom = x
+                break
+        if(mom["Alive"] == "N"):
+            momDeath = datetime.strptime(mom["Death"], '%d %b %Y')
+            momAlive = False
+        else:
+            momAlive = True
 
+        if(momAlive == False):
+            if(momDeath < birthDate):
+                return 0
+        
+        dad = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
+        for x in individuals:
+            if(x["ID"] == dadID):
+                dad = x
+                break
+        if(dad["Alive"] == "N"):
+            dadDeath = datetime.strptime(dad["Death"], '%d %b %Y')
+            dadAlive = False
+        else:
+            dadAlive = True
+
+        if(dadAlive == False):
+            if((birthDate - dadDeath).years > 0 or (birthDate - dadDeath).months >= 9):
+                return 1
+
+    return
 
 def us02_birth_b4_marriage(fam):
     #Store birth date
@@ -515,9 +551,9 @@ def test_us08_birth_b4_marr_parents():
     for indi in individuals_array:
         for fam in families_array:
             result = us08_birth_b4_marr_parents(indi,fam)
-            if(result == -1):
+            if(result == 0):
                 print("born before marriage")
-            elif(result == 0):
+            elif(result == 1):
                 print("born more than 9 months after divorce")
 
 def test_us02_birth_b4_marriage():
@@ -535,6 +571,16 @@ def test_us05_marr_b4_death():
     for fam in families_array:
         print(us04_marr_b4_divorce(fam))
 
+def test_us09_brith_b4_death_parents():
+    parse_to_objects(workFile)
+    for indi in individuals_array:
+        for fam in families_array:
+            result = us09_brith_b4_death_parents(indi,fam,families_array)
+            if(result == 0):
+                print("born after death of mom")
+            elif(result == 1):
+                print("born more than 9 months after dad's death")
+
 
 #test_us03_birth_b4_death()
 
@@ -546,6 +592,8 @@ def test_us05_marr_b4_death():
 
 #test_us08_birth_b4_marr_parents()
 
+test_us09_brith_b4_death_parents()
+
 #test_us04_marr_b4_divorce()
 
-test_us05_marr_b4_death()
+#test_us05_marr_b4_death()
