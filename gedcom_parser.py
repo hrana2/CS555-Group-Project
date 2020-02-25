@@ -539,26 +539,15 @@ def us09_brith_b4_death_parents(indi,fam,individuals):
 
     return
 
-def test_us03_birth_b4_death():
-    parse_to_objects(workFile)
-    for indi in individuals_array:
-        print(us03_birth_b4_death(indi))
-
-
-def test_us08_birth_b4_marr_parents():
-    parse_to_objects(workFile)
-    for indi in individuals_array:
-        for fam in families_array:
-            result = us08_birth_b4_marr_parents(indi,fam)
-            if(result == 0):
-                print("born before marriage")
-            elif(result == 1):
-                print("born more than 9 months after divorce")
-
 def test_us02_birth_b4_marriage():
     parse_to_objects(workFile)
     for fam in families_array:
         print(us02_birth_b4_marriage(fam))
+
+def test_us03_birth_b4_death():
+    parse_to_objects(workFile)
+    for indi in individuals_array:
+        print(us03_birth_b4_death(indi))
 
 def test_us04_marr_b4_divorce():
     parse_to_objects(workFile)
@@ -569,6 +558,16 @@ def test_us05_marr_b4_death():
     parse_to_objects(workFile)
     for fam in families_array:
         print(us04_marr_b4_divorce(fam))
+
+def test_us08_birth_b4_marr_parents():
+    parse_to_objects(workFile)
+    for indi in individuals_array:
+        for fam in families_array:
+            result = us08_birth_b4_marr_parents(indi,fam)
+            if(result == 0):
+                print("born before marriage")
+            elif(result == 1):
+                print("born more than 9 months after divorce")
 
 def test_us09_brith_b4_death_parents():
     parse_to_objects(workFile)
