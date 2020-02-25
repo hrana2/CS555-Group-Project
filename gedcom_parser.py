@@ -340,97 +340,6 @@ def test_parse_to_objects():
     print("Family Array\n")
     print(families_array)
 
-def us02_birth_b4_marriage(fam):
-    #Store birth date
-    #Store marriage date
-    #Compare birth and marriage dates
-    try:
-        mday = datetime.strptime(fam["Married"], '%d %b %Y')
-    except:
-        return True
-
-    husband_id = fam["Husband ID"]
-    wife_id = fam["Wife ID"]
-
-    husband = None
-    wife = None
-    for indi in individuals_array:
-        if indi['ID'] == husband_id:
-            husband = indi
-        if indi['ID'] == wife_id:
-            wife = indi
-        if husband and wife:
-            break
-    bday1 = datetime.strptime(husband["Birthday"], '%d %b %Y')
-    bday2 = datetime.strptime(wife["Birthday"], '%d %b %Y')
-
-    if bday1 < mday and bday2 < mday:
-        return True
-    return False
-
-def us03_birth_b4_death(indi):
-    #Store birth date
-    #Store death date
-    #Compare birth and death dates
-    bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
-    try:
-        dday = datetime.strptime(indi["Death"], '%d %b %Y')
-    except:
-        return True
-    if bday < dday:
-        return True
-    return False
-
-def us04_marr_b4_divorce(fam):
-    #Find marriage date
-    #Find divorce date
-    #Compare marriage date to divorce date
-    try:
-        marriageDate = datetime.strptime(fam["Married"], '%d %b %Y')
-    except:
-        return True
-
-    try:
-        divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
-    except:
-        return True
-
-    if marriageDate < divorceDate:
-        return True
-    return False
-
-def us05_marr_b4_death(fam):
-        #Find marriage date
-        #Find if either/both spouses are dead
-        #Compare marriage date to death date
-
-
-        divorce_date = datetime.strptime(fam["Married"], '%d %b %Y')
-
-        husband_id = fam["Husband ID"]
-        wife_id = fam["Wife ID"]
-
-        husband = None
-        wife = None
-
-        for indi in individuals_array:
-            if indi['ID'] == husband_id:
-                husband = indi
-            if indi['ID'] == wife_id:
-                wife = indi
-            if husband and wife:
-                break
-
-        if husband["Death"] != "N/A":
-            death_date_h = datetime.strptime(fam["Death"], '%d %b %Y')
-
-        if wife["Death"] != "N/A":
-            death_date_w = datetime.strptime(fam["Death"], '%d %b %Y')
-
-
-        if marriageDate > death_date_h or marriageDate > death_date_w:
-            return False
-        return True
 
 def us06_div_b4_death(fam):
     #Find divorce date if applicable
@@ -488,96 +397,137 @@ def us08_birth_b4_marr_parents(indi,fam):
         birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
         marriedDate = datetime.strptime(fam["Married"], '%d %b %Y')
         if(marriedDate > birthDate):
-            return 0
+            return -1
         elif(fam["Divorced"] != "N/A"):
             divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
             if ((birthDate - divorceDate).years > 0 or (birthDate - divorceDate).months >= 9):
-                return 1
-        else:
-            return
-    return
-
-def us09_brith_b4_death_parents(indi,fam,individuals):
-    # get birth
-    # check mom's death and make sure its after birth if she died
-    # make sure father's death is after 9 months before birth
-    if(fam["ID"] == indi["Child"]):
-        birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
-        momID = fam["Wife ID"]
-        dadID = fam["Husband ID"]
-        
-        mom = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
-        # is mom alive if not get the date of death
-        for x in individuals:
-            if(x["ID"] == momID):
-                mom = x
-                break
-        if(mom["Alive"] == "N"):
-            momDeath = datetime.strptime(mom["Death"], '%d %b %Y')
-            momAlive = False
-        else:
-            momAlive = True
-
-        if(momAlive == False):
-            if(momDeath < birthDate):
                 return 0
-        
-        dad = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
-        for x in individuals:
-            if(x["ID"] == dadID):
-                dad = x
-                break
-        if(dad["Alive"] == "N"):
-            dadDeath = datetime.strptime(dad["Death"], '%d %b %Y')
-            dadAlive = False
         else:
-            dadAlive = True
-
-        if(dadAlive == False):
-            if((birthDate - dadDeath).years > 0 or (birthDate - dadDeath).months >= 9):
-                return 1
-
+            return 1
     return
 
-def test_us02_birth_b4_marriage():
-    parse_to_objects(workFile)
-    for fam in families_array:
-        print(us02_birth_b4_marriage(fam))
+
+def us02_birth_b4_marriage(fam):
+    #Store birth date
+    #Store marriage date
+    #Compare birth and marriage dates
+    try:
+        mday = datetime.strptime(fam["Married"], '%d %b %Y')
+    except:
+        return True
+
+    husband_id = fam["Husband ID"]
+    wife_id = fam["Wife ID"]
+
+    husband = None
+    wife = None
+    for indi in individuals_array:
+        if indi['ID'] == husband_id:
+            husband = indi
+        if indi['ID'] == wife_id:
+            wife = indi
+        if husband and wife:
+            break
+    bday1 = datetime.strptime(husband["Birthday"], '%d %b %Y')
+    bday2 = datetime.strptime(wife["Birthday"], '%d %b %Y')
+
+    if bday1 < mday and bday2 < mday:
+        return True
+    return False
+
+def us03_birth_b4_death(indi):
+    #Store birth date
+    #Store death date
+    #Compare birth and death dates
+    bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
+    try:
+        dday = datetime.strptime(indi["Death"], '%d %b %Y')
+    except:
+        return True
+    if bday < dday:
+        return True
+    return False
+
+def us04_marr_b4_divorce(fam):
+    #Compare marriage date to divorce date
+    if(fam["Divorced"] != "N/A"):
+        if fam["Married"] > fam["Divorced"]:
+            return false
+        return true
+    return ture
+
+def us05_marr_b4_death(fam):
+        #Find marriage date
+        #Find if either/both spouses are dead
+        #Compare marriage date to death date
+    marriageDate = fam["Married"]
+
+    husband_id = fam["Husband ID"]
+    wife_id = fam["Wife ID"]
+
+    husband = None
+    wife = None
+    for indi in individuals_array:
+        if indi['ID'] == husband_id:
+            husband = indi
+        if indi['ID'] == wife_id:
+            wife = indi
+        if husband and wife:
+            break
+
+    if husband["Death"] != "N/A":
+        death_date_h = husband["Death"]
+        if marriageDate > death_date_h:
+            return -1
+
+    if wife["Death"] != "N/A":
+        death_date_w = wife["Death"]
+        if marriageDate > death_date_w:
+            return 1
+    return 0
+
 
 def test_us03_birth_b4_death():
     parse_to_objects(workFile)
     for indi in individuals_array:
         print(us03_birth_b4_death(indi))
 
-def test_us04_marr_b4_divorce():
-    parse_to_objects(workFile)
-    for fam in families_array:
-        print(us04_marr_b4_divorce(fam))
-
-def test_us05_marr_b4_death():
-    parse_to_objects(workFile)
-    for fam in families_array:
-        print(us04_marr_b4_divorce(fam))
 
 def test_us08_birth_b4_marr_parents():
     parse_to_objects(workFile)
     for indi in individuals_array:
         for fam in families_array:
             result = us08_birth_b4_marr_parents(indi,fam)
-            if(result == 0):
+            if(result == -1):
                 print("born before marriage")
-            elif(result == 1):
+            elif(result == 0):
                 print("born more than 9 months after divorce")
 
-def test_us09_brith_b4_death_parents():
+def test_us02_birth_b4_marriage():
     parse_to_objects(workFile)
-    for indi in individuals_array:
-        for fam in families_array:
-            result = us09_brith_b4_death_parents(indi,fam,individuals_array)
-            if(result == 0):
-                print("born after death of mom")
-            elif(result == 1):
-                print("born more than 9 months after dad's death")
+    for fam in families_array:
+        print(us02_birth_b4_marriage(fam))
+
+def test_us04_marr_b4_divorce():
+    parse_to_objects(workFile)
+    for fam in families_array:
+        result = us04_marr_b4_divorce(fam)
+        if(result == false):
+            print("Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"])
+            return "Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"]
+
+def test_us05_marr_b4_death():
+    parse_to_objects(workFile)
+    for fam in families_array:
+        result = us05_marr_b4_death(fam)
+        if(result == -1):
+            print("Error: Family: " + fam["ID"] + ": US05: Death " + death_date_h + " before married " + fam["Married"])
+            return "Error: Family: " + fam["ID"] + ": US05: Death " + death_date_h + " before married " + fam["Married"]
+        elif(result == 1):
+            print("Error: Family: " + fam["ID"] + ": US05: Death " + death_date_w + " before married " + fam["Married"])
+            return "Error: Family: " + fam["ID"] + ": US05: Death " + death_date_w + " before married " + fam["Married"
+
+
 
 
 #test_us03_birth_b4_death()
@@ -590,8 +540,14 @@ def test_us09_brith_b4_death_parents():
 
 #test_us08_birth_b4_marr_parents()
 
-test_us09_brith_b4_death_parents()
+test_us04_marr_b4_divorce()
 
-#test_us04_marr_b4_divorce()
+
+
+#test_validate_to_array()
+
+#test_parse_to_chart()
 
 #test_us05_marr_b4_death()
+
+#test_parse_to_objects()
