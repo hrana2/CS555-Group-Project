@@ -447,8 +447,11 @@ def us03_birth_b4_death(indi):
 
 def us04_marr_b4_divorce(fam):
     #Compare marriage date to divorce date
+    
     if(fam["Divorced"] != "N/A"):
-        if fam["Married"] > fam["Divorced"]:
+        dom = datetime.strptime(fam["Married"], '%d %b %Y')
+        dod = datetime.strptime(fam["Divorced"], '%d %b %Y')
+        if dom > dod:
             return False
         return True
     return True
@@ -457,7 +460,7 @@ def us05_marr_b4_death(fam):
         #Find marriage date
         #Find if either/both spouses are dead
         #Compare marriage date to death date
-    marriageDate = fam["Married"]
+    marriageDate = datetime.strptime(fam["Married"], '%d %b %Y')
 
     husband_id = fam["Husband ID"]
     wife_id = fam["Wife ID"]
@@ -473,12 +476,12 @@ def us05_marr_b4_death(fam):
             break
 
     if husband["Death"] != "N/A":
-        death_date_h = husband["Death"]
+        death_date_h = datetime.strptime(husband["Death"], '%d %b %Y')
         if marriageDate > death_date_h:
             return -1
 
     if wife["Death"] != "N/A":
-        death_date_w = wife["Death"]
+        death_date_w = datetime.strptime(wife["Death"], '%d %b %Y')
         if marriageDate > death_date_w:
             return 1
     return 0
