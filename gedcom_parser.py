@@ -436,19 +436,20 @@ def us03_birth_b4_death(indi):
     #Store birth date
     #Store death date
     #Compare birth and death dates
-    bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
-    try:
-        dday = datetime.strptime(indi["Death"], '%d %b %Y')
-    except:
+    #bday = indi["Birthday"]
+
+    if indi["Death"] != "N/A":
+        dod = datetime.strptime(indi["Death"], '%d %b %Y')
+        dob = datetime.strptime(indi["Birthday"], '%d %b %Y')
+        #dday = indi["Death"]
+        if dob > dod:
+            return False
         return True
-    if bday < dday:
-        return True
-    return False
+    return True
 
 def us04_marr_b4_divorce(fam):
     #Compare marriage date to divorce date
-    
-    if(fam["Divorced"] != "N/A"):
+    if fam["Divorced"] != "N/A":
         dom = datetime.strptime(fam["Married"], '%d %b %Y')
         dod = datetime.strptime(fam["Divorced"], '%d %b %Y')
         if dom > dod:
@@ -489,9 +490,13 @@ def us05_marr_b4_death(fam):
 
 def test_us03_birth_b4_death():
     parse_to_objects(workFile)
+    file = open("output.txt", "w+")
     for indi in individuals_array:
-        print(us03_birth_b4_death(indi))
-
+        result = us03_birth_b4_death(indi)
+        if result == False:
+            file.write("Error: Indi: " + indi["ID"] + " US03: Death " + indi["Death"] + " before Birthday " + indi["Birthday"] + "\n")
+            #return "Error: Indi: " + indi["ID"] + " US03: Death " + indi["Death"] + " before Birthday " + indi["Birthday"]
+    file.close()
 
 def test_us08_birth_b4_marr_parents():
     parse_to_objects(workFile)
@@ -507,16 +512,17 @@ def test_us02_birth_b4_marriage():
     parse_to_objects(workFile)
     for fam in families_array:
         result = us02_birth_b4_marriage(fam)
-        if(result == true):
-             print("Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"])
+        if result == False:
+             print("Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"])
+             return "Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"]
 
 def test_us04_marr_b4_divorce():
     parse_to_objects(workFile)
     for fam in families_array:
         result = us04_marr_b4_divorce(fam)
-        if(result == False):
+        if result == False:
             print("Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"])
-            return "Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"]
+            #return "Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"]
 
 def test_us05_marr_b4_death():
     parse_to_objects(workFile)
@@ -524,15 +530,14 @@ def test_us05_marr_b4_death():
         result = us05_marr_b4_death(fam)
         if(result == -1):
             print("Error: Family: " + fam["ID"] + ": US05: Death of husband before married " + fam["Married"])
-            return "Error: Family: " + fam["ID"] + ": US05: Death of husband before married " + fam["Married"]
+            #return "Error: Family: " + fam["ID"] + ": US05: Death of husband before married " + fam["Married"]
         elif(result == 1):
             print("Error: Family: " + fam["ID"] + ": US05: Death of wife before married " + fam["Married"])
-            return "Error: Family: " + fam["ID"] + ": US05: Death of wife before married " + fam["Married"]
+            #return "Error: Family: " + fam["ID"] + ": US05: Death of wife before married " + fam["Married"]
 
 
 
-
-#test_us03_birth_b4_death()
+test_us03_birth_b4_death()
 
 #test_us02_birth_b4_marriage()
 
@@ -542,7 +547,7 @@ def test_us05_marr_b4_death():
 
 #test_us08_birth_b4_marr_parents()
 
-test_us04_marr_b4_divorce()
+#test_us04_marr_b4_divorce()
 
 
 #test_validate_to_array()
