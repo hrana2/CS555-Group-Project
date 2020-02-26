@@ -535,6 +535,21 @@ def test_us05_marr_b4_death():
             print("Error: Family: " + fam["ID"] + ": US05: Death of wife before married " + fam["Married"])
             #return "Error: Family: " + fam["ID"] + ": US05: Death of wife before married " + fam["Married"]
 
+def test_us06_div_b4_death():
+    parse_to_objects(workFile)
+    for fam in families_array: 
+        result = us06_div_b4_death(fam)
+        if(result == False): 
+            print("Error: Family: " + fam["ID"] + ": US06: Died " + fam["Death"] + " before divorce " + fam["Divorced"])
+            return "Error: Family: " + fam["ID"] + ": US06: Died " + fam["Death"] + " before divorce " + fam["Divorced"]
+
+def test_us07_less_than_150(): 
+    parse_to_objects(workFile)
+    for indi in individuals_array: 
+        result = us07_less_than_150(indi)
+        if (result == False): 
+            print("Error: individual: " + indi["ID"] + ": US07: Over Age " + indi["Age"])
+            return "Error: individual: " + indi["ID"] + ": US07: Over Age " + indi["Age"]
 
 
 test_us03_birth_b4_death()
