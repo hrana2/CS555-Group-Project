@@ -31,6 +31,7 @@ individuals_array = []
 families_array = []
 
 
+
 def validation(line):
 
         #splitting up the line into appropriate
@@ -112,101 +113,102 @@ def parse_to_chart(workFile):
         famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
 
 
-        if outList[currEntry][1] == "0":
-            # if individual
-            if outList[currEntry][2] == "INDI":
-                while outList[currEntry+1][1] != "0":
-                    if outList[currEntry][2] == "INDI":
-                        indiObj["ID"] = outList[currEntry][3]
-                        name = outList[currEntry+1][3]
-                        id_match.append(indiObj["ID"])
-                        id_match.append(name)
-                    if outList[currEntry][2] == "NAME":
-                        indiObj["Name"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "SEX":
-                        indiObj["Gender"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "BIRT":
-                        indiObj["Birthday"] = outList[currEntry+1][3]
+        if outList[currEntry][0] != "N": 
+            if outList[currEntry][1] == "0":
+                # if individual
+                if outList[currEntry][2] == "INDI":
+                    while outList[currEntry+1][1] != "0":
+                        if outList[currEntry][2] == "INDI":
+                            indiObj["ID"] = outList[currEntry][3]
+                            name = outList[currEntry+1][3]
+                            id_match.append(indiObj["ID"])
+                            id_match.append(name)
+                        if outList[currEntry][2] == "NAME":
+                            indiObj["Name"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "SEX":
+                            indiObj["Gender"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "BIRT":
+                            indiObj["Birthday"] = outList[currEntry+1][3]
 
-                        today = date.today()
-                        bday = datetime.strptime(indiObj["Birthday"], '%d %b %Y')
+                            today = date.today()
+                            bday = datetime.strptime(indiObj["Birthday"], '%d %b %Y')
 
-                        age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
-
-
-                        indiObj["Age"] = age
-
-                        if outList[currEntry+2][2] != "DEAT":
-                            indiObj["Alive"] = "Y"
-                            indiObj["Death"] = "N/A"
+                            age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
 
 
+                            indiObj["Age"] = age
 
-
-
-                    if outList[currEntry][2] == "DEAT":
-                        if outList[currEntry+1][2] == "DATE":
-                            indiObj["Death"] = outList[currEntry+1][3]
-                            indiObj["Alive"] = "N"
-                            dod = datetime.strptime(indiObj["Death"], '%d %b %Y')
-                            afterlife = (today.year - dod.year - ((today.month, today.day) < (dod.month, dod.day)))
-                            died_at = abs(afterlife - age)
-                            indiObj["Age"] = died_at
-
-
-
-                    #if outList[currEntry][2] == "HUSB":
-                        #indiObj["Spouse"] = outList[currEntry][3]
-                    #if outList[currEntry][2] == "WIFE":
-                        #indiObj["Spouse"] = outList[currEntry][3]
-
-
-                    currEntry += 1
-                if outList[currEntry][2] == "FAMC":
-                    indiObj["Child"] = outList[currEntry][3]
-
-                if outList[currEntry][2] == "FAMS":
-                    indiObj["Spouse"] = outList[currEntry][3]
+                            if outList[currEntry+2][2] != "DEAT":
+                                indiObj["Alive"] = "Y"
+                                indiObj["Death"] = "N/A"
 
 
 
 
-                individual_table.add_row([indiObj["ID"],indiObj["Name"],indiObj["Gender"],indiObj["Birthday"],indiObj["Age"],indiObj["Alive"],indiObj["Death"],indiObj["Child"],indiObj["Spouse"]])
 
-
-            #If fam
-            if outList[currEntry][2] == "FAM":
-                while outList[currEntry+1][1] != "0":
-                    if outList[currEntry][2] == "FAM":
-                        famObj["ID"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "MARR":
-                        famObj["Married"] = outList[currEntry+1][3]
-                        famObj["Divorced"] = "N/A"
-                    if outList[currEntry][2] == "DIV":
-                        famObj["Divorced"] = outList[currEntry+1][3]
-
-                    if outList[currEntry][2] == "HUSB":
-                        famObj["Husband ID"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "HUSB":
-                        for i in range(len(id_match)):
-                            if famObj["Husband ID"] == id_match[i]:
-                                famObj["Husband Name"] = id_match[i+1]
-                    if outList[currEntry][2] == "WIFE":
-                        famObj["Wife ID"] = outList[currEntry][3]
-
-                    if outList[currEntry][2] == "WIFE":
-                        for i in range(len(id_match)):
-                            if famObj["Wife ID"] == id_match[i]:
-                                famObj["Wife Name"] = id_match[i+1]
-
-                    if outList[currEntry][2] == "CHIL":
-                         famObj["Children"].append(outList[currEntry][3])
-
-                    currEntry += 1
+                        if outList[currEntry][2] == "DEAT":
+                            if outList[currEntry+1][2] == "DATE":
+                                indiObj["Death"] = outList[currEntry+1][3]
+                                indiObj["Alive"] = "N"
+                                dod = datetime.strptime(indiObj["Death"], '%d %b %Y')
+                                afterlife = (today.year - dod.year - ((today.month, today.day) < (dod.month, dod.day)))
+                                died_at = abs(afterlife - age)
+                                indiObj["Age"] = died_at
 
 
 
-                family_table.add_row([famObj["ID"],famObj["Married"],famObj["Divorced"],famObj["Husband ID"],famObj["Husband Name"],famObj["Wife ID"],famObj["Wife Name"],famObj["Children"]])
+                        #if outList[currEntry][2] == "HUSB":
+                            #indiObj["Spouse"] = outList[currEntry][3]
+                        #if outList[currEntry][2] == "WIFE":
+                            #indiObj["Spouse"] = outList[currEntry][3]
+
+
+                        currEntry += 1
+                    if outList[currEntry][2] == "FAMC":
+                        indiObj["Child"] = outList[currEntry][3]
+
+                    if outList[currEntry][2] == "FAMS":
+                        indiObj["Spouse"] = outList[currEntry][3]
+
+
+
+
+                    individual_table.add_row([indiObj["ID"],indiObj["Name"],indiObj["Gender"],indiObj["Birthday"],indiObj["Age"],indiObj["Alive"],indiObj["Death"],indiObj["Child"],indiObj["Spouse"]])
+
+
+                #If fam
+                if outList[currEntry][2] == "FAM":
+                    while outList[currEntry+1][1] != "0":
+                        if outList[currEntry][2] == "FAM":
+                            famObj["ID"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "MARR":
+                            famObj["Married"] = outList[currEntry+1][3]
+                            famObj["Divorced"] = "N/A"
+                        if outList[currEntry][2] == "DIV":
+                            famObj["Divorced"] = outList[currEntry+1][3]
+
+                        if outList[currEntry][2] == "HUSB":
+                            famObj["Husband ID"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "HUSB":
+                            for i in range(len(id_match)):
+                                if famObj["Husband ID"] == id_match[i]:
+                                    famObj["Husband Name"] = id_match[i+1]
+                        if outList[currEntry][2] == "WIFE":
+                            famObj["Wife ID"] = outList[currEntry][3]
+
+                        if outList[currEntry][2] == "WIFE":
+                            for i in range(len(id_match)):
+                                if famObj["Wife ID"] == id_match[i]:
+                                    famObj["Wife Name"] = id_match[i+1]
+
+                        if outList[currEntry][2] == "CHIL":
+                             famObj["Children"].append(outList[currEntry][3])
+
+                        currEntry += 1
+
+
+
+                    family_table.add_row([famObj["ID"],famObj["Married"],famObj["Divorced"],famObj["Husband ID"],famObj["Husband Name"],famObj["Wife ID"],famObj["Wife Name"],famObj["Children"]])
 
         currEntry += 1
 
@@ -222,105 +224,110 @@ def parse_to_objects(workFile):
     currEntry = 0
 
     children_id = []
+    
     while currEntry < len(outList):
         indiObj = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
         #Children is a list so that you can add more than one child to the field if applicable
         famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
 
 
-        if outList[currEntry][1] == "0":
-            # if individual
-            if outList[currEntry][2] == "INDI":
-                while outList[currEntry+1][1] != "0":
-                    if outList[currEntry][2] == "INDI":
-                        indiObj["ID"] = outList[currEntry][3]
-                        name = outList[currEntry+1][3]
-                        id_match.append(indiObj["ID"])
-                        id_match.append(name)
-                    if outList[currEntry][2] == "NAME":
-                        indiObj["Name"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "SEX":
-                        indiObj["Gender"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "BIRT":
-                        indiObj["Birthday"] = outList[currEntry+1][3]
+        if outList[currEntry][0] != "N": 
+            if outList[currEntry][1] == "0":
+                # if individual
+                if outList[currEntry][2] == "INDI":
+                    while outList[currEntry+1][1] != "0":
+                        if outList[currEntry][2] == "INDI":
+                            indiObj["ID"] = outList[currEntry][3]
+                            name = outList[currEntry+1][3]
+                            id_match.append(indiObj["ID"])
+                            id_match.append(name)
+                        if outList[currEntry][2] == "NAME":
+                            indiObj["Name"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "SEX":
+                            indiObj["Gender"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "BIRT":
+                            indiObj["Birthday"] = outList[currEntry+1][3]
 
-                        today = date.today()
-                        bday = datetime.strptime(indiObj["Birthday"], '%d %b %Y')
+                            today = date.today()
+                            bday = datetime.strptime(indiObj["Birthday"], '%d %b %Y')
 
-                        age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
-
-
-                        indiObj["Age"] = age
-
-                        if outList[currEntry+2][2] != "DEAT":
-                            indiObj["Alive"] = "Y"
-                            indiObj["Death"] = "N/A"
+                            age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
 
 
+                            indiObj["Age"] = age
 
-
-
-                    if outList[currEntry][2] == "DEAT":
-                        if outList[currEntry+1][2] == "DATE":
-                            indiObj["Death"] = outList[currEntry+1][3]
-                            indiObj["Alive"] = "N"
-                            dod = datetime.strptime(indiObj["Death"], '%d %b %Y')
-                            afterlife = (today.year - dod.year - ((today.month, today.day) < (dod.month, dod.day)))
-                            died_at = abs(afterlife - age)
-                            indiObj["Age"] = died_at
+                            if outList[currEntry+2][2] != "DEAT":
+                                indiObj["Alive"] = "Y"
+                                indiObj["Death"] = "N/A"
 
 
 
-                    #if outList[currEntry][2] == "HUSB":
-                        #indiObj["Spouse"] = outList[currEntry][3]
-                    #if outList[currEntry][2] == "WIFE":
-                        #indiObj["Spouse"] = outList[currEntry][3]
 
 
-                    currEntry += 1
-                if outList[currEntry][2] == "FAMC":
-                    indiObj["Child"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "DEAT":
+                            if outList[currEntry+1][2] == "DATE":
+                                indiObj["Death"] = outList[currEntry+1][3]
+                                indiObj["Alive"] = "N"
+                                dod = datetime.strptime(indiObj["Death"], '%d %b %Y')
+                                afterlife = (today.year - dod.year - ((today.month, today.day) < (dod.month, dod.day)))
+                                died_at = abs(afterlife - age)
+                                indiObj["Age"] = died_at
 
-                if outList[currEntry][2] == "FAMS":
-                    indiObj["Spouse"] = outList[currEntry][3]
-
-                individuals_array.append(indiObj)
 
 
-            #If fam
-            if outList[currEntry][2] == "FAM":
-                while outList[currEntry+1][1] != "0":
-                    if outList[currEntry][2] == "FAM":
-                        famObj["ID"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "MARR":
-                        famObj["Married"] = outList[currEntry+1][3]
-                        famObj["Divorced"] = "N/A"
-                    if outList[currEntry][2] == "DIV":
-                        famObj["Divorced"] = outList[currEntry+1][3]
+                        #if outList[currEntry][2] == "HUSB":
+                            #indiObj["Spouse"] = outList[currEntry][3]
+                        #if outList[currEntry][2] == "WIFE":
+                            #indiObj["Spouse"] = outList[currEntry][3]
 
-                    if outList[currEntry][2] == "HUSB":
-                        famObj["Husband ID"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "HUSB":
-                        for i in range(len(id_match)):
-                            if famObj["Husband ID"] == id_match[i]:
-                                famObj["Husband Name"] = id_match[i+1]
-                    if outList[currEntry][2] == "WIFE":
-                        famObj["Wife ID"] = outList[currEntry][3]
 
-                    if outList[currEntry][2] == "WIFE":
-                        for i in range(len(id_match)):
-                            if famObj["Wife ID"] == id_match[i]:
-                                famObj["Wife Name"] = id_match[i+1]
+                        currEntry += 1
+                    if outList[currEntry][2] == "FAMC":
+                        indiObj["Child"] = outList[currEntry][3]
 
-                    if outList[currEntry][2] == "CHIL":
-                         famObj["Children"].append(outList[currEntry][3])
+                    if outList[currEntry][2] == "FAMS":
+                        indiObj["Spouse"] = outList[currEntry][3]
 
-                    currEntry += 1
+                    individuals_array.append(indiObj)
 
-                families_array.append(famObj)
+
+                #If fam
+                if outList[currEntry][2] == "FAM":
+                    while outList[currEntry+1][1] != "0":
+                        if outList[currEntry][2] == "FAM":
+                            famObj["ID"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "MARR":
+                            famObj["Married"] = outList[currEntry+1][3]
+                            famObj["Divorced"] = "N/A"
+                        if outList[currEntry][2] == "DIV":
+                            famObj["Divorced"] = outList[currEntry+1][3]
+
+                        if outList[currEntry][2] == "HUSB":
+                            famObj["Husband ID"] = outList[currEntry][3]
+                        if outList[currEntry][2] == "HUSB":
+                            for i in range(len(id_match)):
+                                if famObj["Husband ID"] == id_match[i]:
+                                    famObj["Husband Name"] = id_match[i+1]
+                        if outList[currEntry][2] == "WIFE":
+                            famObj["Wife ID"] = outList[currEntry][3]
+
+                        if outList[currEntry][2] == "WIFE":
+                            for i in range(len(id_match)):
+                                if famObj["Wife ID"] == id_match[i]:
+                                    famObj["Wife Name"] = id_match[i+1]
+
+                        if outList[currEntry][2] == "CHIL":
+                             famObj["Children"].append(outList[currEntry][3])
+
+                        currEntry += 1
+
+                    families_array.append(famObj)
 
         currEntry += 1
 
+   
+   
+  
 
 
 def test_validate_to_array():
@@ -340,71 +347,6 @@ def test_parse_to_objects():
     print("Family Array\n")
     print(families_array)
 
-
-def us06_div_b4_death(fam):
-    #Find divorce date if applicable
-    #Find if either/both spouses are dead
-    #Compare divorce date to death date and make sure divore comes first
-
-
-    divorce_date = datetime.strptime(fam["Divorced"], '%d %b %Y')
-
-    husband_id = fam["Husband ID"]
-    wife_id = fam["Wife ID"]
-
-    husband = None
-    wife = None
-
-    for indi in individuals_array:
-        if indi['ID'] == husband_id:
-            husband = indi
-        if indi['ID'] == wife_id:
-            wife = indi
-        if husband and wife:
-            break
-
-    if husband["Death"] != "N/A":
-        death_date_h = datetime.strptime(fam["Death"], '%d %b %Y')
-
-    if wife["Death"] != "N/A":
-        death_date_w = datetime.strptime(fam["Death"], '%d %b %Y')
-
-
-    if divorce_date > death_date_h or divorce_date > death_date_w:
-        return False
-    return True
-
-def us07_less_than_150(indi):
-
-    today = date.today()
-    bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
-
-    age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
-
-
-    if age >= 150:
-        return False
-    return True
-
-def us08_birth_b4_marr_parents(indi,fam):
-    # get birth date of individual
-    # get marriage of parents
-    # get divorce of parents
-    # no birth more than 9 months after divorce
-
-    # ensure individual is in family
-    if(fam["ID"] == indi["Child"]):
-        birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
-        marriedDate = datetime.strptime(fam["Married"], '%d %b %Y')
-        if(marriedDate > birthDate):
-            return -1
-        elif(fam["Divorced"] != "N/A"):
-            divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
-            if ((birthDate - divorceDate).years > 0 or (birthDate - divorceDate).months >= 9):
-                return 0
-        else:
-            return 1
-    return
 
 
 def us02_birth_b4_marriage(fam):
@@ -439,8 +381,8 @@ def us03_birth_b4_death(indi):
     #bday = indi["Birthday"]
 
     if indi["Death"] != "N/A":
-        dod = datetime.strptime(indi["Death"], '%d %b %Y')
-        dob = datetime.strptime(indi["Birthday"], '%d %b %Y')
+        dod = indi["Death"]
+        dob = indi["Birthday"]
         #dday = indi["Death"]
         if dob > dod:
             return False
@@ -450,8 +392,8 @@ def us03_birth_b4_death(indi):
 def us04_marr_b4_divorce(fam):
     #Compare marriage date to divorce date
     if fam["Divorced"] != "N/A":
-        dom = datetime.strptime(fam["Married"], '%d %b %Y')
-        dod = datetime.strptime(fam["Divorced"], '%d %b %Y')
+        dom = fam["Married"]
+        dod = fam["Divorced"]
         if dom > dod:
             return False
         return True
@@ -488,6 +430,86 @@ def us05_marr_b4_death(fam):
     return 0
 
 
+def us06_div_b4_death(indi, fam):
+    #Find divorce date if applicable
+    #Find if either/both spouses are dead
+    #Compare divorce date to death date and make sure divore comes first
+
+
+    divorce_date = fam["Divorced"]
+
+    husband_id = fam["Husband ID"]
+    wife_id = fam["Wife ID"]
+
+    husband = None
+    wife = None
+
+    for indi in individuals_array:
+        if indi['ID'] == husband_id:
+            husband = indi
+        if indi['ID'] == wife_id:
+            wife = indi
+        if husband and wife:
+            break
+
+    if husband["Death"] != "N/A":
+        death_date_h = indi["Death"]
+
+    if wife["Death"] != "N/A":
+        death_date_w = indi["Death"]
+
+
+    if divorce_date > death_date_h or divorce_date > death_date_w:
+        return False
+    return True
+
+def us07_less_than_150(indi):
+
+    today = date.today()
+    bday = datetime.strptime(indi["Birthday"], '%d %b %Y')
+
+    age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
+
+
+    if age >= 150:
+        return False
+    return True
+
+
+def us08_birth_b4_marr_parents(indi,fam):
+    # get birth date of individual
+    # get marriage of parents
+    # get divorce of parents
+    # no birth more than 9 months after divorce
+
+    # ensure individual is in family
+    if(fam["ID"] == indi["Child"]):
+        birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
+        marriedDate = datetime.strptime(fam["Married"], '%d %b %Y')
+        if(marriedDate > birthDate):
+            return -1
+        elif(fam["Divorced"] != "N/A"):
+            divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
+            if ((birthDate - divorceDate).years > 0 or (birthDate - divorceDate).months >= 9):
+                return 0
+        else:
+            return 1
+    return
+
+
+####    TEST CASES #####
+
+
+
+
+def test_us02_birth_b4_marriage():
+    parse_to_objects(workFile)
+    for fam in families_array:
+        result = us02_birth_b4_marriage(fam)
+        if result == False:
+             print("Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"])
+             return "Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"]
+
 def test_us03_birth_b4_death():
     parse_to_objects(workFile)
     file = open("output.txt", "w+")
@@ -498,23 +520,6 @@ def test_us03_birth_b4_death():
             #return "Error: Indi: " + indi["ID"] + " US03: Death " + indi["Death"] + " before Birthday " + indi["Birthday"]
     file.close()
 
-def test_us08_birth_b4_marr_parents():
-    parse_to_objects(workFile)
-    for indi in individuals_array:
-        for fam in families_array:
-            result = us08_birth_b4_marr_parents(indi,fam)
-            if(result == -1):
-                print("born before marriage")
-            elif(result == 0):
-                print("born more than 9 months after divorce")
-
-def test_us02_birth_b4_marriage():
-    parse_to_objects(workFile)
-    for fam in families_array:
-        result = us02_birth_b4_marriage(fam)
-        if result == False:
-             print("Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"])
-             return "Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"]
 
 def test_us04_marr_b4_divorce():
     parse_to_objects(workFile)
@@ -522,7 +527,7 @@ def test_us04_marr_b4_divorce():
         result = us04_marr_b4_divorce(fam)
         if result == False:
             print("Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"])
-            #return "Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"]
+            return "Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"]
 
 def test_us05_marr_b4_death():
     parse_to_objects(workFile)
@@ -537,38 +542,51 @@ def test_us05_marr_b4_death():
 
 def test_us06_div_b4_death():
     parse_to_objects(workFile)
-    for fam in families_array: 
-        result = us06_div_b4_death(fam)
-        if(result == False): 
-            print("Error: Family: " + fam["ID"] + ": US06: Died " + fam["Death"] + " before divorce " + fam["Divorced"])
-            return "Error: Family: " + fam["ID"] + ": US06: Died " + fam["Death"] + " before divorce " + fam["Divorced"]
+    for indi in individuals_array: 
+        for fam in families_array: 
+            result = us06_div_b4_death(indi, fam)
+            if(result == False): 
+                print("Error: Family: " + fam["ID"] + ": US06: Died " + fam["Death"] + " before divorce " + fam["Divorced"])
+                #return "Error: Family: " + fam["ID"] + ": US06: Died " + fam["Death"] + " before divorce " + fam["Divorced"]
 
 def test_us07_less_than_150(): 
     parse_to_objects(workFile)
     for indi in individuals_array: 
         result = us07_less_than_150(indi)
-        if (result == False): 
-            print("Error: individual: " + indi["ID"] + ": US07: Over Age " + indi["Age"])
-            return "Error: individual: " + indi["ID"] + ": US07: Over Age " + indi["Age"]
+        if result == False: 
+            print("Error: Individual: " + indi["ID"] + ": US07: Over 150 years old")
+            #return "Error: individual: " + indi["ID"] + ": US07: Over Age " + indi["Age"]
 
 
+
+def test_us08_birth_b4_marr_parents():
+    parse_to_objects(workFile)
+    for indi in individuals_array:
+        for fam in families_array:
+            result = us08_birth_b4_marr_parents(indi,fam)
+            if(result == -1):
+                print("born before marriage")
+            elif(result == 0):
+                print("born more than 9 months after divorce")
+
+test_us02_birth_b4_marriage()
 test_us03_birth_b4_death()
 
-#test_us02_birth_b4_marriage()
-
-#test_us02_birth_b4_marriage()
-
-#test_us02_birth_b4_marriage()
-
-#test_us08_birth_b4_marr_parents()
-
-#test_us04_marr_b4_divorce()
+test_us04_marr_b4_divorce()
+test_us05_marr_b4_death()
+#test_us06_div_b4_death()
+test_us07_less_than_150()
+test_us08_birth_b4_marr_parents()
 
 
-#test_validate_to_array()
+
+
+
+
+# #test_validate_to_array()
 
 #test_parse_to_chart()
+# validate_to_array(workFile)
 
-#test_us05_marr_b4_death()
-
+#parse_to_objects(workFile)
 #test_parse_to_objects()
