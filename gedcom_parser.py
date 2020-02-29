@@ -507,43 +507,6 @@ def us08_birth_b4_marr_parents(indi,fam):
 
 
 def us09_birth_b4_death_parents(indi,fam, individuals):
-    # if(fam["ID"] == indi["Child"]):
-    #     birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
-
-    #     husband_id = fam["Husband ID"]
-    #     wife_id = fam["Wife ID"]
-
-    #     husband = None
-    #     wife = None
-    #     for indi in individuals_array:
-    #         if indi['ID'] == husband_id:
-    #             husband = indi
-    #         if indi['ID'] == wife_id:
-    #             wife = indi
-    #         if husband and wife:
-    #             break
-
-    #         if husband["Death"] != "N/A":
-    #             death_date_h = datetime.strptime(husband["Death"], '%d %b %Y')
-    #             if()
-
-
-
-
-
-    #     marriedDate = datetime.strptime(fam["Married"], '%d %b %Y')
-    #     if(marriedDate > birthDate):
-    #         return -1
-    #     elif(fam["Divorced"] != "N/A"):
-    #         divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
-    #         if ((birthDate - divorceDate).years > 0 or (birthDate - divorceDate).months >= 9):
-    #             return 0
-    #     else:
-    #         return 1
-    # return
-    # get birth
-    # check mom's death and make sure its after birth if she died
-    # make sure father's death is after 9 months before birth
     if(fam["ID"] == indi["Child"]):
         birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
         momID = fam["Wife ID"]
@@ -587,119 +550,18 @@ def us09_birth_b4_death_parents(indi,fam, individuals):
 ####    TEST CASES #####
 
 
+test_parse_to_chart()
 
 
-def test_us02_birth_b4_marriage():
-    parse_to_objects(workFile)
-    file = open("output.txt", "w+")
-    for fam in families_array:
-        result = us02_birth_b4_marriage(fam)
-        if result == False:
-             file.write("Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"] + "\n")
-             return "Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"]
-    
-    #file.close()
+# test_us02_birth_b4_marriage()
+# test_us03_birth_b4_death()
 
-def test_us03_birth_b4_death():
-    parse_to_objects(workFile)
-    file = open("output.txt", "a+")
-    for indi in individuals_array:
-        result = us03_birth_b4_death(indi)
-        if result == False:
-            file.write("Error: Indi: " + indi["ID"] + " US03: Death " + indi["Death"] + " before Birthday " + indi["Birthday"] + "\n")
-            #return "Error: Indi: " + indi["ID"] + " US03: Death " + indi["Death"] + " before Birthday " + indi["Birthday"]
-    #file.close()
-
-
-def test_us04_marr_b4_divorce():
-    parse_to_objects(workFile)
-    file = open("output.txt", "a+")
-
-    for fam in families_array:
-        result = us04_marr_b4_divorce(fam)
-        if result == False:
-            file.write("Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"] + "\n")
-            return "Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"]
-    
-    #file.close()
-
-def test_us05_marr_b4_death():
-    parse_to_objects(workFile)
-    file = open("output.txt", "a+")
-
-    for fam in families_array:
-        result = us05_marr_b4_death(fam)
-        if(result == -1):
-            file.write("Error: Family: " + fam["ID"] + ": US05: Death of husband before married " + fam["Married"] + "\n")
-            #return "Error: Family: " + fam["ID"] + ": US05: Death of husband before married " + fam["Married"]
-        elif(result == 1):
-            file.write("Error: Family: " + fam["ID"] + ": US05: Death of wife before married " + fam["Married"] + "\n")
-            #return "Error: Family: " + fam["ID"] + ": US05: Death of wife before married " + fam["Married"]
-    #file.close()
-
-def test_us06_div_b4_death():
-    parse_to_objects(workFile)
-    file = open("output.txt", "a+")
-
-    
-    for fam in families_array: 
-        result = us06_div_b4_death(fam)
-        if(result == 1 or result == -1): 
-            file.write("Error: Family: " + fam["ID"] + ": US06: Died before divorce " + fam["Divorced"] + "\n")
-            #return "Error: Family: " + fam["ID"] + ": US06: Died " + fam["Death"] + " before divorce " + fam["Divorced"]
-    #file.close()
-
-def test_us07_less_than_150(): 
-    parse_to_objects(workFile)
-    file = open("output.txt", "a+")
-
-    for indi in individuals_array: 
-        result = us07_less_than_150(indi)
-        if result == False: 
-            file.write("Error: Individual: " + indi["ID"] + ": US07: Over 150 years old" + "\n")
-            #return "Error: individual: " + indi["ID"] + ": US07: Over Age " + indi["Age"]
-    
-
-
-def test_us08_birth_b4_marr_parents():
-    parse_to_objects(workFile)
-    file = open("output.txt", "a+")
-
-    for indi in individuals_array:
-        for fam in families_array:
-            result = us08_birth_b4_marr_parents(indi,fam)
-            if(result == -1):
-                file.write("Error: Individual: " + indi["ID"] + ": US08: born after marriage of parents" + "\n")
-            elif(result == 0):
-                file.write("born more than 9 months after divorce" + "\n")
-   
-
-
-def test_us09_birth_b4_death_parents():
-    parse_to_objects(workFile)
-    file = open("output.txt", "a+")
-    for indi in individuals_array:
-        for fam in families_array:
-            result = us09_birth_b4_death_parents(indi,fam,individuals_array)
-            if(result == 0):
-                file.write("Error: Individual: " + indi["ID"] + ": US09 born after death of mom" + "\n")
-            elif(result == 1):
-                file.write("Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad" + "\n")
-    file.close()
-
-
-#test_parse_to_chart()
-
-
-test_us02_birth_b4_marriage()
-test_us03_birth_b4_death()
-
-test_us04_marr_b4_divorce()
-test_us05_marr_b4_death()
-test_us06_div_b4_death()
-test_us07_less_than_150()
-test_us08_birth_b4_marr_parents()
-test_us09_birth_b4_death_parents()
+# test_us04_marr_b4_divorce()
+# test_us05_marr_b4_death()
+# test_us06_div_b4_death()
+# test_us07_less_than_150()
+# test_us08_birth_b4_marr_parents()
+# test_us09_birth_b4_death_parents()
 
 
 
