@@ -647,7 +647,21 @@ def test_us09_birth_b4_death_parents():
                 file.write("Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad" + "\n")
                 return "Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad"
 
+def test_us14_multiple_births_lessthan_5():
+    file = open("output.txt", "a+")
+    for fam in families_array:
+        result = us14_multiple_births_lessthan_5(fam,individuals_array)
+        if(result == False):
+            file.write("Error: Family: " + fam["ID"] + ": US14 has more than 5 children with the same birth" + "\n")
+            return "Error: Family: " + fam["ID"] + ": US14 has more than 5 children with the same birth" + "\n"
 
+def test_us15_fewer_than_15_siblings():
+    file = open("output.txt", "a+")
+    for fam in families_array:
+        result = us14_multiple_births_lessthan_5(fam,individuals_array)
+        if(result == False):
+            file.write("Error: Family: " + fam["ID"] + ": US15 has 15 or more children" + "\n")
+            return "Error: Family: " + fam["ID"] + ": US14 has 15 or more children" + "\n"
 
 def test_validate_to_array():
     print(validate_to_array(workFile))
