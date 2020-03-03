@@ -520,6 +520,27 @@ def us09_birth_b4_death_parents(indi,fam, individuals):
 
     return
 
+def us14_multiple_births_lessthan_5(fam, individuals):
+    if len(fam["Children"]) <= 5:
+        return
+    else:
+        birthdays = {}
+        for sib in fam["Children"]:
+            for indi in individuals:
+                if sib == indi["ID"]:
+                    if indi["Birthday"] in birthdays:
+                        birthdays[indi["Birthday"]] += 1
+                        if birthdays[indi["Birthday"]] > 5:
+                            return False
+                    else:
+                        birthdays[indi["Birthday"]] = 1
+    return
+
+def us15_fewer_than_15_siblings(fam):
+    if len(fam["Children"]) >= 15:
+        return False
+    else:
+        return
 
 
 ####    TEST CASES #####
