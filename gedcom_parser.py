@@ -215,6 +215,8 @@ def parse_to_chart(workFile):
     #print(outList)
     #print(id_match)
     #print(children_id)
+    #print(individual_table)
+    #print(family_table)
 
 
 
@@ -520,9 +522,11 @@ def us09_birth_b4_death_parents(indi,fam, individuals):
 
     return
 
+
+
 def us14_multiple_births_lessthan_5(fam, individuals):
     if len(fam["Children"]) <= 5:
-        return
+        return True
     else:
         birthdays = {}
         for sib in fam["Children"]:
@@ -534,16 +538,48 @@ def us14_multiple_births_lessthan_5(fam, individuals):
                             return False
                     else:
                         birthdays[indi["Birthday"]] = 1
-    return
+    return True
 
 def us15_fewer_than_15_siblings(fam):
     if len(fam["Children"]) >= 15:
         return False
     else:
-        return
+        return True
 
+
+def us21_correct_gender_role(fam): 
+    husband_id = fam["Husband ID"]
+    wife_id = fam["Wife ID"]
+
+    husband = None
+    wife = None
+    for indi in individuals_array:
+        if indi['ID'] == husband_id:
+            husband = indi
+        if indi['ID'] == wife_id:
+            wife = indi
+        if husband and wife:
+            break
+    husb_gend = husband["Gender"]
+    wife_gend = wife["Gender"]
+
+    if husb_gend == 'F': 
+        return -1
+    if wife_gend == 'M':
+        return 0 
+    #return 
+
+
+def us29_list_deceased(indi): 
+    theDead = []
+    for indi in individuals_array: 
+        if indi["Alive"] == 'N': 
+            theDead.append(indi["Name"])
+    return theDead
 
 ####    TEST CASES #####
+
+
 
 
 def test_us02_birth_b4_marriage():
@@ -647,21 +683,44 @@ def test_us09_birth_b4_death_parents():
                 file.write("Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad" + "\n")
                 return "Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad"
 
+
+
 def test_us14_multiple_births_lessthan_5():
     file = open("output.txt", "a+")
     for fam in families_array:
         result = us14_multiple_births_lessthan_5(fam,individuals_array)
         if(result == False):
             file.write("Error: Family: " + fam["ID"] + ": US14 has more than 5 children with the same birth" + "\n")
-            return "Error: Family: " + fam["ID"] + ": US14 has more than 5 children with the same birth" + "\n"
+            return "Error: Family: " + fam["ID"] + ": US14 has more than 5 children with the same birth"
 
 def test_us15_fewer_than_15_siblings():
     file = open("output.txt", "a+")
     for fam in families_array:
-        result = us14_multiple_births_lessthan_5(fam,individuals_array)
+        result = us15_fewer_than_15_siblings(fam)
         if(result == False):
             file.write("Error: Family: " + fam["ID"] + ": US15 has 15 or more children" + "\n")
-            return "Error: Family: " + fam["ID"] + ": US14 has 15 or more children" + "\n"
+            return "Error: Family: " + fam["ID"] + ": US14 has 15 or more children"
+
+def test_us21_correct_gender_role(): 
+    file = open("output.txt", "a+")
+   
+    for fam in families_array: 
+        result = us21_correct_gender_role(fam)
+        if result == 0: 
+            file.write("Error: Family: " + fam["ID"] + ": US21: Wife is wrong gender" + "\n")
+            return "Error: Family: " + fam["ID"] + ": US21: Wife is wrong gender"
+        elif result == -1: 
+            file.write("Error: Family: " + fam["ID"] + ": US21: Husband is wrong gender" + "\n")
+            return "Error: Family: " + fam["ID"] + ": US21: Husband is wrong gender"
+
+
+def test_us29_list_deceased(): 
+    file = open("output.txt", "a+")
+  
+    result = us29_list_deceased(individuals_array)
+    file.write("US29: List of all deaths in tree: " + str(result) + "\n")
+    return "US29: List of all deaths in tree: " + str(result)
+
 
 def test_validate_to_array():
     print(validate_to_array(workFile))
@@ -670,7 +729,7 @@ def test_validate_to_array():
 
 def test_parse_to_chart():
     print(parse_to_chart(workFile))
-    with open("tables.txt", "w") as tables:
+    with open("tables.txt", "w+") as tables:
         tables.write(str(individual_table))
         tables.write(str(family_table))
         tables.close()
@@ -688,22 +747,26 @@ def test_parse_to_objects():
 
 
 
+
 #test_parse_to_chart()
+#parse_to_chart(workFile)
 
 
-print(test_us02_birth_b4_marriage())
-print(test_us03_birth_b4_death())
+# print(test_us02_birth_b4_marriage())
+# print(test_us03_birth_b4_death())
 
 
-print(test_us04_marr_b4_divorce())
+# print(test_us04_marr_b4_divorce())
 
-print(test_us05_marr_b4_death())
-print(test_us06_div_b4_death())
-print(test_us07_less_than_150())
-print(test_us08_birth_b4_marr_parents())
-print(test_us09_birth_b4_death_parents())
+# print(test_us05_marr_b4_death())
+# print(test_us06_div_b4_death())
+# print(test_us07_less_than_150())
+# print(test_us08_birth_b4_marr_parents())
+# print(test_us09_birth_b4_death_parents())
 
 
+# print(test_us21_correct_gender_role())
+# print(test_us29_list_deceased())
 
 
 
