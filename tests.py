@@ -1,5 +1,5 @@
 import unittest
-from gedcom_parser import test_us02_birth_b4_marriage, test_us03_birth_b4_death, test_us04_marr_b4_divorce, test_us05_marr_b4_death, test_us06_div_b4_death, test_us07_less_than_150, test_us08_birth_b4_marr_parents, test_us09_birth_b4_death_parents, test_us14_multiple_births_lessthan_5, test_us15_fewer_than_15_siblings, test_us21_correct_gender_role, test_us29_list_deceased
+from gedcom_parser import test_us02_birth_b4_marriage, test_us03_birth_b4_death, test_us04_marr_b4_divorce, test_us05_marr_b4_death, test_us06_div_b4_death, test_us07_less_than_150, test_us08_birth_b4_marr_parents, test_us09_birth_b4_death_parents, test_us12_parents_not_too_old, test_us13_siblings_spacing, test_us14_multiple_births_lessthan_5, test_us15_fewer_than_15_siblings, test_us21_correct_gender_role, test_us29_list_deceased
 
 
 class TestUM(unittest.TestCase):
@@ -29,6 +29,12 @@ class TestUM(unittest.TestCase):
 
     def test_us09(self):
         self.assertEqual(test_us09_birth_b4_death_parents(), "Error: Individual: @I10@: US09 born 9 months after death of dad")
+        
+    def test_us12(self):
+        self.assertEqual(test_us12_parents_not_too_old(), "Error: Family: @F2@: US12: Parents are too old")
+
+    def test_us13(self):
+        self.assertEqual(test_us13_siblings_spacing(), "Error: Family: @F3@: US13: Siblings too close in age")           
 
     def test_us14(self): 
         self.assertEqual(test_us14_multiple_births_lessthan_5(), "Error: Family: @F3@: US14 has more than 5 children with the same birth")
