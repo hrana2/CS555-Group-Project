@@ -217,6 +217,7 @@ def parse_to_chart(workFile):
     #print(children_id)
     #print(individual_table)
     #print(family_table)
+    return individual_table, family_table
 
 
 
@@ -522,6 +523,7 @@ def us09_birth_b4_death_parents(indi,fam, individuals):
 
     return
 
+
 def us12_parents_not_too_old(fam, indi):
     if(fam["ID"] == indi["Child"]):
         childBirthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
@@ -549,7 +551,6 @@ def us12_parents_not_too_old(fam, indi):
             return True
 
     return
-
 
 def us14_multiple_births_lessthan_5(fam, individuals):
     if len(fam["Children"]) <= 5:
@@ -611,7 +612,7 @@ def us29_list_deceased(indi):
 
 def test_us02_birth_b4_marriage():
     #parse_to_objects(workFile)
-    file = open("output.txt", "w+")
+    file = open("output.txt", "a")
     for fam in families_array:
         result = us02_birth_b4_marriage(fam)
         if result == False:
@@ -622,7 +623,7 @@ def test_us02_birth_b4_marriage():
 
 def test_us03_birth_b4_death():
     #parse_to_objects(workFile)
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
     for indi in individuals_array:
         result = us03_birth_b4_death(indi)
         if result == False:
@@ -633,7 +634,7 @@ def test_us03_birth_b4_death():
 
 def test_us04_marr_b4_divorce():
     #parse_to_objects(workFile)
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
 
     for fam in families_array:
         result = us04_marr_b4_divorce(fam)
@@ -645,7 +646,7 @@ def test_us04_marr_b4_divorce():
 
 def test_us05_marr_b4_death():
     # parse_to_objects(workFile)
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
 
     for fam in families_array:
         result = us05_marr_b4_death(fam)
@@ -659,7 +660,7 @@ def test_us05_marr_b4_death():
 
 def test_us06_div_b4_death():
     #parse_to_objects(workFile)
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
 
     
     for fam in families_array: 
@@ -671,7 +672,7 @@ def test_us06_div_b4_death():
 
 def test_us07_less_than_150(): 
     #parse_to_objects(workFile)
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
 
     for indi in individuals_array: 
         result = us07_less_than_150(indi)
@@ -683,7 +684,7 @@ def test_us07_less_than_150():
 
 def test_us08_birth_b4_marr_parents():
     #parse_to_objects(workFile)
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
 
     for indi in individuals_array:
         for fam in families_array:
@@ -699,7 +700,7 @@ def test_us08_birth_b4_marr_parents():
 
 def test_us09_birth_b4_death_parents():
     #parse_to_objects(workFile)
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
     for indi in individuals_array:
         for fam in families_array:
             result = us09_birth_b4_death_parents(indi,fam,individuals_array)
@@ -711,7 +712,7 @@ def test_us09_birth_b4_death_parents():
                 return "Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad"
 
 def test_us12_parents_not_too_old():
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
 
     for indi in individuals_array:
         for fam in families_array:
@@ -720,9 +721,8 @@ def test_us12_parents_not_too_old():
                 file.write("Error: Individual: " + fam["ID"] + ": US12: Parents are too old" + "\n")
                 return "Error: Individual: " + fam["ID"] + ": US12: Parents are too old"
 
-
 def test_us14_multiple_births_lessthan_5():
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
     for fam in families_array:
         result = us14_multiple_births_lessthan_5(fam,individuals_array)
         if(result == False):
@@ -730,15 +730,15 @@ def test_us14_multiple_births_lessthan_5():
             return "Error: Family: " + fam["ID"] + ": US14 has more than 5 children with the same birth"
 
 def test_us15_fewer_than_15_siblings():
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
     for fam in families_array:
         result = us15_fewer_than_15_siblings(fam)
         if(result == False):
             file.write("Error: Family: " + fam["ID"] + ": US15 has 15 or more children" + "\n")
-            return "Error: Family: " + fam["ID"] + ": US14 has 15 or more children"
+            return "Error: Family: " + fam["ID"] + ": US15 has 15 or more children"
 
 def test_us21_correct_gender_role(): 
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
    
     for fam in families_array: 
         result = us21_correct_gender_role(fam)
@@ -751,7 +751,7 @@ def test_us21_correct_gender_role():
 
 
 def test_us29_list_deceased(): 
-    file = open("output.txt", "a+")
+    file = open("output.txt", "a")
   
     result = us29_list_deceased(individuals_array)
     file.write("US29: List of all deaths in tree: " + str(result) + "\n")
@@ -765,10 +765,10 @@ def test_validate_to_array():
 
 def test_parse_to_chart():
     print(parse_to_chart(workFile))
-    with open("tables.txt", "w+") as tables:
+    with open("output.txt", "w+") as tables:
         tables.write(str(individual_table))
         tables.write(str(family_table))
-        tables.close()
+        #tables.close()
     print("individuals Table\n")
     print(individual_table)
     print("Family Table\n")
@@ -788,21 +788,23 @@ def test_parse_to_objects():
 #parse_to_chart(workFile)
 
 
-# print(test_us02_birth_b4_marriage())
-# print(test_us03_birth_b4_death())
+print(test_us02_birth_b4_marriage())
+print(test_us03_birth_b4_death())
 
 
-# print(test_us04_marr_b4_divorce())
+print(test_us04_marr_b4_divorce())
 
-# print(test_us05_marr_b4_death())
-# print(test_us06_div_b4_death())
-# print(test_us07_less_than_150())
-# print(test_us08_birth_b4_marr_parents())
-# print(test_us09_birth_b4_death_parents())
+print(test_us05_marr_b4_death())
+print(test_us06_div_b4_death())
+print(test_us07_less_than_150())
+print(test_us08_birth_b4_marr_parents())
+print(test_us09_birth_b4_death_parents())
+print(test_us14_multiple_births_lessthan_5())
+print(test_us15_fewer_than_15_siblings())
 
 
-# print(test_us21_correct_gender_role())
-# print(test_us29_list_deceased())
+print(test_us21_correct_gender_role())
+print(test_us29_list_deceased())
 
 
 
