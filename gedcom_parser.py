@@ -554,10 +554,11 @@ def us13_siblings_spacing(fam, indi):
         if fam["ID"] == child["Child"] and indi["ID"] != child["ID"] and indi["Child"] == fam["ID"]:
             birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
             childBirthDate = datetime.strptime(child["Birthday"], '%d %b %Y')
-            if (birthDate.month - childBirthDate.month) < 9 and (birthDate.day - childBirthDate.day) > 3:
-                return False
-            else:
-                return True
+            if birthDate.year == childBirthDate.year:
+                if abs(birthDate.month - childBirthDate.month) < 9 and abs(birthDate.day - childBirthDate.day) > 3:
+                    return False
+                else:
+                    return True
     return True
 
 def us14_multiple_births_lessthan_5(fam, individuals):
