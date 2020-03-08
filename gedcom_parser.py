@@ -542,15 +542,23 @@ def us12_parents_not_too_old(fam, indi):
 
         dadBirthDate = datetime.strptime(dad["Birthday"], '%d %b %Y')
         momBirthDate = datetime.strptime(mom["Birthday"], '%d %b %Y')
-        # today = date.today()
-        # dadAge =  today - dadBirthDate
-        # momAge = today - momBirthDate
         if (momBirthDate.year - childBirthDate.year) > 59 or (dadBirthDate.year - childBirthDate.year) > 79:
             return False
         else:
             return True
 
     return
+
+def us13_siblings_spacing(fam, indi):
+    for child in individuals_array:
+        if fam["ID"] == child["Child"] and indi["ID"] != child["ID"] and indi["Child"] == fam["ID"]:
+            birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
+            childBirthDate = datetime.strptime(child["Birthday"], '%d %b %Y')
+            if (birthDate.month - childBirthDate.month) < 9 and (birthDate.day - childBirthDate.day) > 3:
+                return False
+            else:
+                return True
+    return True
 
 def us14_multiple_births_lessthan_5(fam, individuals):
     if len(fam["Children"]) <= 5:
@@ -720,6 +728,16 @@ def test_us12_parents_not_too_old():
             if(result == False):
                 file.write("Error: Individual: " + fam["ID"] + ": US12: Parents are too old" + "\n")
                 return "Error: Individual: " + fam["ID"] + ": US12: Parents are too old"
+        
+def test_us13_siblings_spacing():
+    file = open("output.txt", "a")
+
+    for indi in individuals_array:
+        for fam in families_array:
+            result = us13_siblings_spacing(fam, indi)
+            if(result == False):
+                file.write("Error: Family: " + fam["ID"] + ": US13: Siblings too close in age" + "\n")
+                return "Error: Family: " + fam["ID"] + ": US13: Siblings too close in age"      
 
 def test_us14_multiple_births_lessthan_5():
     file = open("output.txt", "a")
@@ -799,6 +817,8 @@ print(test_us06_div_b4_death())
 print(test_us07_less_than_150())
 print(test_us08_birth_b4_marr_parents())
 print(test_us09_birth_b4_death_parents())
+print(test_us12_parents_not_too_old())
+print(test_us13_siblings_spacing())
 print(test_us14_multiple_births_lessthan_5())
 print(test_us15_fewer_than_15_siblings())
 
