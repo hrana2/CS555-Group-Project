@@ -522,6 +522,33 @@ def us09_birth_b4_death_parents(indi,fam, individuals):
 
     return
 
+def us12_parents_not_too_old(fam, indi):
+    if(fam["ID"] == indi["Child"]):
+        childBirthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
+        dad_id = fam["Husband ID"]
+        mom_id = fam["Wife ID"]
+
+        dad = None
+        mom = None
+        for indi in individuals_array:
+            if indi['ID'] == dad_id:
+                dad = indi
+            if indi['ID'] == mom_id:
+                mom = indi
+            if dad and mom:
+                break
+
+        dadBirthDate = datetime.strptime(dad["Birthday"], '%d %b %Y')
+        momBirthDate = datetime.strptime(mom["Birthday"], '%d %b %Y')
+        # today = date.today()
+        # dadAge =  today - dadBirthDate
+        # momAge = today - momBirthDate
+        if (momBirthDate.year - childBirthDate.year) > 59 or (dadBirthDate.year - childBirthDate.year) > 79:
+            return False
+        else:
+            return True
+
+    return
 
 
 def us14_multiple_births_lessthan_5(fam, individuals):
@@ -683,6 +710,15 @@ def test_us09_birth_b4_death_parents():
                 file.write("Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad" + "\n")
                 return "Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad"
 
+def test_us12_parents_not_too_old():
+    file = open("output.txt", "a+")
+
+    for indi in individuals_array:
+        for fam in families_array:
+            result = us12_parents_not_too_old(fam, indi)
+            if(result == False):
+                file.write("Error: Individual: " + fam["ID"] + ": US12: Parents are too old" + "\n")
+                return "Error: Individual: " + fam["ID"] + ": US12: Parents are too old"
 
 
 def test_us14_multiple_births_lessthan_5():
