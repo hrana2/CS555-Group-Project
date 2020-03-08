@@ -1,5 +1,5 @@
 import unittest
-from gedcom_parser import test_us02_birth_b4_marriage, test_us03_birth_b4_death, test_us04_marr_b4_divorce, test_us05_marr_b4_death, test_us06_div_b4_death, test_us07_less_than_150, test_us08_birth_b4_marr_parents, test_us09_birth_b4_death_parents,test_us14_multiple_births_lessthan_5,test_us15_fewer_than_15_siblings, test_us21_correct_gender_role, test_us29_list_deceased
+from gedcom_parser import test_us02_birth_b4_marriage, test_us03_birth_b4_death, test_us04_marr_b4_divorce, test_us05_marr_b4_death, test_us06_div_b4_death, test_us07_less_than_150, test_us08_birth_b4_marr_parents, test_us09_birth_b4_death_parents, test_us14_multiple_births_lessthan_5, test_us15_fewer_than_15_siblings, test_us21_correct_gender_role, test_us29_list_deceased
 
 
 class TestUM(unittest.TestCase):
@@ -30,11 +30,17 @@ class TestUM(unittest.TestCase):
     def test_us09(self):
         self.assertEqual(test_us09_birth_b4_death_parents(), "Error: Individual: @I10@: US09 born 9 months after death of dad")
 
+    def test_us14(self): 
+        self.assertEqual(test_us14_multiple_births_lessthan_5(), "Error: Family: @F3@: US14 has more than 5 children with the same birth")
+
+    def test_us15(self): 
+        self.assertEqual(test_us15_fewer_than_15_siblings(), "Error: Family: @F3@: US15 has 15 or more children")
+
     def test_us21(self): 
         self.assertEqual(test_us21_correct_gender_role(), "Error: Family: @F5@: US21: Wife is wrong gender")
 
     def test_us29(self): 
-        self.assertEqual(test_us29_list_deceased(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Monica /Iannacone/', 'Dev /Rana/']")
+        self.assertEqual(test_us29_list_deceased(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']")
         
 
 if __name__ == '__main__':
