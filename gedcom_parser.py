@@ -727,8 +727,8 @@ def test_us12_parents_not_too_old():
         for fam in families_array:
             result = us12_parents_not_too_old(fam, indi)
             if(result == False):
-                file.write("Error: Individual: " + fam["ID"] + ": US12: Parents are too old" + "\n")
-                return "Error: Individual: " + fam["ID"] + ": US12: Parents are too old"
+                file.write("Error: Family: " + fam["ID"] + ": US12: Parents are too old" + "\n")
+                return "Error: Family: " + fam["ID"] + ": US12: Parents are too old"
         
 def test_us13_siblings_spacing():
     file = open("output.txt", "a")
