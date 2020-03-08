@@ -180,6 +180,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX M
+1 BIRT
+2 DATE 10 MAY 1990
 1 FAMC @F3@
 0 @I19@ INDI
 1 NAME Mary /Iannacone/
@@ -187,6 +189,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX F
+1 BIRT
+2 DATE 10 MAY 1990
 1 FAMC @F3@
 0 @I20@ INDI
 1 NAME Lisa /Iannacone/
@@ -194,6 +198,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX F
+1 BIRT
+2 DATE 10 FEB 1995
 1 FAMC @F3@
 0 @I21@ INDI
 1 NAME Matt /Iannacone/
@@ -201,6 +207,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX M
+1 BIRT
+2 DATE 10 FEB 1995
 1 FAMC @F3@
 0 @I22@ INDI
 1 NAME Maria /Iannacone/
@@ -208,6 +216,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX F
+1 BIRT
+2 DATE 10 FEB 1995
 1 FAMC @F3@
 0 @I23@ INDI
 1 NAME Luke /Iannacone/
@@ -215,6 +225,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX M
+1 BIRT
+2 DATE 10 AUG 1996
 1 FAMC @F3@
 0 @I24@ INDI
 1 NAME Peter /Iannacone/
@@ -222,6 +234,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX M
+1 BIRT
+2 DATE 10 AUG 1996
 1 FAMC @F3@
 0 @I25@ INDI
 1 NAME Natalie /Iannacone/
@@ -229,6 +243,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX F
+1 BIRT
+2 DATE 1 AUG 1996
 1 FAMC @F3@
 0 @I26@ INDI
 1 NAME Danielle /Iannacone/
@@ -236,6 +252,8 @@
 2 SURN Iannacone
 2 _MARNM Iannacone
 1 SEX F
+1 BIRT
+2 DATE 10 AUG 1996
 1 FAMC @F3@
 0 @F1@ FAM
 1 HUSB @I2@
