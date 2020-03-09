@@ -542,7 +542,7 @@ def us12_parents_not_too_old(fam, indi):
 
         dadBirthDate = datetime.strptime(dad["Birthday"], '%d %b %Y')
         momBirthDate = datetime.strptime(mom["Birthday"], '%d %b %Y')
-        if (momBirthDate.year - childBirthDate.year) > 59 or (dadBirthDate.year - childBirthDate.year) > 79:
+        if (childBirthDate.year - momBirthDate.year) > 59 or (childBirthDate.year - dadBirthDate.year) > 79:
             return False
         else:
             return True
