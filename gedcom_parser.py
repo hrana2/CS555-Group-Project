@@ -8,7 +8,7 @@ that the correct tags are valid given there level
 import os
 import csv
 from prettytable import PrettyTable
-from datetime import datetime,date
+from datetime import datetime,date,timedelta
 #create a dictionary that stores the values of each of the tags
 
 dict = {'NOTE':'0', 'HEAD':'0', 'TRLR':'0', 'FAM':'0', 'INDI':'0', 'NAME':'1', 'SEX':'1', 'BIRT':'1', 'DEAT':'1', 'HUSB':'1', 'WIFE':'1', 'MARR':'1', 'DIV':'1', 'CHIL':'1', 'FAMC':'1', 'FAMS':'1', 'DATE':'2'}
@@ -543,20 +543,23 @@ def us_10_marriage_after_14(fam):
 
     marriedDate = datetime.strptime(fam["Married"], '%d %b %Y')
 
-    if marriedDate-husbandBirthDate < 14 or marriedDate-wifeBirthDate < 14:
+    if marriedDate-husbandBirthDate < timedelta(days=5110) or marriedDate-wifeBirthDate < timedelta(days=5110):
         return False
     return True
 
 
 def us_11_no_bigamy(indi):
     indi_id = indi["ID"]
-    count = 0
+    husband_count = 0
+    wife_count = 0
 
     for fam in families_array:
-        if husband_id == indi_id or wife_id == indi_id:
-            count += 1
+        if fam["Husband ID"] == indi_id:
+            husband_count += 1
+        if fam["Wife ID"] == indi_id:
+            wife_count += 1
 
-    if count > 1:
+    if wife_count > 1 or husband_count > 1:
         return False
     return True
 
@@ -764,6 +767,7 @@ def test_us_10_marriage_after_14():
     for fam in families_array:
         result = us_10_marriage_after_14(fam)
         if(result == False):
+            #print("Error: Family: " + fam["ID"] + ": US10: Individuals were married before both were 14" + "\n")
             file.write("Error: Family: " + fam["ID"] + ": US10: Individuals were married before both were 14" + "\n")
             return "Error: Family: " + fam["ID"] + ": US10: Individuals were married before both were 14"
 
@@ -771,7 +775,8 @@ def test_us_11_no_bigamy():
     file = open("output.txt", "a")
     for indi in individuals_array:
         result = us_11_no_bigamy(indi)
-        if(result == True):
+        if(result == False):
+            #print("Error: Individual: " + indi["ID"] + ": US11: Individual is married to multiple people" + "\n")
             file.write("Error: Individual: " + indi["ID"] + ": US11: Individual is married to multiple people" + "\n")
             return "Error: Individual: " + indi["ID"] + ": US11: Individual is married to multiple people"
 
@@ -873,7 +878,8 @@ print(test_us07_less_than_150())
 print(test_us08_birth_b4_marr_parents())
 print(test_us09_birth_b4_death_parents())
 
-
+print(test_us_10_marriage_after_14())
+print(test_us_11_no_bigamy())
 
 
 
