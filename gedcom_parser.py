@@ -113,7 +113,7 @@ def parse_to_chart(workFile):
         famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
 
 
-        if outList[currEntry][0] != "N": 
+        if outList[currEntry][0] != "N":
             if outList[currEntry][1] == "0":
                 # if individual
                 if outList[currEntry][2] == "INDI":
@@ -232,7 +232,7 @@ while currEntry < len(outList):
     famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
 
 
-    if outList[currEntry][0] != "N": 
+    if outList[currEntry][0] != "N":
         if outList[currEntry][1] == "0":
             # if individual
             if outList[currEntry][2] == "INDI":
@@ -418,10 +418,10 @@ def us06_div_b4_death(fam):
     #Compare divorce date to death date and make sure divore comes first
 
 
-    if fam["Divorced"] != "N/A": 
+    if fam["Divorced"] != "N/A":
         divorceDate = datetime.strptime(fam["Divorced"], '%d %b %Y')
 
-        if divorceDate != 'N/A': 
+        if divorceDate != 'N/A':
             husband_id = fam["Husband ID"]
             wife_id = fam["Wife ID"]
 
@@ -438,17 +438,17 @@ def us06_div_b4_death(fam):
 
             if husband["Death"] != "N/A":
                 death_date_h = datetime.strptime(husband["Death"], '%d %b %Y')
-                if divorceDate > death_date_h: 
+                if divorceDate > death_date_h:
                     return -1
 
             if wife["Death"] != "N/A":
                 death_date_w = datetime.strptime(wife["Death"], '%d %b %Y')
-                if divorceDate > death_date_w: 
+                if divorceDate > death_date_w:
                     return 1
     return 0
 
 
-  
+
 def us07_less_than_150(indi):
 
     today = date.today()
@@ -489,7 +489,7 @@ def us09_birth_b4_death_parents(indi,fam, individuals):
         birthDate = datetime.strptime(indi["Birthday"], '%d %b %Y')
         momID = fam["Wife ID"]
         dadID = fam["Husband ID"]
-        
+
         mom = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
         # is mom alive if not get the date of death
         for x in individuals:
@@ -505,7 +505,7 @@ def us09_birth_b4_death_parents(indi,fam, individuals):
         if(momAlive == False):
             if(momDeath < birthDate):
                 return 0
-        
+
         dad = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
         for x in individuals:
             if(x["ID"] == dadID):
@@ -522,6 +522,45 @@ def us09_birth_b4_death_parents(indi,fam, individuals):
                 return 1
 
     return
+
+def us_10_marriage_after_14(fam):
+    husband_id = fam["Husband ID"]
+    wife_id = fam["Wife ID"]
+
+    husband = None
+    wife = None
+
+    for indi in individuals_array:
+        if indi['ID'] == husband_id:
+            husband = indi
+        if indi['ID'] == wife_id:
+            wife = indi
+        if husband and wife:
+            break
+
+    husbandBirthDate = datetime.strptime(husband["Birthday"], '%d %b %Y')
+    wifeBirthDate = datetime.strptime(wife["Birthday"], '%d %b %Y')
+
+    marriedDate = datetime.strptime(fam["Married"], '%d %b %Y')
+
+    if marriedDate-husbandBirthDate < 14 or marriedDate-wifeBirthDate < 14:
+        return False
+    return True
+
+
+def us_11_no_bigamy(indi):
+    indi_id = indi["ID"]
+    count = 0
+
+    for fam in families_array:
+        if husband_id == indi_id or wife_id == indi_id:
+            count += 1
+
+    if count > 1:
+        return False
+    return True
+
+
 
 
 def us12_parents_not_too_old(fam, indi):
@@ -542,7 +581,7 @@ def us12_parents_not_too_old(fam, indi):
 
         dadBirthDate = datetime.strptime(dad["Birthday"], '%d %b %Y')
         momBirthDate = datetime.strptime(mom["Birthday"], '%d %b %Y')
-        if (momBirthDate.year - childBirthDate.year) > 59 or (dadBirthDate.year - childBirthDate.year) > 79:
+        if (childBirthDate.year - momBirthDate.year) > 59 or (childBirthDate.year - dadBirthDate.year) > 79:
             return False
         else:
             return True
@@ -584,7 +623,7 @@ def us15_fewer_than_15_siblings(fam):
         return True
 
 
-def us21_correct_gender_role(fam): 
+def us21_correct_gender_role(fam):
     husband_id = fam["Husband ID"]
     wife_id = fam["Wife ID"]
 
@@ -600,17 +639,17 @@ def us21_correct_gender_role(fam):
     husb_gend = husband["Gender"]
     wife_gend = wife["Gender"]
 
-    if husb_gend == 'F': 
+    if husb_gend == 'F':
         return -1
     if wife_gend == 'M':
-        return 0 
-    #return 
+        return 0
+    #return
 
 
-def us29_list_deceased(indi): 
+def us29_list_deceased(indi):
     theDead = []
-    for indi in individuals_array: 
-        if indi["Alive"] == 'N': 
+    for indi in individuals_array:
+        if indi["Alive"] == 'N':
             theDead.append(indi["Name"])
     return theDead
 
@@ -627,7 +666,7 @@ def test_us02_birth_b4_marriage():
         if result == False:
              file.write("Error: Family: " + fam["ID"] +  ": US02: Birthday before married " + fam["Married"] + "\n")
              return "Error: Family: " + fam["ID"] +  ": US02: Birth before married " + fam["Married"]
-    
+
     #file.close()
 
 def test_us03_birth_b4_death():
@@ -650,7 +689,7 @@ def test_us04_marr_b4_divorce():
         if result == False:
             file.write("Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"] + "\n")
             return "Error: Family: " + fam["ID"] +  ": US04: Divorced " + fam["Divorced"] + " before married " + fam["Married"]
-    
+
     #file.close()
 
 def test_us05_marr_b4_death():
@@ -671,24 +710,24 @@ def test_us06_div_b4_death():
     #parse_to_objects(workFile)
     file = open("output.txt", "a")
 
-    
-    for fam in families_array: 
+
+    for fam in families_array:
         result = us06_div_b4_death(fam)
-        if(result == 1 or result == -1): 
+        if(result == 1 or result == -1):
             file.write("Error: Family: " + fam["ID"] + ": US06: Died before divorce " + fam["Divorced"] + "\n")
             return "Error: Family: " + fam["ID"] + ": US06: Died before divorce " + fam["Divorced"]
     #file.close()
 
-def test_us07_less_than_150(): 
+def test_us07_less_than_150():
     #parse_to_objects(workFile)
     file = open("output.txt", "a")
 
-    for indi in individuals_array: 
+    for indi in individuals_array:
         result = us07_less_than_150(indi)
-        if result == False: 
+        if result == False:
             file.write("Error: Individual: " + indi["ID"] + ": US07: Over 150 years old" + "\n")
             return "Error: Individual: " + indi["ID"] + ": US07: Over 150 years old"
-    
+
 
 
 def test_us08_birth_b4_marr_parents():
@@ -704,7 +743,7 @@ def test_us08_birth_b4_marr_parents():
             elif(result == 0):
                 file.write("born more than 9 months after divorce" + "\n")
                 return "born more than 9 months after divorce"
-   
+
 
 
 def test_us09_birth_b4_death_parents():
@@ -720,16 +759,31 @@ def test_us09_birth_b4_death_parents():
                 file.write("Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad" + "\n")
                 return "Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad"
 
+def test_us_10_marriage_after_14():
+    file = open("output.txt", "a")
+    for fam in families_array:
+        result = us_10_marriage_after_14(fam)
+        if(result == False):
+            file.write("Error: Family: " + fam["ID"] + ": US10: Individuals were married before both were 14" + "\n")
+            return "Error: Family: " + fam["ID"] + ": US10: Individuals were married before both were 14"
+
+def test_us_11_no_bigamy():
+    file = open("output.txt", "a")
+    for indi in individuals_array:
+        result = us_11_no_bigamy(indi)
+        if(result == True):
+            file.write("Error: Individual: " + indi["ID"] + ": US11: Individual is married to multiple people" + "\n")
+            return "Error: Individual: " + indi["ID"] + ": US11: Individual is married to multiple people"
+
 def test_us12_parents_not_too_old():
     file = open("output.txt", "a")
-
     for indi in individuals_array:
         for fam in families_array:
             result = us12_parents_not_too_old(fam, indi)
             if(result == False):
-                file.write("Error: Individual: " + fam["ID"] + ": US12: Parents are too old" + "\n")
-                return "Error: Individual: " + fam["ID"] + ": US12: Parents are too old"
-        
+                file.write("Error: Family: " + fam["ID"] + ": US12: Parents are too old" + "\n")
+                return "Error: Family: " + fam["ID"] + ": US12: Parents are too old"
+
 def test_us13_siblings_spacing():
     file = open("output.txt", "a")
 
@@ -738,7 +792,7 @@ def test_us13_siblings_spacing():
             result = us13_siblings_spacing(fam, indi)
             if(result == False):
                 file.write("Error: Family: " + fam["ID"] + ": US13: Siblings too close in age" + "\n")
-                return "Error: Family: " + fam["ID"] + ": US13: Siblings too close in age"      
+                return "Error: Family: " + fam["ID"] + ": US13: Siblings too close in age"
 
 def test_us14_multiple_births_lessthan_5():
     file = open("output.txt", "a")
@@ -756,22 +810,22 @@ def test_us15_fewer_than_15_siblings():
             file.write("Error: Family: " + fam["ID"] + ": US15 has 15 or more children" + "\n")
             return "Error: Family: " + fam["ID"] + ": US15 has 15 or more children"
 
-def test_us21_correct_gender_role(): 
+def test_us21_correct_gender_role():
     file = open("output.txt", "a")
-   
-    for fam in families_array: 
+
+    for fam in families_array:
         result = us21_correct_gender_role(fam)
-        if result == 0: 
+        if result == 0:
             file.write("Error: Family: " + fam["ID"] + ": US21: Wife is wrong gender" + "\n")
             return "Error: Family: " + fam["ID"] + ": US21: Wife is wrong gender"
-        elif result == -1: 
+        elif result == -1:
             file.write("Error: Family: " + fam["ID"] + ": US21: Husband is wrong gender" + "\n")
             return "Error: Family: " + fam["ID"] + ": US21: Husband is wrong gender"
 
 
-def test_us29_list_deceased(): 
+def test_us29_list_deceased():
     file = open("output.txt", "a")
-  
+
     result = us29_list_deceased(individuals_array)
     file.write("US29: List of all deaths in tree: " + str(result) + "\n")
     return "US29: List of all deaths in tree: " + str(result)
@@ -806,7 +860,7 @@ def test_parse_to_objects():
 #test_parse_to_chart()
 #parse_to_chart(workFile)
 
-
+## TESTS
 print(test_us02_birth_b4_marriage())
 print(test_us03_birth_b4_death())
 
@@ -818,6 +872,11 @@ print(test_us06_div_b4_death())
 print(test_us07_less_than_150())
 print(test_us08_birth_b4_marr_parents())
 print(test_us09_birth_b4_death_parents())
+
+
+
+
+
 print(test_us12_parents_not_too_old())
 print(test_us13_siblings_spacing())
 print(test_us14_multiple_births_lessthan_5())
@@ -826,6 +885,8 @@ print(test_us15_fewer_than_15_siblings())
 
 print(test_us21_correct_gender_role())
 print(test_us29_list_deceased())
+
+## END TESTS
 
 
 
