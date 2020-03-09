@@ -548,8 +548,17 @@ def us_10_marriage_after_14(fam):
     return True
 
 
-def us_11_no_bigamy(fam, indi):
-    pass
+def us_11_no_bigamy(indi):
+    indi_id = indi["ID"]
+    count = 0
+
+    for fam in families_array:
+        if husband_id == indi_id or wife_id == indi_id:
+            count += 1
+
+    if count > 1:
+        return False
+    return True
 
 
 
@@ -750,9 +759,24 @@ def test_us09_birth_b4_death_parents():
                 file.write("Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad" + "\n")
                 return "Error: Individual: " + indi["ID"] + ": US09 born 9 months after death of dad"
 
+def test_us_10_marriage_after_14():
+    file = open("output.txt", "a")
+    for fam in families_array:
+        result = us_10_marriage_after_14(fam)
+        if(result == False):
+            file.write("Error: Family: " + fam["ID"] + ": US10: Individuals were married before both were 14" + "\n")
+            return "Error: Family: " + fam["ID"] + ": US10: Individuals were married before both were 14"
+
+def test_us_11_no_bigamy():
+    file = open("output.txt", "a")
+    for indi in individuals_array:
+        result = us_11_no_bigamy(indi)
+        if(result == True):
+            file.write("Error: Individual: " + indi["ID"] + ": US11: Individual is married to multiple people" + "\n")
+            return "Error: Individual: " + indi["ID"] + ": US11: Individual is married to multiple people"
+
 def test_us12_parents_not_too_old():
     file = open("output.txt", "a")
-
     for indi in individuals_array:
         for fam in families_array:
             result = us12_parents_not_too_old(fam, indi)
@@ -836,7 +860,7 @@ def test_parse_to_objects():
 #test_parse_to_chart()
 #parse_to_chart(workFile)
 
-
+## TESTS
 print(test_us02_birth_b4_marriage())
 print(test_us03_birth_b4_death())
 
@@ -848,6 +872,11 @@ print(test_us06_div_b4_death())
 print(test_us07_less_than_150())
 print(test_us08_birth_b4_marr_parents())
 print(test_us09_birth_b4_death_parents())
+
+
+
+
+
 print(test_us12_parents_not_too_old())
 print(test_us13_siblings_spacing())
 print(test_us14_multiple_births_lessthan_5())
@@ -856,6 +885,8 @@ print(test_us15_fewer_than_15_siblings())
 
 print(test_us21_correct_gender_role())
 print(test_us29_list_deceased())
+
+## END TESTS
 
 
 
