@@ -1,0 +1,25 @@
+Error: Family: @F2@: US02: Birthday before married 8 SEP 2020
+Error: Indi: @I4@ US03: Death 1 NOV 2001 before Birthday 28 MAR 1800
+Error: Family: @F3@: US04: Divorced 3 FEB 1995 before married 6 AUG 1995
+Error: Family: @F2@: US05: Death of husband before married 8 SEP 2020
+Error: Family: @F5@: US06: Died before divorce 2 FEB 2020
+Error: Individual: @I4@: US07: Over 150 years old
+Error: Individual: @I2@: US08: born after marriage of parents
+Error: Individual: @I10@: US09 born 9 months after death of dad
+Error: Family: @F3@: US13: Siblings too close in age
+Error: Family: @F3@: US14 has more than 5 children with the same birth
+Error: Family: @F3@: US15 has 15 or more children
+Error: Family: @F5@: US21: Wife is wrong gender
+US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']
+Error: Indi: @I4@ US03: Death 1 NOV 2001 before Birthday 28 MAR 1800
+Error: Family: @F2@: US02: Birthday before married 8 SEP 2020
+Error: Family: @F3@: US04: Divorced 3 FEB 1995 before married 6 AUG 1995
+Error: Family: @F2@: US05: Death of husband before married 8 SEP 2020
+Error: Family: @F5@: US06: Died before divorce 2 FEB 2020
+Error: Individual: @I4@: US07: Over 150 years old
+Error: Individual: @I2@: US08: born after marriage of parents
+Error: Individual: @I10@: US09 born 9 months after death of dad
+Error: Family: @F3@: US14 has more than 5 children with the same birth
+Error: Family: @F3@: US15 has 15 or more children
+Error: Family: @F5@: US21: Wife is wrong gender
+US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']
