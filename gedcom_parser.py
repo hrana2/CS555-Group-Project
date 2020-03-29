@@ -1,3 +1,4 @@
+  
 """
 Himanshu Rana, Evan Lewis, Kyle Bernardes, and Esti Stolbach
 "I pledge my honor that I have abided by the Stevens Honor System"
@@ -100,7 +101,7 @@ def validate_to_array(workFile):
 
     return outList
 
-id_match = []
+
 
 def parse_to_chart(workFile):
     outList = validate_to_array(workFile)
@@ -122,7 +123,7 @@ def parse_to_chart(workFile):
                             indiObj["ID"] = outList[currEntry][3]
                             name = outList[currEntry+1][3]
                             id_match.append(indiObj["ID"])
-                            id_match.append(name)
+                            #id_match.append(name)
                         if outList[currEntry][2] == "NAME":
                             indiObj["Name"] = outList[currEntry][3]
                         if outList[currEntry][2] == "SEX":
@@ -214,7 +215,7 @@ def parse_to_chart(workFile):
 
     #print(outList)
     #print(id_match)
-    #print(children_id)
+    print(children_id)
     #print(individual_table)
     #print(family_table)
     return individual_table, family_table
@@ -224,6 +225,8 @@ def parse_to_chart(workFile):
 outList = validate_to_array(workFile)
 currEntry = 0
 
+id_match = []
+famid_match = []
 children_id = []
 
 while currEntry < len(outList):
@@ -241,7 +244,7 @@ while currEntry < len(outList):
                         indiObj["ID"] = outList[currEntry][3]
                         name = outList[currEntry+1][3]
                         id_match.append(indiObj["ID"])
-                        id_match.append(name)
+                        #id_match.append(name)
                     if outList[currEntry][2] == "NAME":
                         indiObj["Name"] = outList[currEntry][3]
                     if outList[currEntry][2] == "SEX":
@@ -297,6 +300,7 @@ while currEntry < len(outList):
                 while outList[currEntry+1][1] != "0":
                     if outList[currEntry][2] == "FAM":
                         famObj["ID"] = outList[currEntry][3]
+                        famid_match.append(famObj["ID"])
                     if outList[currEntry][2] == "MARR":
                         famObj["Married"] = outList[currEntry+1][3]
                         famObj["Divorced"] = "N/A"
@@ -648,6 +652,21 @@ def us21_correct_gender_role(fam):
         return 0
     #return
 
+def us22_unique_IDs(arr1, arr2): 
+    length1 = len(id_match)
+    length2 = len(famid_match)
+
+    for i in range(length1): 
+        for j in range(i + 1, length1): 
+            if arr1[i] == arr1[j]: 
+               return 1
+
+    for x in range(length2): 
+        for y in range(x + 1, length2): 
+            if arr2[x] == arr2[y]: 
+                return 0 
+                #print(arr[i])
+        #if x == "@I2@": 
 
 def us29_list_deceased(indi):
     theDead = []
@@ -656,9 +675,22 @@ def us29_list_deceased(indi):
             theDead.append(indi["Name"])
     return theDead
 
-####    TEST CASES #####
 
+def us35_list_recent_births(indi): 
+    newbies = []
 
+    today = datetime.today()
+
+    for individ in individuals_array: 
+        bday = individ["Birthday"]
+        dtbday_obj = datetime.strptime(bday, '%d %b %Y')
+        if (today - dtbday_obj) <= timedelta(days=30): 
+            newbies.append(individ["Name"])
+    return newbies
+
+#print(datetime.today().date() - timedelta(days=30))
+
+############   TEST CASES #################
 
 
 def test_us02_birth_b4_marriage():
@@ -828,6 +860,18 @@ def test_us21_correct_gender_role():
             return "Error: Family: " + fam["ID"] + ": US21: Husband is wrong gender"
 
 
+def test_us22_unique_IDs(): 
+    file = open("output.txt", "a+")
+    result = us22_unique_IDs(id_match, famid_match)
+    if result == 1: 
+        file.write("Error: Individual: US22: Duplicate ID number" + "\n")
+        return "Error: Individual: US22: Duplicate ID number"
+    if result == 0: 
+        file.write("Error: Family: US22: Duplicate ID number" + "\n")
+        return "Error: Family: US22: Duplicate ID number"
+
+
+
 def test_us29_list_deceased():
     file = open("output.txt", "a")
 
@@ -835,6 +879,14 @@ def test_us29_list_deceased():
     file.write("US29: List of all deaths in tree: " + str(result) + "\n")
     return "US29: List of all deaths in tree: " + str(result)
 
+
+def test_us35_list_recent_births(): 
+    file = open("output.txt", "a")
+
+    for indi in individuals_array: 
+        result = us35_list_recent_births(individuals_array)
+        file.write("US35: List of all individuals born within the last 30 days: " + str(result) + "\n")
+        return "US35: List of all individuals born within the last 30 days: " + str(result)
 
 def test_validate_to_array():
     print(validate_to_array(workFile))
@@ -861,40 +913,45 @@ def test_parse_to_objects():
 
 
 
-
+#print(id_match)
+#print(famid_match)
 #test_parse_to_chart()
 #parse_to_chart(workFile)
+#print(individuals_array)
+
 
 ## TESTS
-print(test_us02_birth_b4_marriage())
-print(test_us03_birth_b4_death())
+# print(test_us02_birth_b4_marriage())
+# print(test_us03_birth_b4_death())
 
 
-print(test_us04_marr_b4_divorce())
+# print(test_us04_marr_b4_divorce())
 
-print(test_us05_marr_b4_death())
-print(test_us06_div_b4_death())
-print(test_us07_less_than_150())
-print(test_us08_birth_b4_marr_parents())
-print(test_us09_birth_b4_death_parents())
+# print(test_us05_marr_b4_death())
+# print(test_us06_div_b4_death())
+# print(test_us07_less_than_150())
+# print(test_us08_birth_b4_marr_parents())
+# print(test_us09_birth_b4_death_parents())
 
-print(test_us_10_marriage_after_14())
-print(test_us_11_no_bigamy())
-
-
-
-print(test_us12_parents_not_too_old())
-print(test_us13_siblings_spacing())
-print(test_us14_multiple_births_lessthan_5())
-print(test_us15_fewer_than_15_siblings())
+# print(test_us_10_marriage_after_14())
+# print(test_us_11_no_bigamy())
 
 
-print(test_us21_correct_gender_role())
-print(test_us29_list_deceased())
 
-## END TESTS
+# print(test_us12_parents_not_too_old())
+# print(test_us13_siblings_spacing())
+# print(test_us14_multiple_births_lessthan_5())
+# print(test_us15_fewer_than_15_siblings())
 
 
+# print(test_us21_correct_gender_role())
+# print(test_us22_unique_IDs())
+# print(test_us29_list_deceased())
+
+#print(test_us35_list_recent_births())
+
+
+# END TESTS
 
 
 # #test_validate_to_array()
@@ -904,3 +961,4 @@ print(test_us29_list_deceased())
 
 #parse_to_objects(workFile)
 #test_parse_to_objects()
+
