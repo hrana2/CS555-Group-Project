@@ -102,127 +102,6 @@ def validate_to_array(workFile):
 
     return outList
 
-
-
-def parse_to_chart(workFile):
-    outList = validate_to_array(workFile)
-    currEntry = 0
-
-    children_id = []
-    while currEntry < len(outList):
-        indiObj = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
-        #Children is a list so that you can add more than one child to the field if applicable
-        famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
-
-
-        if outList[currEntry][0] != "N":
-            if outList[currEntry][1] == "0":
-                # if individual
-                if outList[currEntry][2] == "INDI":
-                    while outList[currEntry+1][1] != "0":
-                        if outList[currEntry][2] == "INDI":
-                            indiObj["ID"] = outList[currEntry][3]
-                            name = outList[currEntry+1][3]
-                            id_match.append(indiObj["ID"])
-                            #id_match.append(name)
-                        if outList[currEntry][2] == "NAME":
-                            indiObj["Name"] = outList[currEntry][3]
-                        if outList[currEntry][2] == "SEX":
-                            indiObj["Gender"] = outList[currEntry][3]
-                        if outList[currEntry][2] == "BIRT":
-                            indiObj["Birthday"] = outList[currEntry+1][3]
-
-                            today = date.today()
-                            bday = datetime.strptime(indiObj["Birthday"], '%d %b %Y')
-
-                            age = (today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day)))
-
-
-                            indiObj["Age"] = age
-
-                            if outList[currEntry+2][2] != "DEAT":
-                                indiObj["Alive"] = "Y"
-                                indiObj["Death"] = "N/A"
-
-
-
-
-
-                        if outList[currEntry][2] == "DEAT":
-                            if outList[currEntry+1][2] == "DATE":
-                                indiObj["Death"] = outList[currEntry+1][3]
-                                indiObj["Alive"] = "N"
-                                dod = datetime.strptime(indiObj["Death"], '%d %b %Y')
-                                afterlife = (today.year - dod.year - ((today.month, today.day) < (dod.month, dod.day)))
-                                died_at = abs(afterlife - age)
-                                indiObj["Age"] = died_at
-
-
-
-                        #if outList[currEntry][2] == "HUSB":
-                            #indiObj["Spouse"] = outList[currEntry][3]
-                        #if outList[currEntry][2] == "WIFE":
-                            #indiObj["Spouse"] = outList[currEntry][3]
-
-
-                        currEntry += 1
-                    if outList[currEntry][2] == "FAMC":
-                        indiObj["Child"] = outList[currEntry][3]
-
-                    if outList[currEntry][2] == "FAMS":
-                        indiObj["Spouse"] = outList[currEntry][3]
-
-
-
-
-                    individual_table.add_row([indiObj["ID"],indiObj["Name"],indiObj["Gender"],indiObj["Birthday"],indiObj["Age"],indiObj["Alive"],indiObj["Death"],indiObj["Child"],indiObj["Spouse"]])
-
-
-                #If fam
-                if outList[currEntry][2] == "FAM":
-                    while outList[currEntry+1][1] != "0":
-                        if outList[currEntry][2] == "FAM":
-                            famObj["ID"] = outList[currEntry][3]
-                        if outList[currEntry][2] == "MARR":
-                            famObj["Married"] = outList[currEntry+1][3]
-                            famObj["Divorced"] = "N/A"
-                        if outList[currEntry][2] == "DIV":
-                            famObj["Divorced"] = outList[currEntry+1][3]
-
-                        if outList[currEntry][2] == "HUSB":
-                            famObj["Husband ID"] = outList[currEntry][3]
-                        if outList[currEntry][2] == "HUSB":
-                            for i in range(len(id_match)):
-                                if famObj["Husband ID"] == id_match[i]:
-                                    famObj["Husband Name"] = id_match[i+1]
-                        if outList[currEntry][2] == "WIFE":
-                            famObj["Wife ID"] = outList[currEntry][3]
-
-                        if outList[currEntry][2] == "WIFE":
-                            for i in range(len(id_match)):
-                                if famObj["Wife ID"] == id_match[i]:
-                                    famObj["Wife Name"] = id_match[i+1]
-
-                        if outList[currEntry][2] == "CHIL":
-                             famObj["Children"].append(outList[currEntry][3])
-
-                        currEntry += 1
-
-
-
-                    family_table.add_row([famObj["ID"],famObj["Married"],famObj["Divorced"],famObj["Husband ID"],famObj["Husband Name"],famObj["Wife ID"],famObj["Wife Name"],famObj["Children"]])
-
-        currEntry += 1
-
-    #print(outList)
-    #print(id_match)
-    print(children_id)
-    #print(individual_table)
-    #print(family_table)
-    return individual_table, family_table
-
-
-
 outList = validate_to_array(workFile)
 currEntry = 0
 
@@ -338,6 +217,24 @@ while currEntry < len(outList):
                 families_array.append(famObj)
 
     currEntry += 1
+
+def parse_to_chart():
+    for indi in individuals_array:
+        individual_table.add_row([indi["ID"],indi["Name"],indi["Gender"],indi["Birthday"],indi["Age"],indi["Alive"],indi["Death"],indi["Child"],indi["Spouse"]])
+    for fam in families_array:
+        family_table.add_row([fam["ID"],fam["Married"],fam["Divorced"],fam["Husband ID"],fam["Husband Name"],fam["Wife ID"],fam["Wife Name"],fam["Children"]])
+    
+    #print(outList)
+    #print(id_match)
+    #print(children_id)
+    #print(individual_table)
+    #print(family_table)
+    with open("output.txt", "a") as tables:
+        tables.write(str(individual_table) + "\n")
+        tables.write(str(family_table) + "\n")
+    return individual_table, family_table
+
+parse_to_chart()
 
 ######## USER STORIES #########
 
@@ -947,8 +844,6 @@ def test_parse_to_objects():
     print(individuals_array)
     print("Family Array\n")
     print(families_array)
-
-
 
 #print(id_match)
 #print(famid_match)
