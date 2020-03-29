@@ -7,10 +7,12 @@ Error: Individual: @I4@: US07: Over 150 years old
 Error: Individual: @I2@: US08: born after marriage of parents
 Error: Individual: @I10@: US09 born 9 months after death of dad
 Error: Family: @F1@: US10: Individuals were married before both were 14
-Error: Individual: @I10@: US11: Individual is married to multiple people
 Error: Family: @F2@: US12: Parents are too old
 Error: Family: @F3@: US13: Siblings too close in age
 Error: Family: @F3@: US14 has more than 5 children with the same birth
 Error: Family: @F3@: US15 has 15 or more children
 Error: Family: @F5@: US21: Wife is wrong gender
+Error: Individual: @I28@: US23: Does not have a unique name and birthday
+Error: Individual: @I29@: US23: Does not have a unique name and birthday
 US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']
+US35: List of all individuals born within the last 30 days: ['Maria /Iannacone/']

@@ -17,6 +17,7 @@ dict = {'NOTE':'0', 'HEAD':'0', 'TRLR':'0', 'FAM':'0', 'INDI':'0', 'NAME':'1', '
 fname = input("Enter file name: ")
 print(fname)
 
+open('output.txt', 'w').close()
 workFile = open(fname)
 output = open('parsed_output.txt', 'w+')
 output_lines = []
@@ -668,12 +669,11 @@ def us22_unique_IDs(arr1, arr2):
                 #print(arr[i])
         #if x == "@I2@": 
 
-def us23_unique_name_and_bith_date(indi,individuals):
+def us23_unique_name_and_birth_date(indi,individuals):
     for otherIndi in individuals:
-        if(indi["Name"] == otherIndi["Name"] and indi["Birthday"] and indi["ID"] != otherIndi["ID"]):           # same name and birthday but different person
+        if(indi["Name"] == otherIndi["Name"] and indi["Birthday"] == otherIndi["Birthday"] and indi["ID"] != otherIndi["ID"]):           # same name and birthday but different person
             return False
-        else:
-            return True
+    return True
 
 def us24_unique_families_by_spouses():
     return
@@ -880,12 +880,15 @@ def test_us22_unique_IDs():
         file.write("Error: Family: US22: Duplicate ID number" + "\n")
         return "Error: Family: US22: Duplicate ID number"
 
-def test_us23_unique_name_and_bith_date():
+def test_us23_unique_name_and_birth_date():
     file = open("output.txt", "a")
+    errors = []
     for indi in individuals_array:
-        if(us23_unique_name_and_bith_date(indi,individuals_array) == False):
+        result = us23_unique_name_and_birth_date(indi,individuals_array)
+        if(result == False):
             file.write("Error: Individual: " + indi["ID"] + ": US23: Does not have a unique name and birthday" + "\n")
-            return "Error: Individual: " + indi["ID"] + ": US23: Does not have a unique name and birthday" + "\n"
+            errors.append("Error: Individual: " + indi["ID"] + ": US23: Does not have a unique name and birthday")
+    return errors
 
 def test_us29_list_deceased():
     file = open("output.txt", "a")
