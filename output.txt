@@ -14,5 +14,7 @@ Error: Family: @F3@: US15 has 15 or more children
 Error: Family: @F5@: US21: Wife is wrong gender
 Error: Individual: @I28@: US23: Does not have a unique name and birthday
 Error: Individual: @I29@: US23: Does not have a unique name and birthday
+Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date
+Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date
 US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']
 US35: List of all individuals born within the last 30 days: ['Maria /Iannacone/']

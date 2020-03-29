@@ -1,7 +1,7 @@
 0 HEAD
 1 SOUR Family Echo
 2 WWW http://www.familyecho.com/
-1 FILE Family 3
+1 FILE Family 2
 1 DATE 29 MAR 2020
 1 DEST ANSTFILE
 1 GEDC
@@ -132,130 +132,13 @@
 1 NAME Monica /Iannacone/
 2 GIVN Monica
 2 SURN Iannacone
-2 _MARNM Iannacone
+2 _MARNM Farfield
 1 SEX F
 1 BIRT
 2 DATE 10 MAY 1989
 1 FAMS @F6@
 1 FAMC @F3@
 0 @I14@ INDI
-1 NAME Junior /Iannacone/
-2 GIVN Junior
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX M
-1 BIRT
-2 DATE 10 MAY 1989
-1 FAMC @F3@
-0 @I15@ INDI
-1 NAME Dominic /Iannacone/
-2 GIVN Dominic
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX M
-1 BIRT
-2 DATE 10 MAY 1989
-1 FAMC @F3@
-0 @I16@ INDI
-1 NAME John /Iannacone/
-2 GIVN John
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX M
-1 BIRT
-2 DATE 10 MAY 1989
-1 FAMC @F3@
-0 @I17@ INDI
-1 NAME Jane /Iannacone/
-2 GIVN Jane
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX F
-1 BIRT
-2 DATE 10 MAY 1989
-1 FAMC @F3@
-0 @I18@ INDI
-1 NAME Joe /Iannacone/
-2 GIVN Joe
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX M
-1 BIRT
-2 DATE 10 MAY 1990
-1 FAMC @F3@
-0 @I19@ INDI
-1 NAME Mary /Iannacone/
-2 GIVN Mary
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX F
-1 BIRT
-2 DATE 10 MAY 1990
-1 FAMC @F3@
-0 @I20@ INDI
-1 NAME Lisa /Iannacone/
-2 GIVN Lisa
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX F
-1 BIRT
-2 DATE 10 FEB 1995
-1 FAMC @F3@
-0 @I21@ INDI
-1 NAME Matt /Iannacone/
-2 GIVN Matt
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX M
-1 BIRT
-2 DATE 10 FEB 1995
-1 FAMC @F3@
-0 @I22@ INDI
-1 NAME Maria /Iannacone/
-2 GIVN Maria
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX F
-1 BIRT
-2 DATE 10 MAR 2020
-1 FAMC @F3@
-0 @I23@ INDI
-1 NAME Luke /Iannacone/
-2 GIVN Luke
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX M
-1 BIRT
-2 DATE 10 AUG 1996
-1 FAMC @F3@
-0 @I24@ INDI
-1 NAME Peter /Iannacone/
-2 GIVN Peter
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX M
-1 BIRT
-2 DATE 10 AUG 1996
-1 FAMC @F3@
-0 @I25@ INDI
-1 NAME Natalie /Iannacone/
-2 GIVN Natalie
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX F
-1 BIRT
-2 DATE 1 AUG 1996
-1 FAMC @F3@
-0 @I26@ INDI
-1 NAME Danielle /Iannacone/
-2 GIVN Danielle
-2 SURN Iannacone
-2 _MARNM Iannacone
-1 SEX F
-1 BIRT
-2 DATE 10 AUG 1996
-1 FAMC @F3@
-0 @I27@ INDI
 1 NAME Michael /Fairfield/
 2 GIVN Michael
 2 SURN Fairfield
@@ -264,6 +147,123 @@
 1 BIRT
 2 DATE 8 AUG 1988
 1 FAMS @F6@
+0 @I15@ INDI
+1 NAME Junior /Iannacone/
+2 GIVN Junior
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 10 MAY 1989
+1 FAMC @F3@
+0 @I16@ INDI
+1 NAME Dominic /Iannacone/
+2 GIVN Dominic
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 10 MAY 1989
+1 FAMC @F3@
+0 @I17@ INDI
+1 NAME John /Iannacone/
+2 GIVN John
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 10 MAY 1989
+1 FAMC @F3@
+0 @I18@ INDI
+1 NAME Jane /Iannacone/
+2 GIVN Jane
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX F
+1 BIRT
+2 DATE 10 MAY 1989
+1 FAMC @F3@
+0 @I19@ INDI
+1 NAME Joe /Iannacone/
+2 GIVN Joe
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 10 MAY 1990
+1 FAMC @F3@
+0 @I20@ INDI
+1 NAME Mary /Iannacone/
+2 GIVN Mary
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX F
+1 BIRT
+2 DATE 10 MAY 1990
+1 FAMC @F3@
+0 @I21@ INDI
+1 NAME Lisa /Iannacone/
+2 GIVN Lisa
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX F
+1 BIRT
+2 DATE 10 FEB 1995
+1 FAMC @F3@
+0 @I22@ INDI
+1 NAME Matt /Iannacone/
+2 GIVN Matt
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 10 FEB 1995
+1 FAMC @F3@
+0 @I23@ INDI
+1 NAME Maria /Iannacone/
+2 GIVN Maria
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX F
+1 BIRT
+2 DATE 10 MAR 2020
+1 FAMC @F3@
+0 @I24@ INDI
+1 NAME Luke /Iannacone/
+2 GIVN Luke
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 10 AUG 1996
+1 FAMC @F3@
+0 @I25@ INDI
+1 NAME Peter /Iannacone/
+2 GIVN Peter
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX M
+1 BIRT
+2 DATE 10 AUG 1996
+1 FAMC @F3@
+0 @I26@ INDI
+1 NAME Natalie /Iannacone/
+2 GIVN Natalie
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX F
+1 BIRT
+2 DATE 1 AUG 1996
+1 FAMC @F3@
+0 @I27@ INDI
+1 NAME Danielle /Iannacone/
+2 GIVN Danielle
+2 SURN Iannacone
+2 _MARNM Iannacone
+1 SEX F
+1 BIRT
+2 DATE 10 AUG 1996
+1 FAMC @F3@
 0 @I28@ INDI
 1 NAME Jane /Fairfield/
 2 GIVN Jane
@@ -286,11 +286,40 @@
 1 NAME Jane /Fairfield/
 2 GIVN Jane
 2 SURN Fairfield
-2 _MARNM Fairfield
+2 _MARNM Dixon
 1 SEX F
 1 BIRT
 2 DATE 2 SEP 2016
+1 FAMS @F7@
 1 FAMC @F6@
+0 @I31@ INDI
+1 NAME Jane /Fairfield/
+2 GIVN Jane
+2 SURN Fairfield
+2 _MARNM Dixon
+1 SEX F
+1 BIRT
+2 DATE 8 MAR 2016
+1 FAMS @F8@
+1 FAMC @F6@
+0 @I32@ INDI
+1 NAME Jonathan /Dixon/
+2 GIVN Jonathan
+2 SURN Dixon
+2 _MARNM Dixon
+1 SEX M
+1 BIRT
+2 DATE 13 SEP 2015
+1 FAMS @F8@
+0 @I33@ INDI
+1 NAME Jonathan /Dixon/
+2 GIVN Jonathan
+2 SURN Dixon
+2 _MARNM Dixon
+1 SEX M
+1 BIRT
+2 DATE 1 JAN 2015
+1 FAMS @F7@
 0 @F1@ FAM
 1 HUSB @I2@
 1 WIFE @I3@
@@ -312,7 +341,6 @@
 1 WIFE @I6@
 1 CHIL @I8@
 1 CHIL @I13@
-1 CHIL @I14@
 1 CHIL @I15@
 1 CHIL @I16@
 1 CHIL @I17@
@@ -325,6 +353,7 @@
 1 CHIL @I24@
 1 CHIL @I25@
 1 CHIL @I26@
+1 CHIL @I27@
 1 MARR
 2 DATE 6 AUG 1995
 1 DIV
@@ -345,12 +374,25 @@
 2 DATE 2 FEB 2020
 1 _CURRENT Y
 0 @F6@ FAM
-1 HUSB @I27@
+1 HUSB @I14@
 1 WIFE @I13@
 1 CHIL @I28@
 1 CHIL @I29@
 1 CHIL @I30@
+1 CHIL @I31@
 1 MARR
 2 DATE 8 FEB 2014
+1 _CURRENT Y
+0 @F7@ FAM
+1 HUSB @I33@
+1 WIFE @I30@
+1 MARR
+2 DATE 3 OCT 2040
+1 _CURRENT Y
+0 @F8@ FAM
+1 HUSB @I32@
+1 WIFE @I31@
+1 MARR
+2 DATE 3 OCT 2040
 1 _CURRENT Y
 0 TRLR

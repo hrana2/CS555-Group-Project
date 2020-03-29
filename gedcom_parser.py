@@ -230,11 +230,10 @@ id_match = []
 famid_match = []
 children_id = []
 
+# setup individuals array first
 while currEntry < len(outList):
     indiObj = {"ID":"", "Name":"", "Gender":"", "Birthday":"", "Age":"", "Alive":"", "Death":"", "Child":"", "Spouse":""}
     #Children is a list so that you can add more than one child to the field if applicable
-    famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
-
 
     if outList[currEntry][0] != "N":
         if outList[currEntry][1] == "0":
@@ -295,7 +294,15 @@ while currEntry < len(outList):
 
                 individuals_array.append(indiObj)
 
+    currEntry += 1
 
+currEntry = 0
+# now setup array of families
+while currEntry < len(outList):
+    famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
+
+    if outList[currEntry][0] != "N":
+        if outList[currEntry][1] == "0":
             #If fam
             if outList[currEntry][2] == "FAM":
                 while outList[currEntry+1][1] != "0":
@@ -310,17 +317,18 @@ while currEntry < len(outList):
 
                     if outList[currEntry][2] == "HUSB":
                         famObj["Husband ID"] = outList[currEntry][3]
-                    if outList[currEntry][2] == "HUSB":
-                        for i in range(len(id_match)):
-                            if famObj["Husband ID"] == id_match[i]:
-                                famObj["Husband Name"] = id_match[i+1]
+                        name = ""
+                        for i in individuals_array:
+                            if i["ID"] == famObj["Husband ID"]:
+                                name = i["Name"]
+                        famObj["Husband Name"] = name
                     if outList[currEntry][2] == "WIFE":
                         famObj["Wife ID"] = outList[currEntry][3]
-
-                    if outList[currEntry][2] == "WIFE":
-                        for i in range(len(id_match)):
-                            if famObj["Wife ID"] == id_match[i]:
-                                famObj["Wife Name"] = id_match[i+1]
+                        name = ""
+                        for i in individuals_array:
+                            if i["ID"] == famObj["Wife ID"]:
+                                name = i["Name"]
+                        famObj["Wife Name"] = name
 
                     if outList[currEntry][2] == "CHIL":
                          famObj["Children"].append(outList[currEntry][3])
@@ -330,8 +338,7 @@ while currEntry < len(outList):
                 families_array.append(famObj)
 
     currEntry += 1
-
-
+print(families_array)
 
 ######## USER STORIES #########
 
@@ -891,6 +898,16 @@ def test_us23_unique_name_and_birth_date():
         if(result == False):
             file.write("Error: Individual: " + indi["ID"] + ": US23: Does not have a unique name and birthday" + "\n")
             errors.append("Error: Individual: " + indi["ID"] + ": US23: Does not have a unique name and birthday")
+    return errors
+
+def test_us24_unique_families_by_spouses():
+    file = open("output.txt", "a")
+    errors = []
+    for fam in families_array:
+        result = us24_unique_families_by_spouses(fam,families_array)
+        if(result == False):
+            file.write("Error: Family: " + fam["ID"] + ": US24: Does not have a unique husband, wife, and marriage date" + "\n")
+            errors.append("Error: Family: " + fam["ID"] + ": US24: Does not have a unique husband, wife, and marriage date")
     return errors
 
 def test_us29_list_deceased():
