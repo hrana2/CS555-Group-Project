@@ -2,18 +2,18 @@
 |   ID  |            Name           | Gender |   Birthday  | Age | Alive |    Death    | Child | Spouse |
 +-------+---------------------------+--------+-------------+-----+-------+-------------+-------+--------+
 |  @I1@ |      Himanshu /Rana/      |   M    | 18 JUN 1999 |  20 |   Y   |     N/A     |  @F1@ |        |
-|  @I2@ |      Abhilash /Rana/      |   M    | 27 JUN 1962 |  57 |   Y   |     N/A     |  @F2@ |        |
+|  @I2@ |      Abhilash /Rana/      |   M    | 27 JUN 1962 |  57 |   Y   |     N/A     |  @F2@ |  @F1@  |
 |  @I3@ |      Hemlatta /Rana/      |   F    |  2 JAN 2000 |  20 |   Y   |     N/A     |       |  @F1@  |
 |  @I4@ |         Jay /Rana/        |   M    | 28 MAR 1800 | 202 |   N   |  1 NOV 2001 |       |  @F2@  |
 |  @I5@ |       Nirmila /Rana/      |   F    |  9 DEC 1940 |  79 |   Y   |     N/A     |       |  @F2@  |
-|  @I6@ |        Hema /Rana/        |   F    | 16 JUN 1961 |  58 |   Y   |     N/A     |  @F2@ |        |
+|  @I6@ |        Hema /Rana/        |   F    | 16 JUN 1961 |  58 |   Y   |     N/A     |  @F2@ |  @F3@  |
 |  @I7@ |     Alfred /Iannacone/    |   M    | 17 MAR 1955 |  65 |   Y   |     N/A     |       |  @F3@  |
-|  @I8@ |    Angelina /Iannacone/   |   F    | 10 MAY 1989 |  27 |   N   | 20 AUG 2016 |  @F3@ |        |
+|  @I8@ |    Angelina /Iannacone/   |   F    | 10 MAY 1989 |  27 |   N   | 20 AUG 2016 |  @F3@ |  @F4@  |
 |  @I9@ | Jacob Davidson /Davidson/ |   M    | 30 OCT 1987 |  32 |   Y   |     N/A     |       |  @F4@  |
-| @I10@ |         Dev /Rana/        |   M    | 16 AUG 2015 |  4  |   N   | 16 OCT 2011 |  @F2@ |        |
+| @I10@ |         Dev /Rana/        |   M    | 16 AUG 2015 |  4  |   N   | 16 OCT 2011 |  @F2@ |  @F5@  |
 | @I11@ |    Dominic /Iannacone/    |   M    |  4 MAY 2018 |  1  |   Y   |     N/A     |       |  @F5@  |
 | @I12@ |       Parvati /Rana/      |   M    | 21 SEP 1982 |  37 |   Y   |     N/A     |       |        |
-| @I13@ |     Monica /Iannacone/    |   F    | 10 MAY 1989 |  30 |   Y   |     N/A     |  @F3@ |        |
+| @I13@ |     Monica /Iannacone/    |   F    | 10 MAY 1989 |  30 |   Y   |     N/A     |  @F3@ |  @F6@  |
 | @I14@ |    Michael /Fairfield/    |   M    |  8 AUG 1988 |  31 |   Y   |     N/A     |       |  @F6@  |
 | @I15@ |     Junior /Iannacone/    |   M    | 10 MAY 1989 |  30 |   Y   |     N/A     |  @F3@ |        |
 | @I16@ |    Dominic /Iannacone/    |   M    | 10 MAY 1989 |  30 |   Y   |     N/A     |  @F3@ |        |
@@ -30,8 +30,8 @@
 | @I27@ |    Danielle /Iannacone/   |   F    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I28@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  4  |   Y   |     N/A     |  @F6@ |        |
 | @I29@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  4  |   Y   |     N/A     |  @F6@ |        |
-| @I30@ |      Jane /Fairfield/     |   F    |  2 SEP 2016 |  3  |   Y   |     N/A     |  @F6@ |        |
-| @I31@ |      Jane /Fairfield/     |   F    |  8 MAR 2016 |  4  |   Y   |     N/A     |  @F6@ |        |
+| @I30@ |      Jane /Fairfield/     |   F    |  2 SEP 2016 |  3  |   Y   |     N/A     |  @F6@ |  @F7@  |
+| @I31@ |      Jane /Fairfield/     |   F    |  8 MAR 2016 |  4  |   Y   |     N/A     |  @F6@ |  @F8@  |
 | @I32@ |      Jonathan /Dixon/     |   M    | 13 SEP 2015 |  4  |   Y   |     N/A     |       |  @F8@  |
 | @I33@ |      Jonathan /Dixon/     |   M    |  1 JAN 2015 |  5  |   Y   |     N/A     |       |  @F7@  |
 +-------+---------------------------+--------+-------------+-----+-------+-------------+-------+--------+

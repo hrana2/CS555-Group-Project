@@ -165,11 +165,11 @@ while currEntry < len(outList):
 
 
                     currEntry += 1
-                if outList[currEntry][2] == "FAMC":
-                    indiObj["Child"] = outList[currEntry][3]
+                    if outList[currEntry][2] == "FAMC":
+                        indiObj["Child"] = outList[currEntry][3]
 
-                if outList[currEntry][2] == "FAMS":
-                    indiObj["Spouse"] = outList[currEntry][3]
+                    if outList[currEntry][2] == "FAMS":
+                        indiObj["Spouse"] = outList[currEntry][3]
 
                 individuals_array.append(indiObj)
 
@@ -828,7 +828,7 @@ def test_validate_to_array():
 
 
 def test_parse_to_chart():
-    print(parse_to_chart(workFile))
+    print(parse_to_chart())
     with open("output.txt", "w+") as tables:
         tables.write(str(individual_table))
         tables.write(str(family_table))
