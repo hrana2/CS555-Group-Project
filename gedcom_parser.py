@@ -880,7 +880,12 @@ def test_us22_unique_IDs():
         file.write("Error: Family: US22: Duplicate ID number" + "\n")
         return "Error: Family: US22: Duplicate ID number"
 
-
+def test_us23_unique_name_and_bith_date():
+    file = open("output.txt", "a")
+    for indi in individuals_array:
+        if(us23_unique_name_and_bith_date(indi,individuals_array) == False):
+            file.write("Error: Individual: " + indi["ID"] + ": US23: Does not have a unique name and birthday" + "\n")
+            return "Error: Individual: " + indi["ID"] + ": US23: Does not have a unique name and birthday" + "\n"
 
 def test_us29_list_deceased():
     file = open("output.txt", "a")
