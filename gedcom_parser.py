@@ -296,8 +296,8 @@ while currEntry < len(outList):
 
     currEntry += 1
 
-currEntry = 0
 # now setup array of families
+currEntry = 0
 while currEntry < len(outList):
     famObj = {"ID":"", "Married":"", "Divorced":"", "Husband ID":"", "Husband Name":"", "Wife ID":"", "Wife Name":"", "Children":[]}
 
@@ -338,7 +338,6 @@ while currEntry < len(outList):
                 families_array.append(famObj)
 
     currEntry += 1
-print(families_array)
 
 ######## USER STORIES #########
 
