@@ -668,6 +668,16 @@ def us22_unique_IDs(arr1, arr2):
                 #print(arr[i])
         #if x == "@I2@": 
 
+def us23_unique_name_and_bith_date(indi,individuals):
+    for otherIndi in individuals:
+        if(indi["Name"] == otherIndi["Name"] and indi["Birthday"] and indi["ID"] != otherIndi["ID"]):           # same name and birthday but different person
+            return False
+        else:
+            return True
+
+def us24_unique_families_by_spouses():
+    return
+
 def us29_list_deceased(indi):
     theDead = []
     for indi in individuals_array:
