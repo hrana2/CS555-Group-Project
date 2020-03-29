@@ -675,8 +675,11 @@ def us23_unique_name_and_birth_date(indi,individuals):
             return False
     return True
 
-def us24_unique_families_by_spouses():
-    return
+def us24_unique_families_by_spouses(fam,families):
+    for otherFam in families:
+        if(fam["Husband Name"] == otherFam["Husband Name"] and fam["Wife Name"] == otherFam["Wife Name"] and fam["Married"] == otherFam["Married"] and fam["ID"] != otherFam["ID"]):
+            return False
+    return True
 
 def us29_list_deceased(indi):
     theDead = []
