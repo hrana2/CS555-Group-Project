@@ -544,7 +544,7 @@ def us16_male_last_names(fam):
                 if fam_last_name != indi["Name"].split("/")[1]:
                     return False
                 continue
-                
+
 def us17_no_marriages_to_children(fam):
     if fam["Children"] == fam["Husband ID"] or  fam["Children"] == fam["Wife ID"]:
         return False
@@ -555,7 +555,7 @@ def us18_siblings_should_not_marry(indi):
     for sibling in individuals_array:
         if indi["ID"] != sibling["ID"] and indi["Child"] == sibling["Child"] and indi["Spouse"] == sibling["Spouse"]:
             return False
-    return True                
+    return True
 
 def us19_first_cousins_should_not_marry(indi1_id, indi2_id):
     #Find the two individual's parents
@@ -600,7 +600,7 @@ def us19_first_cousins_should_not_marry(indi1_id, indi2_id):
                 indi2_grandfather2_id = fam["Husband ID"]
                 indi2_grandmother2_id = fam["Wife ID"]
 
-    print("Indi1")
+    '''print("Indi1")
     print(indi1_grandfather1_id)
     print(indi1_grandmother1_id)
     print(indi1_grandfather2_id)
@@ -609,7 +609,7 @@ def us19_first_cousins_should_not_marry(indi1_id, indi2_id):
     print(indi2_grandfather1_id)
     print(indi2_grandmother1_id)
     print(indi2_grandfather2_id)
-    print(indi2_grandmother2_id)
+    print(indi2_grandmother2_id)'''
 
     #Check if any of the grandfathers are the same between the two individuals
     if indi1_grandfather1_id == indi2_grandfather1_id and indi1_grandfather1_id != None and indi2_grandfather1_id != None:
@@ -873,6 +873,7 @@ def test_us15_fewer_than_15_siblings():
 def test_us16_male_last_names():
     file = open("output.txt", "a")
     for fam in families_array:
+        print(fam)
         result = us16_male_last_names(fam)
         if(result == False):
             file.write("Error: Family: " + fam["ID"] + ": US16 has inconsistant male last name\n")
@@ -892,10 +893,16 @@ def test_us18_siblings_should_not_marry():
       result = us18_siblings_should_not_marry(indi)
       if result == False:
           file.write("Error: Indi: " + indi["ID"] + ": US18: Siblings can't be married" + "\n")
-          return "Error: Indi: " + indi["ID"] + ": US18: Siblings can't be married"        
-        
+          return "Error: Indi: " + indi["ID"] + ": US18: Siblings can't be married"
+
 def test_us19_first_cousins_should_not_marry():
-    pass
+    file = open("output.txt", "a")
+    for indi in individuals_array:
+        for indi2 in individuals_array:
+            result = us19_first_cousins_should_not_marry(indi["ID"], indi2["ID"])
+            if result == False:
+                file.write("Error: Indi: " + indi["ID"] + indi2["ID"] + ": US19: First cousins should not marry\n")
+                return "Error: Indi: " + indi["ID"] + indi2["ID"] + ": US19: First cousins should not marry"
 
 
 def test_us21_correct_gender_role():
@@ -1001,7 +1008,7 @@ def test_parse_to_objects():
 # print(test_us09_birth_b4_death_parents())
 
 # print(test_us_10_marriage_after_14())
-# print(test_us_11_no_bigamy())
+print(test_us_11_no_bigamy())
 
 
 
@@ -1029,6 +1036,7 @@ def test_parse_to_objects():
 #test_parse_to_objects()
 #us16_male_last_names(families_array[0])
 #us16_male_last_names(families_array[2])
-#test_us16_male_last_names()
+#print(test_us16_male_last_names())
 
-print(us19_first_cousins_should_not_marry(individuals_array[0]["ID"], individuals_array[10]["ID"]))
+#print(us19_first_cousins_should_not_marry(individuals_array[0]["ID"], individuals_array[10]["ID"]))
+#print(test_us19_first_cousins_should_not_marry())
