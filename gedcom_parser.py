@@ -552,11 +552,11 @@ def us19_first_cousins_should_not_marry(indi1_id, indi2_id):
     indi2_father_id = None
     indi2_mother_id = None
     for fam in families_array:
-        for child in fam["Children"]:
-            if child["ID"] == indi1_id:
+        for child_id in fam["Children"]:
+            if child_id == indi1_id:
                 indi1_father_id = fam["Husband ID"]
                 indi1_mother_id = fam["Wife ID"]
-            if child["ID"] == indi2_id:
+            if child_id == indi2_id:
                 indi2_father_id = fam["Husband ID"]
                 indi2_mother_id = fam["Wife ID"]
 
@@ -570,38 +570,64 @@ def us19_first_cousins_should_not_marry(indi1_id, indi2_id):
     indi2_grandfather2_id = None
     indi2_grandmother2_id = None
 
+
+
     for fam in families_array:
-        for child in fam["Children"]:
-            if child["ID"] == indi1_father_id:
+        for child_id in fam["Children"]:
+            if child_id == indi1_father_id:
                 indi1_grandfather1_id = fam["Husband ID"]
                 indi1_grandmother1_id = fam["Wife ID"]
-            if child["ID"] == indi1_mother_id:
+            if child_id == indi1_mother_id:
                 indi1_grandfather2_id = fam["Husband ID"]
                 indi1_grandmother2_id = fam["Wife ID"]
 
-            if child["ID"] == indi2_father_id:
+            if child_id == indi2_father_id:
                 indi2_grandfather1_id = fam["Husband ID"]
                 indi2_grandmother1_id = fam["Wife ID"]
-            if child["ID"] == indi2_mother_id:
+            if child_id == indi2_mother_id:
                 indi2_grandfather2_id = fam["Husband ID"]
                 indi2_grandmother2_id = fam["Wife ID"]
 
+    print("Indi1")
+    print(indi1_grandfather1_id)
+    print(indi1_grandmother1_id)
+    print(indi1_grandfather2_id)
+    print(indi1_grandmother2_id)
+    print("indi2")
+    print(indi2_grandfather1_id)
+    print(indi2_grandmother1_id)
+    print(indi2_grandfather2_id)
+    print(indi2_grandmother2_id)
+
     #Check if any of the grandfathers are the same between the two individuals
-    if indi1_grandfather1_id == indi2_grandfather1_id or indi1_grandfather1_id == indi2_grandfather2_id or indi1_grandfather2_id == indi2_grandfather1_id or indi1_grandfather2_id == indi2_grandfather2_id:
+    if indi1_grandfather1_id == indi2_grandfather1_id and indi1_grandfather1_id != None and indi2_grandfather1_id != None:
+        return False
+
+    if indi1_grandfather1_id == indi2_grandfather2_id and indi1_grandfather1_id != None and indi2_grandfather2_id != None:
+        return False
+
+    if indi1_grandfather2_id == indi2_grandfather1_id and indi1_grandfather2_id != None and indi2_grandfather1_id != None:
+        return False
+
+    if indi1_grandfather2_id == indi2_grandfather2_id and indi1_grandfather2_id != None and indi2_grandfather2_id != None:
         return False
 
     #Check if any of the grandmothers are the same between the two individuals
-    if indi1_grandmother1_id == indi2_grandmother1_id or indi1_grandmother1_id == indi2_grandmother2_id or indi1_grandmother2_id == indi2_grandmother1_id or indi1_grandmother2_id == indi2_grandmother2_id:
+    if indi1_grandmother1_id == indi2_grandmother1_id and indi1_grandmother1_id != None and indi2_grandmother1_id != None:
+        return False
+
+    if indi1_grandmother1_id == indi2_grandmother2_id and indi1_grandmother1_id != None and indi2_grandmother2_id != None:
+        return False
+
+    if indi1_grandmother2_id == indi2_grandmother1_id and indi1_grandmother2_id != None and indi2_grandmother1_id != None:
+        return False
+
+    if indi1_grandmother2_id == indi2_grandmother2_id and indi1_grandmother2_id != None and indi2_grandmother2_id != None:
         return False
 
     #None of the grandparents are the same and thus they are not first cousins
     return True
 
-
-
-
-
-    pass
 
 def us21_correct_gender_role(fam):
     husband_id = fam["Husband ID"]
@@ -977,4 +1003,4 @@ def test_parse_to_objects():
 #us16_male_last_names(families_array[2])
 #test_us16_male_last_names()
 
-us19_first_cousins_should_not_marry(indi1_id, indi2_id)
+print(us19_first_cousins_should_not_marry(individuals_array[0]["ID"], individuals_array[10]["ID"]))
