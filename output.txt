@@ -34,22 +34,25 @@
 | @I31@ |      Jane /Fairfield/     |   F    |  8 MAR 2016 |  4  |   Y   |     N/A     |  @F6@ |  @F8@  |
 | @I32@ |      Jonathan /Dixon/     |   M    | 13 SEP 2015 |  4  |   Y   |     N/A     |       |  @F8@  |
 | @I33@ |      Jonathan /Dixon/     |   M    |  1 JAN 2015 |  5  |   Y   |     N/A     |       |  @F7@  |
-| @I34@ |     Peter /Iannacone2/    |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
+| @I34@ |       Emily /Smith/       |   F    |  1 JAN 1980 |  40 |   Y   |     N/A     |       | @F10@  |
+| @I35@ |        John /Smith/       |   M    |  1 May 1998 |  21 |   Y   |     N/A     | @F10@ | @F10@  |
+| @I35@ |     Peter /Iannacone2/    |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 +-------+---------------------------+--------+-------------+-----+-------+-------------+-------+--------+
-+------+-------------+------------+------------+---------------------------+---------+----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
-|  ID  |   Married   |  Divorced  | Husband ID |        Husband Name       | Wife ID |      Wife Name       |                                                                     Children                                                                    |
-+------+-------------+------------+------------+---------------------------+---------+----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
-| @F1@ |  9 DEC 1997 |    N/A     |    @I2@    |      Abhilash /Rana/      |   @I3@  |   Hemlatta /Rana/    |                                                                     ['@I1@']                                                                    |
-| @F2@ |  8 SEP 2020 |    N/A     |    @I4@    |         Jay /Rana/        |   @I5@  |    Nirmila /Rana/    |                                                            ['@I2@', '@I6@', '@I10@']                                                            |
-| @F3@ |  6 AUG 1995 | 3 FEB 1995 |    @I7@    |     Alfred /Iannacone/    |   @I6@  |     Hema /Rana/      | ['@I8@', '@I13@', '@I15@', '@I16@', '@I17@', '@I18@', '@I19@', '@I20@', '@I21@', '@I22@', '@I23@', '@I24@', '@I25@', '@I26@', '@I27@', '@I34@'] |
-| @F4@ | 10 APR 2011 |    N/A     |    @I9@    | Jacob Davidson /Davidson/ |   @I8@  | Angelina /Iannacone/ |                                                                        []                                                                       |
-| @F5@ |  5 JAN 2000 | 2 FEB 2020 |   @I10@    |         Dev /Rana/        |  @I11@  | Dominic /Iannacone/  |                                                                        []                                                                       |
-| @F6@ |  8 FEB 2014 |    N/A     |   @I14@    |    Michael /Fairfield/    |  @I13@  |  Monica /Iannacone/  |                                                       ['@I28@', '@I29@', '@I30@', '@I31@']                                                      |
-| @F7@ |  3 OCT 2040 |    N/A     |   @I33@    |      Jonathan /Dixon/     |  @I30@  |   Jane /Fairfield/   |                                                                        []                                                                       |
-| @F8@ |  3 OCT 2040 |    N/A     |   @I32@    |      Jonathan /Dixon/     |  @I31@  |   Jane /Fairfield/   |                                                                        []                                                                       |
-| @F9@ |  7 FEB 2010 |    N/A     |   @I21@    |      Lisa /Iannacone/     |  @I22@  |   Matt /Iannacone/   |                                                                        []                                                                       |
-| @F9@ |  3 OCT 2040 |    N/A     |   @I10@    |         Dev /Rana/        |  @I31@  |   Jane /Fairfield/   |                                                                        []                                                                       |
-+------+-------------+------------+------------+---------------------------+---------+----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
++-------+-------------+------------+------------+---------------------------+---------+----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+|   ID  |   Married   |  Divorced  | Husband ID |        Husband Name       | Wife ID |      Wife Name       |                                                                     Children                                                                    |
++-------+-------------+------------+------------+---------------------------+---------+----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
+|  @F1@ |  9 DEC 1997 |    N/A     |    @I2@    |      Abhilash /Rana/      |   @I3@  |   Hemlatta /Rana/    |                                                                     ['@I1@']                                                                    |
+|  @F2@ |  8 SEP 2020 |    N/A     |    @I4@    |         Jay /Rana/        |   @I5@  |    Nirmila /Rana/    |                                                            ['@I2@', '@I6@', '@I10@']                                                            |
+|  @F3@ |  6 AUG 1995 | 3 FEB 1995 |    @I7@    |     Alfred /Iannacone/    |   @I6@  |     Hema /Rana/      | ['@I8@', '@I13@', '@I15@', '@I16@', '@I17@', '@I18@', '@I19@', '@I20@', '@I21@', '@I22@', '@I23@', '@I24@', '@I25@', '@I26@', '@I27@', '@I34@'] |
+|  @F4@ | 10 APR 2011 |    N/A     |    @I9@    | Jacob Davidson /Davidson/ |   @I8@  | Angelina /Iannacone/ |                                                                        []                                                                       |
+|  @F5@ |  5 JAN 2000 | 2 FEB 2020 |   @I10@    |         Dev /Rana/        |  @I11@  | Dominic /Iannacone/  |                                                                        []                                                                       |
+|  @F6@ |  8 FEB 2014 |    N/A     |   @I10@    |         Dev /Rana/        |  @I13@  |  Monica /Iannacone/  |                                                       ['@I28@', '@I29@', '@I30@', '@I31@']                                                      |
+|  @F7@ |  3 OCT 2040 |    N/A     |   @I33@    |      Jonathan /Dixon/     |  @I30@  |   Jane /Fairfield/   |                                                                        []                                                                       |
+|  @F8@ |  3 OCT 2040 |    N/A     |   @I32@    |      Jonathan /Dixon/     |  @I31@  |   Jane /Fairfield/   |                                                                        []                                                                       |
+|  @F9@ |  7 FEB 2010 |    N/A     |   @I21@    |      Lisa /Iannacone/     |  @I22@  |   Matt /Iannacone/   |                                                                        []                                                                       |
+| @F10@ |  9 DEC 2019 |    N/A     |   @I35@    |     Peter /Iannacone2/    |  @I34@  |    Emily /Smith/     |                                                                    ['@I35@']                                                                    |
+| @F11@ |  9 DEC 2019 |    N/A     |   @I35@    |     Peter /Iannacone2/    |  @I34@  |    Emily /Smith/     |                                                                    ['@I35@']                                                                    |
++-------+-------------+------------+------------+---------------------------+---------+----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
 Error: Individual: @I10@: US11: Individual is married to multiple people
 Error: Indi: @I4@ US03: Death 1 NOV 2001 before Birthday 28 MAR 1800
 Error: Family: @F2@: US02: Birthday before married 8 SEP 2020
@@ -65,7 +68,9 @@ Error: Family: @F2@: US12: Parents are too old
 Error: Family: @F3@: US13: Siblings too close in age
 Error: Family: @F3@: US14 has more than 5 children with the same birth
 Error: Family: @F3@: US15 has 15 or more children
-Error: Family: @F3@: US16 has inconsistant male last name
+Error: Family: @F10@: US16 has inconsistant male last name
+Error: Family @F10@: US17: Parent can't marry child
+Error: Indi: @I4@: US18: Siblings can't be married
 Error: Indi: @I1@@I1@: US19: First cousins should not marry
 Error: Family: @F5@: US21: Wife is wrong gender
 Error: Individual: US22: Duplicate ID number
@@ -73,5 +78,7 @@ Error: Individual: @I28@: US23: Does not have a unique name and birthday
 Error: Individual: @I29@: US23: Does not have a unique name and birthday
 Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date
 Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date
+Error: Family: @F10@: US24: Does not have a unique husband, wife, and marriage date
+Error: Family: @F11@: US24: Does not have a unique husband, wife, and marriage date
 US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']
 US35: List of all individuals born within the last 30 days: ['Maria /Iannacone/']

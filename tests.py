@@ -1,7 +1,7 @@
 import unittest
 from gedcom_parser import test_us02_birth_b4_marriage, test_us03_birth_b4_death, test_us04_marr_b4_divorce, test_us05_marr_b4_death, test_us06_div_b4_death, test_us07_less_than_150, test_us08_birth_b4_marr_parents, test_us09_birth_b4_death_parents, \
 test_us_10_marriage_after_14, test_us_11_no_bigamy, test_us12_parents_not_too_old, test_us13_siblings_spacing, test_us14_multiple_births_lessthan_5, test_us15_fewer_than_15_siblings, test_us21_correct_gender_role, test_us29_list_deceased, test_us22_unique_IDs, test_us35_list_recent_births, \
-test_us23_unique_name_and_birth_date, test_us24_unique_families_by_spouses, test_us19_first_cousins_should_not_marry, test_us16_male_last_names
+test_us23_unique_name_and_birth_date, test_us24_unique_families_by_spouses, test_us18_siblings_should_not_marry, test_us19_first_cousins_should_not_marry, test_us16_male_last_names, test_us17_no_marriages_to_children
 
 
 class TestUM(unittest.TestCase):
@@ -51,7 +51,7 @@ class TestUM(unittest.TestCase):
         self.assertEqual(test_us15_fewer_than_15_siblings(), "Error: Family: @F3@: US15 has 15 or more children")
 
     def test_us16(self):
-        self.assertEqual(test_us16_male_last_names(), "Error: Family: @F3@: US16 has inconsistant male last name")
+        self.assertEqual(test_us16_male_last_names(), "Error: Family: @F10@: US16 has inconsistant male last name")
 
     def test_us17(self):
         self.assertEqual(test_us17_no_marriages_to_children(), "Error: Family @F10@: US17: Parent is married to child")
