@@ -72,7 +72,7 @@ class TestUM(unittest.TestCase):
         self.assertEqual(test_us23_unique_name_and_birth_date(), ["Error: Individual: @I28@: US23: Does not have a unique name and birthday", "Error: Individual: @I29@: US23: Does not have a unique name and birthday"])
 
     def test_us24(self):
-        self.assertEqual(test_us24_unique_families_by_spouses(), ["Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date"])
+        self.assertEqual(test_us24_unique_families_by_spouses(), ["Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F10@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F11@: US24: Does not have a unique husband, wife, and marriage date"])
 
     def test_us29(self):
         self.assertEqual(test_us29_list_deceased(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']")
