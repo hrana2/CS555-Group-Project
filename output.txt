@@ -26,7 +26,7 @@
 | @I23@ |     Maria /Iannacone/     |   F    | 10 MAR 2020 |  0  |   Y   |     N/A     |  @F3@ |        |
 | @I24@ |      Luke /Iannacone/     |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I25@ |     Peter /Iannacone/     |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
-| @I26@ |    Natalie /Iannacone/    |   F    |  1 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
+| @I25@ |    Natalie /Iannacone/    |   F    |  1 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I27@ |    Danielle /Iannacone/   |   F    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I28@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  4  |   Y   |     N/A     |  @F6@ |        |
 | @I29@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  4  |   Y   |     N/A     |  @F6@ |        |
@@ -61,6 +61,7 @@ Error: Family: @F3@: US13: Siblings too close in age
 Error: Family: @F3@: US14 has more than 5 children with the same birth
 Error: Family: @F3@: US15 has 15 or more children
 Error: Family: @F5@: US21: Wife is wrong gender
+Error: Individual: US22: Duplicate ID number
 Error: Individual: @I28@: US23: Does not have a unique name and birthday
 Error: Individual: @I29@: US23: Does not have a unique name and birthday
 Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date
