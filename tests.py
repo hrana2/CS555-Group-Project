@@ -53,6 +53,12 @@ class TestUM(unittest.TestCase):
     def test_us16(self):
         self.assertEqual(test_us16_male_last_names(), "Error: Family: @F3@: US16 has inconsistant male last name")
 
+    def test_us17(self):
+        self.assertEqual(test_us17_no_marriages_to_children(), "Error: Family @F10@: US17: Parent is married to child")
+
+    def test_us18(self):
+        self.assertEqual(test_us18_siblings_should_not_marry(), "Error: Indi: @I4@: US18: Siblings can't be married")
+
     def test_us19(self):
         self.assertEqual(test_us19_first_cousins_should_not_marry(), "Error: Indi: @I1@@I1@: US19: First cousins should not marry")
 

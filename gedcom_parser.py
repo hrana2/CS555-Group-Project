@@ -546,10 +546,10 @@ def us16_male_last_names(fam):
                 continue
 
 def us17_no_marriages_to_children(fam):
-    if fam["Children"] == fam["Husband ID"] or  fam["Children"] == fam["Wife ID"]:
-        return False
-    else:
-        return True
+    for child in fam["Children"]:
+        if child == fam["Husband ID"] or  child == fam["Wife ID"]:
+            return False
+    return True
 
 def us18_siblings_should_not_marry(indi):
     for sibling in individuals_array:
@@ -885,7 +885,7 @@ def test_us17_no_marriages_to_children():
         result = us17_no_marriages_to_children(fam)
         if result == False:
             file.write("Error: Family " + fam["ID"] + ": US17: Parent can't marry child\n")
-            return "Error: Family " + fam["ID"] + ": US17: Parent is married to child\n"
+            return "Error: Family " + fam["ID"] + ": US17: Parent is married to child"
 
 def test_us18_siblings_should_not_marry():
   file = open("output.txt", "a")
