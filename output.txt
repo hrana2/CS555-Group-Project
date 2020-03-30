@@ -26,7 +26,7 @@
 | @I23@ |     Maria /Iannacone/     |   F    | 10 MAR 2020 |  0  |   Y   |     N/A     |  @F3@ |        |
 | @I24@ |      Luke /Iannacone/     |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I25@ |     Peter /Iannacone/     |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
-| @I26@ |    Natalie /Iannacone/    |   F    |  1 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
+| @I25@ |    Natalie /Iannacone/    |   F    |  1 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I27@ |    Danielle /Iannacone/   |   F    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I28@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  4  |   Y   |     N/A     |  @F6@ |        |
 | @I29@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  4  |   Y   |     N/A     |  @F6@ |        |
@@ -47,23 +47,3 @@
 | @F7@ |  3 OCT 2040 |    N/A     |   @I33@    |      Jonathan /Dixon/     |  @I30@  |   Jane /Fairfield/   |                                                                   []                                                                   |
 | @F8@ |  3 OCT 2040 |    N/A     |   @I32@    |      Jonathan /Dixon/     |  @I31@  |   Jane /Fairfield/   |                                                                   []                                                                   |
 +------+-------------+------------+------------+---------------------------+---------+----------------------+----------------------------------------------------------------------------------------------------------------------------------------+
-Error: Indi: @I4@ US03: Death 1 NOV 2001 before Birthday 28 MAR 1800
-Error: Family: @F2@: US02: Birthday before married 8 SEP 2020
-Error: Family: @F3@: US04: Divorced 3 FEB 1995 before married 6 AUG 1995
-Error: Family: @F2@: US05: Death of husband before married 8 SEP 2020
-Error: Family: @F5@: US06: Died before divorce 2 FEB 2020
-Error: Individual: @I4@: US07: Over 150 years old
-Error: Individual: @I2@: US08: born after marriage of parents
-Error: Individual: @I10@: US09 born 9 months after death of dad
-Error: Family: @F1@: US10: Individuals were married before both were 14
-Error: Family: @F2@: US12: Parents are too old
-Error: Family: @F3@: US13: Siblings too close in age
-Error: Family: @F3@: US14 has more than 5 children with the same birth
-Error: Family: @F3@: US15 has 15 or more children
-Error: Family: @F5@: US21: Wife is wrong gender
-Error: Individual: @I28@: US23: Does not have a unique name and birthday
-Error: Individual: @I29@: US23: Does not have a unique name and birthday
-Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date
-Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date
-US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']
-US35: List of all individuals born within the last 30 days: ['Maria /Iannacone/']

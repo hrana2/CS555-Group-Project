@@ -1,4 +1,4 @@
-  
+
 """
 Himanshu Rana, Evan Lewis, Kyle Bernardes, and Esti Stolbach
 "I pledge my honor that I have abided by the Stevens Honor System"
@@ -223,7 +223,7 @@ def parse_to_chart():
         individual_table.add_row([indi["ID"],indi["Name"],indi["Gender"],indi["Birthday"],indi["Age"],indi["Alive"],indi["Death"],indi["Child"],indi["Spouse"]])
     for fam in families_array:
         family_table.add_row([fam["ID"],fam["Married"],fam["Divorced"],fam["Husband ID"],fam["Husband Name"],fam["Wife ID"],fam["Wife Name"],fam["Children"]])
-    
+
     #print(outList)
     #print(id_match)
     #print(children_id)
@@ -533,6 +533,75 @@ def us15_fewer_than_15_siblings(fam):
     else:
         return True
 
+def us16_male_last_names(fam):
+    fam_last_name = fam["Husband Name"].split("/")[1]
+    #print(fam["Husband Name"])
+    #print(fam["Children"])
+    for id in fam["Children"]:
+        for indi in individuals_array:
+            if indi["ID"] == id and indi["Gender"] == "M":
+                #print(indi["Name"].split("/")[1])
+                if fam_last_name != indi["Name"].split("/")[1]:
+                    return False
+                continue
+
+def us19_first_cousins_should_not_marry(indi1_id, indi2_id):
+    #Find the two individual's parents
+    indi1_father_id = None
+    indi1_mother_id = None
+    indi2_father_id = None
+    indi2_mother_id = None
+    for fam in families_array:
+        for child in fam["Children"]:
+            if child["ID"] == indi1_id:
+                indi1_father_id = fam["Husband ID"]
+                indi1_mother_id = fam["Wife ID"]
+            if child["ID"] == indi2_id:
+                indi2_father_id = fam["Husband ID"]
+                indi2_mother_id = fam["Wife ID"]
+
+    #Find the individuals parent's parents (total of 4 for each original individual
+    indi1_grandfather1_id = None
+    indi1_grandmother1_id = None
+    indi1_grandfather2_id = None
+    indi1_grandmother2_id = None
+    indi2_grandfather1_id = None
+    indi2_grandmother1_id = None
+    indi2_grandfather2_id = None
+    indi2_grandmother2_id = None
+
+    for fam in families_array:
+        for child in fam["Children"]:
+            if child["ID"] == indi1_father_id:
+                indi1_grandfather1_id = fam["Husband ID"]
+                indi1_grandmother1_id = fam["Wife ID"]
+            if child["ID"] == indi1_mother_id:
+                indi1_grandfather2_id = fam["Husband ID"]
+                indi1_grandmother2_id = fam["Wife ID"]
+
+            if child["ID"] == indi2_father_id:
+                indi2_grandfather1_id = fam["Husband ID"]
+                indi2_grandmother1_id = fam["Wife ID"]
+            if child["ID"] == indi2_mother_id:
+                indi2_grandfather2_id = fam["Husband ID"]
+                indi2_grandmother2_id = fam["Wife ID"]
+
+    #Check if any of the grandfathers are the same between the two individuals
+    if indi1_grandfather1_id == indi2_grandfather1_id or indi1_grandfather1_id == indi2_grandfather2_id or indi1_grandfather2_id == indi2_grandfather1_id or indi1_grandfather2_id == indi2_grandfather2_id:
+        return False
+
+    #Check if any of the grandmothers are the same between the two individuals
+    if indi1_grandmother1_id == indi2_grandmother1_id or indi1_grandmother1_id == indi2_grandmother2_id or indi1_grandmother2_id == indi2_grandmother1_id or indi1_grandmother2_id == indi2_grandmother2_id:
+        return False
+
+    #None of the grandparents are the same and thus they are not first cousins
+    return True
+
+
+
+
+
+    pass
 
 def us21_correct_gender_role(fam):
     husband_id = fam["Husband ID"]
@@ -556,21 +625,21 @@ def us21_correct_gender_role(fam):
         return 0
     #return
 
-def us22_unique_IDs(arr1, arr2): 
+def us22_unique_IDs(arr1, arr2):
     length1 = len(id_match)
     length2 = len(famid_match)
 
-    for i in range(length1): 
-        for j in range(i + 1, length1): 
-            if arr1[i] == arr1[j]: 
+    for i in range(length1):
+        for j in range(i + 1, length1):
+            if arr1[i] == arr1[j]:
                return 1
 
-    for x in range(length2): 
-        for y in range(x + 1, length2): 
-            if arr2[x] == arr2[y]: 
-                return 0 
+    for x in range(length2):
+        for y in range(x + 1, length2):
+            if arr2[x] == arr2[y]:
+                return 0
                 #print(arr[i])
-        #if x == "@I2@": 
+        #if x == "@I2@":
 
 def us23_unique_name_and_birth_date(indi,individuals):
     for otherIndi in individuals:
@@ -592,15 +661,15 @@ def us29_list_deceased(indi):
     return theDead
 
 
-def us35_list_recent_births(indi): 
+def us35_list_recent_births(indi):
     newbies = []
 
     today = datetime.today()
 
-    for individ in individuals_array: 
+    for individ in individuals_array:
         bday = individ["Birthday"]
         dtbday_obj = datetime.strptime(bday, '%d %b %Y')
-        if (today - dtbday_obj) <= timedelta(days=30): 
+        if (today - dtbday_obj) <= timedelta(days=30):
             newbies.append(individ["Name"])
     return newbies
 
@@ -763,6 +832,18 @@ def test_us15_fewer_than_15_siblings():
             file.write("Error: Family: " + fam["ID"] + ": US15 has 15 or more children" + "\n")
             return "Error: Family: " + fam["ID"] + ": US15 has 15 or more children"
 
+def test_us16_male_last_names():
+    file = open("output.txt", "a")
+    for fam in families_array:
+        result = us16_male_last_names(fam)
+        if(result == False):
+            file.write("Error: Family: " + fam["ID"] + ": US16 has inconsistant male last name\n")
+            return "Error: Family: " + fam["ID"] + ": US16 has inconsistant male last name"
+
+def test_us19_first_cousins_should_not_marry():
+    pass
+
+
 def test_us21_correct_gender_role():
     file = open("output.txt", "a")
 
@@ -776,13 +857,13 @@ def test_us21_correct_gender_role():
             return "Error: Family: " + fam["ID"] + ": US21: Husband is wrong gender"
 
 
-def test_us22_unique_IDs(): 
+def test_us22_unique_IDs():
     file = open("output.txt", "a+")
     result = us22_unique_IDs(id_match, famid_match)
-    if result == 1: 
+    if result == 1:
         file.write("Error: Individual: US22: Duplicate ID number" + "\n")
         return "Error: Individual: US22: Duplicate ID number"
-    if result == 0: 
+    if result == 0:
         file.write("Error: Family: US22: Duplicate ID number" + "\n")
         return "Error: Family: US22: Duplicate ID number"
 
@@ -814,10 +895,10 @@ def test_us29_list_deceased():
     return "US29: List of all deaths in tree: " + str(result)
 
 
-def test_us35_list_recent_births(): 
+def test_us35_list_recent_births():
     file = open("output.txt", "a")
 
-    for indi in individuals_array: 
+    for indi in individuals_array:
         result = us35_list_recent_births(individuals_array)
         file.write("US35: List of all individuals born within the last 30 days: " + str(result) + "\n")
         return "US35: List of all individuals born within the last 30 days: " + str(result)
@@ -891,6 +972,9 @@ def test_parse_to_objects():
 
 # validate_to_array(workFile)
 
-#parse_to_objects(workFile)
 #test_parse_to_objects()
+#us16_male_last_names(families_array[0])
+#us16_male_last_names(families_array[2])
+#test_us16_male_last_names()
 
+us19_first_cousins_should_not_marry(indi1_id, indi2_id)
