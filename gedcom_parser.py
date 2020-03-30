@@ -544,6 +544,18 @@ def us16_male_last_names(fam):
                 if fam_last_name != indi["Name"].split("/")[1]:
                     return False
                 continue
+                
+def us17_no_marriages_to_children(fam):
+    if fam["Children"] == fam["Husband ID"] or  fam["Children"] == fam["Wife ID"]:
+        return False
+    else:
+        return True
+
+def us18_siblings_should_not_marry(indi):
+    for sibling in individuals_array:
+        if indi["ID"] != sibling["ID"] and indi["Child"] == sibling["Child"] and indi["Spouse"] == sibling["Spouse"]:
+            return False
+    return True                
 
 def us19_first_cousins_should_not_marry(indi1_id, indi2_id):
     #Find the two individual's parents
@@ -840,6 +852,22 @@ def test_us16_male_last_names():
             file.write("Error: Family: " + fam["ID"] + ": US16 has inconsistant male last name\n")
             return "Error: Family: " + fam["ID"] + ": US16 has inconsistant male last name"
 
+def test_us17_no_marriages_to_children():
+    file = open("output.txt", "a")
+    for fam in families_array:
+        result = us17_no_marriages_to_children(fam)
+        if result == False:
+            file.write("Error: Family " + fam["ID"] + ": US17: Parent can't marry child\n")
+            return "Error: Family " + fam["ID"] + ": US17: Parent is married to child\n"
+
+def test_us18_siblings_should_not_marry():
+  file = open("output.txt", "a")
+  for indi in individuals_array:
+      result = us18_siblings_should_not_marry(indi)
+      if result == False:
+          file.write("Error: Indi: " + indi["ID"] + ": US18: Siblings can't be married" + "\n")
+          return "Error: Indi: " + indi["ID"] + ": US18: Siblings can't be married"        
+        
 def test_us19_first_cousins_should_not_marry():
     pass
 
