@@ -691,6 +691,17 @@ def us24_unique_families_by_spouses(fam,families):
             return False
     return True
 
+def us27_include_individual_ages(indi):
+    return indi["Age"]
+
+def us28_order_siblings_by_age(fam):
+    sibOrder = {}
+    for sibling in fam["Children"]:
+        for indi in individuals_array:
+            if indi["ID"] == sibling:
+                sibOrder[sibling] = indi["Age"]
+    return sorted(sibOrder.values(), reverse = True)
+
 def us29_list_deceased(indi):
     theDead = []
     for indi in individuals_array:
@@ -976,6 +987,20 @@ def test_us24_unique_families_by_spouses():
             file.write("Error: Family: " + fam["ID"] + ": US24: Does not have a unique husband, wife, and marriage date" + "\n")
             errors.append("Error: Family: " + fam["ID"] + ": US24: Does not have a unique husband, wife, and marriage date")
     return errors
+
+def test_us27_include_individual_ages():
+    file = open("output.txt", "a")
+    for indi in individuals_array:
+        result = us27_include_individual_ages(indi)
+        file.write("US27: Include individual ages: " + indi["ID"] + " " + str(result) + "\n")
+    return "US27: Include individual ages: " + indi["ID"] + " " + str(result)
+
+def test_us28_order_siblings_by_age():
+    file = open("output.txt", "a")
+    for fam in families_array:
+        result = us28_order_siblings_by_age(fam)
+        file.write("US28: Order siblings from oldest to youngest: " + fam["ID"] + " " + str(result) + "\n")
+    return "US28: Order siblings from oldest to youngest: " + fam["ID"] + " " + str(result)
 
 def test_us29_list_deceased():
     file = open("output.txt", "a")
