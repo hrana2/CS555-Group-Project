@@ -23,19 +23,19 @@
 | @I20@ |      Mary /Iannacone/     |   F    | 10 MAY 1990 |  29 |   Y   |     N/A     |  @F3@ |        |
 | @I21@ |      Lisa /Iannacone/     |   F    | 10 FEB 1995 |  25 |   Y   |     N/A     |  @F3@ |  @F9@  |
 | @I22@ |      Matt /Iannacone/     |   M    | 10 FEB 1995 |  25 |   Y   |     N/A     |  @F3@ |  @F9@  |
-| @I23@ |     Maria /Iannacone/     |   F    | 10 MAR 2020 |  0  |   Y   |     N/A     |  @F3@ |        |
+| @I23@ |     Maria /Iannacone/     |   F    | 20 MAR 2020 |  0  |   Y   |     N/A     |  @F3@ |        |
 | @I24@ |      Luke /Iannacone/     |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I25@ |     Peter /Iannacone/     |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I25@ |    Natalie /Iannacone/    |   F    |  1 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 | @I27@ |    Danielle /Iannacone/   |   F    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
-| @I28@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  4  |   Y   |     N/A     |  @F6@ |        |
-| @I29@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  4  |   Y   |     N/A     |  @F6@ |        |
+| @I28@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  5  |   Y   |     N/A     |  @F6@ |        |
+| @I29@ |      Jane /Fairfield/     |   F    | 11 APR 2015 |  5  |   Y   |     N/A     |  @F6@ |        |
 | @I30@ |      Jane /Fairfield/     |   F    |  2 SEP 2016 |  3  |   Y   |     N/A     |  @F6@ |  @F7@  |
 | @I31@ |      Jane /Fairfield/     |   F    |  8 MAR 2016 |  4  |   Y   |     N/A     |  @F6@ |  @F8@  |
-| @I32@ |      Jonathan /Dixon/     |   M    | 13 SEP 2015 |  4  |   Y   |     N/A     |       |  @F8@  |
+| @I32@ |      Jonathan /Dixon/     |   M    | 13 SEP 2015 |  4  |   N   |  1 APR 2020 |       |  @F8@  |
 | @I33@ |      Jonathan /Dixon/     |   M    |  1 JAN 2015 |  5  |   Y   |     N/A     |       |  @F7@  |
 | @I34@ |       Emily /Smith/       |   F    |  1 JAN 1980 |  40 |   Y   |     N/A     |       | @F10@  |
-| @I35@ |        John /Smith/       |   M    |  1 May 1998 |  21 |   Y   |     N/A     | @F10@ | @F10@  |
+| @I35@ |        John /Smith/       |   M    | 20 APR 1998 |  21 |   Y   |     N/A     | @F10@ | @F10@  |
 | @I35@ |     Peter /Iannacone2/    |   M    | 10 AUG 1996 |  23 |   Y   |     N/A     |  @F3@ |        |
 +-------+---------------------------+--------+-------------+-----+-------+-------------+-------+--------+
 +-------+-------------+------------+------------+---------------------------+---------+----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -53,7 +53,6 @@
 | @F10@ |  9 DEC 2019 |    N/A     |   @I35@    |     Peter /Iannacone2/    |  @I34@  |    Emily /Smith/     |                                                                    ['@I35@']                                                                    |
 | @F11@ |  9 DEC 2019 |    N/A     |   @I35@    |     Peter /Iannacone2/    |  @I34@  |    Emily /Smith/     |                                                                    ['@I35@']                                                                    |
 +-------+-------------+------------+------------+---------------------------+---------+----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+
-Error: Individual: @I10@: US11: Individual is married to multiple people
 Error: Indi: @I4@ US03: Death 1 NOV 2001 before Birthday 28 MAR 1800
 Error: Family: @F2@: US02: Birthday before married 8 SEP 2020
 Error: Family: @F3@: US04: Divorced 3 FEB 1995 before married 6 AUG 1995
@@ -80,5 +79,7 @@ Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage da
 Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date
 Error: Family: @F10@: US24: Does not have a unique husband, wife, and marriage date
 Error: Family: @F11@: US24: Does not have a unique husband, wife, and marriage date
-US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']
+US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/', 'Jonathan /Dixon/']
 US35: List of all individuals born within the last 30 days: ['Maria /Iannacone/']
+US36: List of all individuals who died within the last 30 days: ['Jonathan /Dixon/']
+US38: List of all individuals whose birthdays are in the next 30 days: ['Dominic /Iannacone/', 'Monica /Iannacone/', 'Junior /Iannacone/', 'Dominic /Iannacone/', 'John /Iannacone/', 'Jane /Iannacone/', 'Joe /Iannacone/', 'Mary /Iannacone/', 'John /Smith/']
