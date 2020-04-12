@@ -728,32 +728,21 @@ def us36_list_recent_deaths(indi):
 def us38_list_upcoming_birthdays(indi): 
     soon_bdays = []
 
-    one_month = datetime.today() + timedelta(days=30)
+    curr_date = datetime.today()
+    later_date = curr_date + timedelta(days=30)
 
     for individ in individuals_array: 
         if individ["Alive"] == "Y": 
-            bday = individ["Birthday"]
-            dtbday_obj = datetime.strptime(bday, '%d %b %Y')
-            if (one_month - dtbday_obj) <= timedelta(days=30):
-                soon_bdays.append(individ["Name"])
+            dtbday_obj = datetime.strptime(individ["Birthday"], '%d %b %Y')
+        dtbday_obj = datetime(curr_date.year, dtbday_obj.month, dtbday_obj.day, 0, 0)
+        if curr_date <= dtbday_obj <= later_date: 
+            soon_bdays.append(individ["Name"])
     return soon_bdays
 
 
 
 
-
-
-
 ############   TEST CASES #################
-
-def test_us38_list_upcoming_birthdays(): 
-    file = open("output.txt", "a")
-    for indi in individuals_array:
-        result = us38_list_upcoming_birthdays(individuals_array)
-        file.write("US38: List of all individuals whose birthdays are in the next 30 days: " + str(result) + "\n")
-        return "US38: List of all individuals whose birthdays are in the next 30 days: " + str(result)
-
-
 
 
 def test_us02_birth_b4_marriage():
@@ -1012,6 +1001,16 @@ def test_us36_list_recent_deaths():
         file.write("US36: List of all individuals who died within the last 30 days: " + str(result) + "\n")
         return "US36: List of all individuals who died within the last 30 days: " + str(result)
 
+
+
+def test_us38_list_upcoming_birthdays(): 
+    file = open("output.txt", "a")
+    for indi in individuals_array:
+        result = us38_list_upcoming_birthdays(individuals_array)
+        file.write("US38: List of all individuals whose birthdays are in the next 30 days: " + str(result) + "\n")
+        return "US38: List of all individuals whose birthdays are in the next 30 days: " + str(result)
+
+
 def test_validate_to_array():
     print(validate_to_array(workFile))
 
@@ -1072,7 +1071,7 @@ def test_parse_to_objects():
 
 # print(test_us35_list_recent_births())
 # print(test_us36_list_recent_deaths())
-#print(test_us38_list_upcoming_birthdays())
+# print(test_us38_list_upcoming_birthdays())
 
 
 
