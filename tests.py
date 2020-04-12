@@ -76,13 +76,13 @@ class TestUM(unittest.TestCase):
         self.assertEqual(test_us24_unique_families_by_spouses(), ["Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F10@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F11@: US24: Does not have a unique husband, wife, and marriage date"])
 
     def test_us27(self):
-        self.assertEqual(test_us29_list_deceased(), "US27: Include individual ages: @I35@ 23")        
+        self.assertEqual(test_us27_include_individual_ages(), "US27: Include individual ages: @I35@ 23")        
 
     def test_us28(self):
         self.assertEqual(test_us29_list_deceased(), "US28: Order siblings from oldest to youngest: @F11@ [23]")    
        
     def test_us29(self):
-        self.assertEqual(test_us29_list_deceased(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/', 'Jonathan /Dixon/']")
+        self.assertEqual(test_us28_order_siblings_by_age(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/', 'Jonathan /Dixon/']")
 
     def test_us35(self):
         self.assertEqual(test_us35_list_recent_births(), "US35: List of all individuals born within the last 30 days: ['Maria /Iannacone/']")
