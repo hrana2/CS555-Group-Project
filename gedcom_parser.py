@@ -713,7 +713,47 @@ def us35_list_recent_births(indi):
 
 #print(datetime.today().date() - timedelta(days=30))
 
+def us36_list_recent_deaths(indi): 
+    justDied = []
+
+    today = datetime.today() 
+    for individ in individuals_array: 
+        if individ["Death"] != "N/A": 
+            dday = individ["Death"]
+            dtbday_obj = datetime.strptime(dday, '%d %b %Y')
+            if (today - dtbday_obj) <= timedelta(days=30):
+                justDied.append(individ["Name"])
+    return justDied
+
+def us38_list_upcoming_birthdays(indi): 
+    soon_bdays = []
+
+    one_month = datetime.today() + timedelta(days=30)
+
+    for individ in individuals_array: 
+        if individ["Alive"] == "Y": 
+            bday = individ["Birthday"]
+            dtbday_obj = datetime.strptime(bday, '%d %b %Y')
+            if (one_month - dtbday_obj) <= timedelta(days=30):
+                soon_bdays.append(individ["Name"])
+    return soon_bdays
+
+
+
+
+
+
+
 ############   TEST CASES #################
+
+def test_us38_list_upcoming_birthdays(): 
+    file = open("output.txt", "a")
+    for indi in individuals_array:
+        result = us38_list_upcoming_birthdays(individuals_array)
+        file.write("US38: List of all individuals whose birthdays are in the next 30 days: " + str(result) + "\n")
+        return "US38: List of all individuals whose birthdays are in the next 30 days: " + str(result)
+
+
 
 
 def test_us02_birth_b4_marriage():
@@ -964,6 +1004,14 @@ def test_us35_list_recent_births():
         file.write("US35: List of all individuals born within the last 30 days: " + str(result) + "\n")
         return "US35: List of all individuals born within the last 30 days: " + str(result)
 
+def test_us36_list_recent_deaths(): 
+    file = open("output.txt", "a")
+
+    for indi in individuals_array:
+        result = us36_list_recent_deaths(individuals_array)
+        file.write("US36: List of all individuals who died within the last 30 days: " + str(result) + "\n")
+        return "US36: List of all individuals who died within the last 30 days: " + str(result)
+
 def test_validate_to_array():
     print(validate_to_array(workFile))
 
@@ -1008,7 +1056,7 @@ def test_parse_to_objects():
 # print(test_us09_birth_b4_death_parents())
 
 # print(test_us_10_marriage_after_14())
-print(test_us_11_no_bigamy())
+# print(test_us_11_no_bigamy())
 
 
 
@@ -1022,7 +1070,14 @@ print(test_us_11_no_bigamy())
 # print(test_us22_unique_IDs())
 # print(test_us29_list_deceased())
 
-#print(test_us35_list_recent_births())
+# print(test_us35_list_recent_births())
+# print(test_us36_list_recent_deaths())
+#print(test_us38_list_upcoming_birthdays())
+
+
+
+#print(datetime.today() + timedelta(days=30))
+
 
 
 # END TESTS

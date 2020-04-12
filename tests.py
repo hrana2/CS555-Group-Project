@@ -1,7 +1,7 @@
 import unittest
 from gedcom_parser import test_us02_birth_b4_marriage, test_us03_birth_b4_death, test_us04_marr_b4_divorce, test_us05_marr_b4_death, test_us06_div_b4_death, test_us07_less_than_150, test_us08_birth_b4_marr_parents, test_us09_birth_b4_death_parents, \
 test_us_10_marriage_after_14, test_us_11_no_bigamy, test_us12_parents_not_too_old, test_us13_siblings_spacing, test_us14_multiple_births_lessthan_5, test_us15_fewer_than_15_siblings, test_us21_correct_gender_role, test_us29_list_deceased, test_us22_unique_IDs, test_us35_list_recent_births, \
-test_us23_unique_name_and_birth_date, test_us24_unique_families_by_spouses, test_us18_siblings_should_not_marry, test_us19_first_cousins_should_not_marry, test_us16_male_last_names, test_us17_no_marriages_to_children
+test_us23_unique_name_and_birth_date, test_us24_unique_families_by_spouses, test_us18_siblings_should_not_marry, test_us19_first_cousins_should_not_marry, test_us16_male_last_names, test_us17_no_marriages_to_children, test_us36_list_recent_deaths
 
 
 class TestUM(unittest.TestCase):
@@ -75,10 +75,13 @@ class TestUM(unittest.TestCase):
         self.assertEqual(test_us24_unique_families_by_spouses(), ["Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F10@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F11@: US24: Does not have a unique husband, wife, and marriage date"])
 
     def test_us29(self):
-        self.assertEqual(test_us29_list_deceased(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/']")
+        self.assertEqual(test_us29_list_deceased(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/', 'Jonathan /Dixon/']")
 
     def test_us35(self):
         self.assertEqual(test_us35_list_recent_births(), "US35: List of all individuals born within the last 30 days: ['Maria /Iannacone/']")
+
+    def test_us36(self): 
+        self.assertEqual(test_us36_list_recent_deaths(), "US36: List of all individuals who died within the last 30 days: ['Jonathan /Dixon/']")
 
 
 
