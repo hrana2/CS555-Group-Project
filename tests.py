@@ -1,7 +1,7 @@
 import unittest
 from gedcom_parser import test_us02_birth_b4_marriage, test_us03_birth_b4_death, test_us04_marr_b4_divorce, test_us05_marr_b4_death, test_us06_div_b4_death, test_us07_less_than_150, test_us08_birth_b4_marr_parents, test_us09_birth_b4_death_parents, \
 test_us_10_marriage_after_14, test_us_11_no_bigamy, test_us12_parents_not_too_old, test_us13_siblings_spacing, test_us14_multiple_births_lessthan_5, test_us15_fewer_than_15_siblings, test_us16_male_last_names, test_us17_no_marriages_to_children, \
-test_us18_siblings_should_not_marry, test_us19_first_cousins_should_not_marry, test_us21_correct_gender_role, test_us22_unique_IDs, test_us23_unique_name_and_birth_date, test_us24_unique_families_by_spouses, test_us25_unique_first_names_in_families, \
+test_us18_siblings_should_not_marry, test_us19_first_cousins_should_not_marry, test_us21_correct_gender_role, test_us22_unique_IDs, test_us23_unique_name_and_birth_date, test_us24_unique_families_by_spouses, test_us25_unique_first_names_in_families, test_us26_corresponding_entries,\
 test_us27_include_individual_ages, test_us28_order_siblings_by_age,  test_us29_list_deceased, test_us32_list_multiple_births, test_us33_list_orphans, test_us35_list_recent_births, test_us36_list_recent_deaths, test_us38_list_upcoming_birthdays
 
 class TestUM(unittest.TestCase):
@@ -76,6 +76,9 @@ class TestUM(unittest.TestCase):
 
     def test_us25(self):
         self.assertEqual(test_us25_unique_first_names_in_families(),['Error: Family: @F3@: US25: Does not have unique sibling names and birthdays', 'Error: Family: @F5@: US25: Does not have unique sibling names and birthdays', 'Error: Family: @F12@: US25: Does not have unique sibling names and birthdays'])
+
+    def test_us26(self):
+        self.assertEqual(test_us26_corresponding_entries(),'Error Individual:@I4@ US26 individual table and family table do not match')
 
     def test_us27(self):
         self.assertEqual(test_us27_include_individual_ages(), "US27: Include individual ages: @I35@ 23")

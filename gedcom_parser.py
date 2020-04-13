@@ -751,7 +751,7 @@ def us32_list_multiple_births(individuals,fam):
                         birthdays[indi["Birthday"]] += 1
                     else:
                         birthdays[indi["Birthday"]] = 1
-        
+
         for bday in birthdays:
             if birthdays[bday] > 1:
                 multiBirth = {"Fam ID":"","Birth":"","Siblings":[]}
@@ -763,8 +763,8 @@ def us32_list_multiple_births(individuals,fam):
                             if bday == indi["Birthday"]:
                                 multiBirth["Siblings"].append(indi["ID"] + ": " + indi["Name"])
                 tracker.append(multiBirth)
-    return tracker                
-                                
+    return tracker
+
 
 def us33_list_orphans(indi,fam):
     orphans = []
@@ -1077,6 +1077,7 @@ def test_us26_corresponding_entries():
             result = us26_corresponding_entries(indi, fam)
             if result == False:
                 file.write("Error Individual:" + indi["ID"] + " US26 individual table and family table do not match\n" )
+                #print("Error Individual:" + indi["ID"] + " US26 individual table and family table do not match\n")
                 return "Error Individual:" + indi["ID"] + " US26 individual table and family table do not match"
 
 def test_us27_include_individual_ages():
@@ -1224,4 +1225,4 @@ def test_parse_to_objects():
 #print(us19_first_cousins_should_not_marry(individuals_array[0]["ID"], individuals_array[10]["ID"]))
 #print(test_us19_first_cousins_should_not_marry())
 #print(test_us25_unique_first_names_in_families())
-print(test_us26_corresponding_entries())
+#print(test_us26_corresponding_entries())
