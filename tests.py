@@ -79,10 +79,10 @@ class TestUM(unittest.TestCase):
         self.assertEqual(test_us27_include_individual_ages(), "US27: Include individual ages: @I35@ 23")        
 
     def test_us28(self):
-        self.assertEqual(test_us29_list_deceased(), "US28: Order siblings from oldest to youngest: @F11@ [23]")    
+        self.assertEqual(test_us28_order_siblings_by_age(), "US28: Order siblings from oldest to youngest: @F11@ [23]")    
        
     def test_us29(self):
-        self.assertEqual(test_us28_order_siblings_by_age(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/', 'Jonathan /Dixon/']")
+        self.assertEqual(test_us29_list_deceased(), "US29: List of all deaths in tree: ['Jay /Rana/', 'Angelina /Iannacone/', 'Dev /Rana/', 'Jonathan /Dixon/']")
 
     def test_us33(self):
         self.assertEqual(test_us33_list_orphans(), "US33: List of all orphans: ['John /Davidson/', 'Bob /Johnson/']")
