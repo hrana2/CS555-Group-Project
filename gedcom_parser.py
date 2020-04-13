@@ -712,6 +712,14 @@ def us25_unique_first_names_in_families(fam):
     return True
 
 
+def us26_corresponding_entries(indi, fam):
+    if indi["Spouse"] == fam["ID"] and indi["ID"] == fam["Husband ID"] or indi["ID"] == fam["Wife ID"]:
+        return True
+    for child in fam["Children"]:
+        if indi["Child"] == fam["ID"] and indi["ID"] == child:
+            return True
+    return False
+
 def us27_include_individual_ages(indi):
     return indi["Age"]
 
@@ -1045,6 +1053,15 @@ def test_us25_unique_first_names_in_families():
             file.write("Error: Family: " + fam["ID"] + ": US25: Does not have unique sibling names and birthdays")
             errors.append("Error: Family: " + fam["ID"] + ": US25: Does not have unique sibling names and birthdays")
     return errors
+
+def test_us26_corresponding_entries():
+    file = open("output.txt", "a")
+    for fam in families_array:
+        for indi in individuals_array:
+            result = us26_corresponding_entries(indi, fam)
+            if result == False:
+                file.write("Error Individual:" + indi["ID"] + " US26 individual table and family table do not match\n" )
+                return "Error Individual:" + indi["ID"] + " US26 individual table and family table do not match"
 
 def test_us27_include_individual_ages():
     file = open("output.txt", "a")
