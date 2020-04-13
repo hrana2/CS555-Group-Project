@@ -51,7 +51,7 @@ class TestUM(unittest.TestCase):
         self.assertEqual(test_us15_fewer_than_15_siblings(), "Error: Family: @F3@: US15 has 15 or more children")
 
     def test_us16(self):
-        self.assertEqual(test_us16_male_last_names(), "Error: Family: @F10@: US16 has inconsistant male last name")
+        self.assertEqual(test_us16_male_last_names(), "Error: Family: @F1@: US16 has inconsistant male last name")
 
     def test_us17(self):
         self.assertEqual(test_us17_no_marriages_to_children(), "Error: Family @F12@: US17: Parent is married to child")
@@ -72,7 +72,7 @@ class TestUM(unittest.TestCase):
         self.assertEqual(test_us23_unique_name_and_birth_date(), ["Error: Individual: @I28@: US23: Does not have a unique name and birthday", "Error: Individual: @I29@: US23: Does not have a unique name and birthday"])
 
     def test_us24(self):
-        self.assertEqual(test_us24_unique_families_by_spouses(), ["Error: Family: @F7@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F10@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F11@: US24: Does not have a unique husband, wife, and marriage date"])
+        self.assertEqual(test_us24_unique_families_by_spouses(), ["Error: Family: @F8@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F9@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F10@: US24: Does not have a unique husband, wife, and marriage date","Error: Family: @F11@: US24: Does not have a unique husband, wife, and marriage date"])
 
     def test_us25(self):
         self.assertEqual(test_us25_unique_first_names_in_families(),['Error: Family: @F3@: US25: Does not have unique sibling names and birthdays', 'Error: Family: @F5@: US25: Does not have unique sibling names and birthdays', 'Error: Family: @F12@: US25: Does not have unique sibling names and birthdays'])
