@@ -709,6 +709,32 @@ def us29_list_deceased(indi):
             theDead.append(indi["Name"])
     return theDead
 
+def us32_list_multiple_births(individuals,fam):
+    birthdays = {}
+    for sib in fam["Children"]:
+        for indi in individuals:
+            if sib == indi["ID"]:
+                if indi["Birthday"] in birthdays:
+                    birthdays[indi["Birthday"]] += 1
+                    if birthdays[indi["Birthday"]] > 5:
+                        return False
+                else:
+                    birthdays[indi["Birthday"]] = 1
+
+def us33_list_orphans(indi,fam):
+    orphans = []
+    # are parents dead
+    for currFam in fam:
+        for dad in indi:
+            if(currFam["Husband ID"] == dad["ID"] and dad["Alive"] == "N"):
+                for mom in indi:
+                    if(currFam["Wife ID"] == mom["ID"] and mom["Alive"] == "N"):
+                        # get age of children
+                        for children in currFam["Children"]:
+                            for child in indi:
+                                if(child["ID"] == children and child["Alive"] == "Y" and child["Age"] < 18):
+                                    orphans.append(child["Name"])
+    return orphans
 
 def us35_list_recent_births(indi):
     newbies = []
@@ -1009,6 +1035,12 @@ def test_us29_list_deceased():
     file.write("US29: List of all deaths in tree: " + str(result) + "\n")
     return "US29: List of all deaths in tree: " + str(result)
 
+def test_us33_list_orphans():
+    file = open("output.txt", "a")
+
+    result = us33_list_orphans(individuals_array,families_array)
+    file.write("US33: List of all orphans: " + str(result) + "\n")
+    return "US33: List of all orphans: " + str(result)
 
 def test_us35_list_recent_births():
     file = open("output.txt", "a")
