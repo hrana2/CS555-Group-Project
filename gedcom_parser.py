@@ -691,6 +691,35 @@ def us24_unique_families_by_spouses(fam,families):
             return False
     return True
 
+def us25_unique_first_names_in_families(fam):
+    child_name_table = []
+    child_birthday_table = []
+    for child_id in fam["Children"]:
+        for indi in individuals_array:
+            if child_id == indi["ID"]:
+                child_name_table.append(indi["Name"])
+                child_birthday_table.append(indi["Birthday"])
+    for i in range(0, len(child_name_table)):
+        for j in range(i+1, len(child_name_table)):
+            if(child_name_table[i] == child_name_table[j]):
+                #print(child_name_table[j])
+                return False
+    for i in range(0, len(child_birthday_table)):
+        for j in range(i+1, len(child_birthday_table)):
+            if(child_birthday_table[i] == child_birthday_table[j]):
+                #print(child_birthday_table[j])
+                return False
+    return True
+
+
+def us26_corresponding_entries(indi, fam):
+    if indi["Spouse"] == fam["ID"] and indi["ID"] == fam["Husband ID"] or indi["ID"] == fam["Wife ID"]:
+        return True
+    for child in fam["Children"]:
+        if indi["Child"] == fam["ID"] and indi["ID"] == child:
+            return True
+    return False
+
 def us27_include_individual_ages(indi):
     return indi["Age"]
 
@@ -766,29 +795,29 @@ def us35_list_recent_births(indi):
 
 #print(datetime.today().date() - timedelta(days=30))
 
-def us36_list_recent_deaths(indi): 
+def us36_list_recent_deaths(indi):
     justDied = []
 
-    today = datetime.today() 
-    for individ in individuals_array: 
-        if individ["Death"] != "N/A": 
+    today = datetime.today()
+    for individ in individuals_array:
+        if individ["Death"] != "N/A":
             dday = individ["Death"]
             dtbday_obj = datetime.strptime(dday, '%d %b %Y')
             if (today - dtbday_obj) <= timedelta(days=30):
                 justDied.append(individ["Name"])
     return justDied
 
-def us38_list_upcoming_birthdays(indi): 
+def us38_list_upcoming_birthdays(indi):
     soon_bdays = []
 
     curr_date = datetime.today()
     later_date = curr_date + timedelta(days=30)
 
-    for individ in individuals_array: 
-        if individ["Alive"] == "Y": 
+    for individ in individuals_array:
+        if individ["Alive"] == "Y":
             dtbday_obj = datetime.strptime(individ["Birthday"], '%d %b %Y')
         dtbday_obj = datetime(curr_date.year, dtbday_obj.month, dtbday_obj.day, 0, 0)
-        if curr_date <= dtbday_obj <= later_date: 
+        if curr_date <= dtbday_obj <= later_date:
             soon_bdays.append(individ["Name"])
     return soon_bdays
 
@@ -1030,6 +1059,26 @@ def test_us24_unique_families_by_spouses():
             errors.append("Error: Family: " + fam["ID"] + ": US24: Does not have a unique husband, wife, and marriage date")
     return errors
 
+def test_us25_unique_first_names_in_families():
+    file = open("output.txt", "a")
+    errors = []
+    for fam in families_array:
+        result = us25_unique_first_names_in_families(fam)
+        print(result)
+        if result == False:
+            file.write("Error: Family: " + fam["ID"] + ": US25: Does not have unique sibling names and birthdays")
+            errors.append("Error: Family: " + fam["ID"] + ": US25: Does not have unique sibling names and birthdays")
+    return errors
+
+def test_us26_corresponding_entries():
+    file = open("output.txt", "a")
+    for fam in families_array:
+        for indi in individuals_array:
+            result = us26_corresponding_entries(indi, fam)
+            if result == False:
+                file.write("Error Individual:" + indi["ID"] + " US26 individual table and family table do not match\n" )
+                return "Error Individual:" + indi["ID"] + " US26 individual table and family table do not match"
+
 def test_us27_include_individual_ages():
     file = open("output.txt", "a")
     for indi in individuals_array:
@@ -1073,7 +1122,7 @@ def test_us35_list_recent_births():
         file.write("US35: List of all individuals born within the last 30 days: " + str(result) + "\n")
         return "US35: List of all individuals born within the last 30 days: " + str(result)
 
-def test_us36_list_recent_deaths(): 
+def test_us36_list_recent_deaths():
     file = open("output.txt", "a")
 
     for indi in individuals_array:
@@ -1083,7 +1132,7 @@ def test_us36_list_recent_deaths():
 
 
 
-def test_us38_list_upcoming_birthdays(): 
+def test_us38_list_upcoming_birthdays():
     file = open("output.txt", "a")
     for indi in individuals_array:
         result = us38_list_upcoming_birthdays(individuals_array)
@@ -1174,3 +1223,5 @@ def test_parse_to_objects():
 
 #print(us19_first_cousins_should_not_marry(individuals_array[0]["ID"], individuals_array[10]["ID"]))
 #print(test_us19_first_cousins_should_not_marry())
+#print(test_us25_unique_first_names_in_families())
+print(test_us26_corresponding_entries())
