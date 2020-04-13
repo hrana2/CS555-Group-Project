@@ -710,16 +710,32 @@ def us29_list_deceased(indi):
     return theDead
 
 def us32_list_multiple_births(individuals,fam):
-    birthdays = {}
-    for sib in fam["Children"]:
-        for indi in individuals:
-            if sib == indi["ID"]:
-                if indi["Birthday"] in birthdays:
-                    birthdays[indi["Birthday"]] += 1
-                    if birthdays[indi["Birthday"]] > 5:
-                        return False
-                else:
-                    birthdays[indi["Birthday"]] = 1
+    tracker = []
+    for currFam in fam:
+        birthdays = {}
+        if len(currFam["Children"]) <= 1:
+            continue
+        for sib in currFam["Children"]:
+            for indi in individuals:
+                if sib == indi["ID"]:
+                    if indi["Birthday"] in birthdays:
+                        birthdays[indi["Birthday"]] += 1
+                    else:
+                        birthdays[indi["Birthday"]] = 1
+        
+        for bday in birthdays:
+            if birthdays[bday] > 1:
+                multiBirth = {"Fam ID":"","Birth":"","Siblings":[]}
+                multiBirth["Fam ID"] = currFam["ID"]
+                multiBirth["Birth"] = bday
+                for sib in currFam["Children"]:
+                    for indi in individuals:
+                        if sib == indi["ID"]:
+                            if bday == indi["Birthday"]:
+                                multiBirth["Siblings"].append(indi["ID"] + ": " + indi["Name"])
+                tracker.append(multiBirth)
+    return tracker                
+                                
 
 def us33_list_orphans(indi,fam):
     orphans = []
@@ -1034,6 +1050,13 @@ def test_us29_list_deceased():
     result = us29_list_deceased(individuals_array)
     file.write("US29: List of all deaths in tree: " + str(result) + "\n")
     return "US29: List of all deaths in tree: " + str(result)
+
+def test_us32_list_multiple_births():
+    file = open("output.txt", "a")
+
+    result = us32_list_multiple_births(individuals_array,families_array)
+    file.write("US32: List of all multiple births: " + str(result) + "\n")
+    return "US32: List of all multiple births: " + str(result)
 
 def test_us33_list_orphans():
     file = open("output.txt", "a")
