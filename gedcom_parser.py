@@ -1201,3 +1201,4 @@ def test_parse_to_objects():
 #print(us19_first_cousins_should_not_marry(individuals_array[0]["ID"], individuals_array[10]["ID"]))
 #print(test_us19_first_cousins_should_not_marry())
 #print(test_us25_unique_first_names_in_families())
+print(test_us26_corresponding_entries())
